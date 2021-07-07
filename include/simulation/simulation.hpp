@@ -37,12 +37,6 @@ class Simulation
     // fill an input vector with the current close people to a person (under spread_radius) from the person Cluster
     void close_cluster_people(Person& current_person, std::vector<Person*>& close_people_v);
 
-    // clean person's path, removing all target locations which are not in green clusters anymore
-    void clean_path(Mobility_model& person);
-
-    // clean person's path, removing all location that are not in the person's cluster
-    void clean_cluster_path(Mobility_model& person);
-
     // move algorithm in the case of a Green Cluster
     void move_white(Cluster& cluster, std::vector<double>& weights_v);
 
@@ -67,6 +61,12 @@ class Simulation
 
     // get the summary data.
     Data get_data();
+
+    // clean person's path, removing all target locations which are not in green clusters anymore
+    void clean_path(Mobility_model& person);
+
+    // clean person's path, removing all location that are not in the person's cluster
+    void clean_cluster_path(Mobility_model& person);
 
     // Update Clusters Color based on infected population
     void update_zones();
