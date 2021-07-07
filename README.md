@@ -1,11 +1,26 @@
 # Epidemic simulation
-This project is
+This project represents the solution to our University Programming Course [final assignment][assignment].
+We, the authors(Niccolò Zanotti and Filippo Pretolani), are two Physics Undegraduates studying at
+University of Bologna.
 
-The project is divided in 2 parts:
-1. Solving the SEIR differential equations
+The project is made up of 2 main parts:
+
+1. Using the known SEIR model to determine the spread of an epidemic, given initial conditions and
+   parameters
+
 2. Simulating an epidemic
 
-We solved the SEIR differential equations using both the euler method and the Runge_Kutta method.
+We solved the SEIR ordinary differential equations using both a first-order numerical method([Euler][euler] method) and
+with a local error of
+
+```math
+\frac{dS}{dt} = -\beta \frac{S}{N} I \\[3mm]
+\frac{dI}{dt} = \beta \frac{S}{N} I - \gamma I \\[3mm]
+\frac{dR}{dt} = \gamma I
+```
+
+a fourth-order one ([Runge-Kutta][rk4] method).
+The point was t
 
 The Simulation of epidemic is based on the SMOOTH* model to simulate how people moves
 and implements a division in Clusters which can change color, changing how people move.
@@ -58,7 +73,7 @@ The possible apps to build are:
 
 ### Notes
 On certain devices, CMake might not be able to detect ROOT installation. If that is the case, the problem can be solved by manually specifying the
-path to your ROOT installation ,setting the CMake Variable ROOT_DIR:
+path to your ROOT installation ,setting the CMake Variable ROOT_DIR at build time:
 ```shell
 cmake -B path-to-build-dir -S path-to-source -DROOT_DIR="path-to-ROOT-installation"
 ```
@@ -83,7 +98,7 @@ are close and to move a position closer to another
 ### Location
 The Location class represent a place that a person can visit and where a person will stay for a randomized
 time, it's where usually the virus spread.  
-The class is composed of three private members:
+The class is composed of 3 private members:
 1. `position` an object of the Position class which represent the Location center position in the simulated world
 2. `radius` a double type member which represent the size of the location
 3. `cluster_index` Index of the cluster where the location is located(See Cluster)
@@ -215,7 +230,7 @@ When the path is empty it returns home.
 
 
 ### Random
-This class implements the needed features for random generation critical for this project making use of the header library
+This class implements the random generation features critical for this project. It  making use of the header-only library
 `randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use
 class. The main purpose of our use of it in our random implementation is the high quality seeding given by the use of multiple
 sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved trough `std::random_device`.
@@ -248,6 +263,9 @@ The test are(TO FILL):
 --------------------------------------------------------------------------------
 ## Additional Notes
 
+[euler]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
+[rk4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
+[assignment]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
 [randutils_web]:https://gist.github.com/imneme/540829265469e673d045
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
-[seed_entropy]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
+[seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
