@@ -15,9 +15,9 @@ We solved the SEIR ordinary differential equations using both a first-order nume
 with a local error of
 
 ```math
-\frac{dS}{dt} = -\beta \frac{S}{N} I \\[3mm]
-\frac{dE}{dt} = \beta \frac{S}{N} I - \alpha E \\[3mm]
-\frac{dI}{dt} = \alpha \E - \gamma I \\[3mm]
+\frac{dS}{dt} = -\beta \frac{S}{N} I \\[4mm]
+\frac{dE}{dt} = \beta \frac{S}{N} I - \alpha E \\[4mm]
+\frac{dI}{dt} = \alpha \E - \gamma I \\[4mm]
 \frac{dR}{dt} = \gamma I
 ```
 
