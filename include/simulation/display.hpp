@@ -4,6 +4,7 @@
 #include "simulation.hpp"
 #include <SFML/Graphics.hpp>
 
+
 namespace smooth_sim{
 
 class Display{
@@ -32,4 +33,4 @@ class Display{
 
 
 
-#endif
+#endif //DISPLAY_HPP
