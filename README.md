@@ -16,7 +16,8 @@ with a local error of
 
 ```math
 \frac{dS}{dt} = -\beta \frac{S}{N} I \\[3mm]
-\frac{dI}{dt} = \beta \frac{S}{N} I - \gamma I \\[3mm]
+\frac{dE}{dt} = \beta \frac{S}{N} I - \alpha E \\[3mm]
+\frac{dI}{dt} = \alpha \E - \gamma I \\[3mm]
 \frac{dR}{dt} = \gamma I
 ```
 
