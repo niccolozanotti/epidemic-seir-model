@@ -1,18 +1,33 @@
 # Epidemic simulation
-This project is 
+This project represents the solution to our University Programming Course [final assignment][assignment].
+We, the authors(Niccolò Zanotti and Filippo Pretolani), are two Physics Undegraduates studying at
+University of Bologna.
 
-The project is divided in 2 parts:
-1. Solving the SEIR differential equations
+The project is made up of 2 main parts:
+
+1. Using the known SEIR model to determine the spread of an epidemic, given initial conditions and
+   parameters
+
 2. Simulating an epidemic
 
-We solved the SEIR differential equations using both the euler method and the Runge_Kutta method.
+We solved the SEIR ordinary differential equations using both a first-order numerical method([Euler][euler] method) and
+with a local error of
+
+```math
+\frac{dS}{dt} = -\beta \frac{S}{N} I \\[3mm]
+\frac{dI}{dt} = \beta \frac{S}{N} I - \gamma I \\[3mm]
+\frac{dR}{dt} = \gamma I
+```
+
+a fourth-order one ([Runge-Kutta][rk4] method).
+The point was t
 
 The Simulation of epidemic is based on the SMOOTH* model to simulate how people moves
 and implements a division in Clusters which can change color, changing how people move.
 
 --------------------------------------------------------------------------------
 ## Dependencies
-- [Lyra](https://github.com/bfgroup/Lyra) (bundled) 
+- [Lyra](https://github.com/bfgroup/Lyra) (bundled)
 - [Doctest](https://github.com/onqtam/doctest) (bundled)
 - [SFML](http://www.sfml-dev.org/) (required)
 - [Root](https://root.cern) (required)
@@ -58,7 +73,7 @@ The possible apps to build are:
 
 ### Notes
 On certain devices, CMake might not be able to detect ROOT installation. If that is the case, the problem can be solved by manually specifying the
-path to your ROOT installation ,setting the CMake Variable ROOT_DIR:
+path to your ROOT installation ,setting the CMake Variable ROOT_DIR at build time:
 ```shell
 cmake -B path-to-build-dir -S path-to-source -DROOT_DIR="path-to-ROOT-installation"
 ```
@@ -83,7 +98,7 @@ are close and to move a position closer to another
 ### Location
 The Location class represent a place that a person can visit and where a person will stay for a randomized
 time, it's where usually the virus spread.  
-The class is composed of three private members: 
+The class is composed of three private members:
 1. `position` an object of the Position class which represent the Location center position in the simulated world
 2. `radius` a double type member which represent the size of the location
 3. `cluster_index` Index of the cluster where the location is located(See Cluster)
@@ -114,11 +129,11 @@ This class is used to implement movement in the simulation, it is composed of 7 
 6. `at_home` a boolean object which represent if the person is at_home or not
 7. `going_home` a boolean object which represent if the person is going_home
 
-It is then composed of various function, the most important are: 
+It is then composed of various function, the most important are:
 * `move()` which move the person closer to the **target_location**.
 * `next_location()` which follows the Least Action Trip Planning algorithm(LATP) to select the next
-location to visit from the **path** vector.
-  
+  location to visit from the **path** vector.
+
 ### Rectangle
 The Rectangle class represent a rectangle. The simulation world is in fact represented by a square divided in
 rectangles as it is a very simple shape to handle. It is composed of 2 private members:
@@ -127,7 +142,7 @@ rectangles as it is a very simple shape to handle. It is composed of 2 private m
 
 It is then composed of various function, the most important are:
 * `Split()` which split a rectangle in 2 rectangles of different sizes.
-* `Divide(int n)` which divide the rectangle in n rectangles using the Split function. 
+* `Divide(int n)` which divide the rectangle in n rectangles using the Split function.
 
 ### Group
 The Group class represent a group of Location object that are generated close to each other; it is composed
@@ -154,7 +169,7 @@ The Cluster class represent the various part in which the world is divided, it h
 7. `cl_engine` an object of the Random class, used to generate random number
 
 It is then composed of various function, the most important are:
-* `generate_path(vector<Location*>&, int n)` generate a path of n locations selected them from the cluster 
+* `generate_path(vector<Location*>&, int n)` generate a path of n locations selected them from the cluster
   and put them in the referenced vector
 
 ### World
@@ -162,12 +177,12 @@ It is then composed of various function, the most important are:
 ### Simulation
 The Simulation class
 ### Random
-This class implements the neededed features for random generation critical for this project making use of the header library 
+This class implements the random generation features critical for this project. It  making use of the header-only library
 `randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use
 class. The main purpose of our use of it in our random implementation is the high quality seeding given by the use of multiple
 sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved trough `std::random_device`.
 
-[randutil][randutils_git] 
+[randutil][randutils_git]
 which guarantees high entropy seeding which sometimes may not be
 achieved through std::random_device. Additionally it implements some random operations useful for our Simulation.
 --------------------------------------------------------------------------------
@@ -195,6 +210,9 @@ The test are(TO FILL):
 --------------------------------------------------------------------------------
 ## Additional Notes
 
+[euler]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
+[rk4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
+[assignment]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
 [randutils_web]:https://gist.github.com/imneme/540829265469e673d045
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
-[seed_entropy]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
+[seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
