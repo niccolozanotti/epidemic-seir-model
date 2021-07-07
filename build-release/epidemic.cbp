@@ -1,0 +1,1457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="epidemic"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\extern\;CMake Files\extern\doctest\;CMake Files\extern\doctest\scripts\;CMake Files\extern\doctest\scripts\cmake\;CMake Files\extern\Lyra\;CMake Files\extern\Lyra\data\;CMake Files\extern\Lyra\data\cmake\;CMake Files\cmake\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\usr\local\lib\cmake\SFML\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\root\;CMake Files\..\..\..\..\usr\local\share\root\cmake\;CMake Files\src\;CMake Files\src\seir\;CMake Files\src\simulation\;CMake Files\apps\;CMake Files\tests\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="standard_solver_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 standard_solver_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runge_kutta_solver">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/librunge_kutta_solver.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 runge_kutta_solver"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runge_kutta_solver/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/librunge_kutta_solver.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 runge_kutta_solver/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="runge_kutta_solver_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 runge_kutta_solver_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="standard_solver">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/libstandard_solver.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 standard_solver"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="standard_solver/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/libstandard_solver.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 standard_solver/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/seir/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="group">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libgroup.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 group"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="group/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libgroup.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 group/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mobility_model">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libmobility_model.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 mobility_model"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mobility_model/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libmobility_model.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 mobility_model/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="simulation_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 simulation_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="person">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libperson.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 person"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="person/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libperson.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 person/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="simulation">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libsimulation.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 simulation"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="simulation/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libsimulation.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 simulation/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mobility_model_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 mobility_model_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="world_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 world_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cluster">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libcluster.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 cluster"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cluster/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libcluster.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 cluster/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="world">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libworld.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 world"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="world/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libworld.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 world/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="group_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 group_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cluster_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 cluster_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="position_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 position_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="person_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 person_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rectangle">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/librectangle.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 rectangle"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rectangle/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/librectangle.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 rectangle/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rectangle_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 rectangle_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="random_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 random_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="position">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libposition.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 position"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="position/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/libposition.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 position/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="location">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/liblocation.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 location"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="location/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/liblocation.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 location/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="location_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 location_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="random">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/librandom.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 random"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="random/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/librandom.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 random/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/src/simulation/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="doctest_with_main">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/libdoctest_with_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/doctest"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/Makefile&quot;  VERBOSE=1 doctest_with_main"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="doctest_with_main/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/libdoctest_with_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/doctest"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/Makefile&quot;  VERBOSE=1 doctest_with_main/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/extern/doctest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sim-graphics_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 sim-graphics_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="seir1_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 seir1_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="seir2">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/apps/seir2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/root/6.22.08/include/root"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/apps/../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 seir2"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="seir2/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/apps/seir2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/root/6.22.08/include/root"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/apps/../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 seir2/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sim-graphics">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/apps/sim-graphics" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/root/6.22.08/include/root"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/apps/../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 sim-graphics"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sim-graphics/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/apps/sim-graphics" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/root/6.22.08/include/root"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/apps/../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 sim-graphics/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sim_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 sim_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sim">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/apps/sim" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/root/6.22.08/include/root"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/apps/../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 sim"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sim/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/apps/sim" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/root/6.22.08/include/root"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/apps/../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 sim/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="seir2_clangformat">
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 seir2_clangformat"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="seir1">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/apps/seir1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/root/6.22.08/include/root"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/apps/../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 seir1"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="seir1/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/apps/seir1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/apps"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/root/6.22.08/include/root"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/build-release"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/apps/../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 seir1/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/apps/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sim.t">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/tests/sim.t" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../extern/doctest/doctest"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 sim.t"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sim.t/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/tests/sim.t" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../include/simulation"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../extern/doctest/doctest"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/simulation/../../include/simulation"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 sim.t/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="seir.t">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/tests/seir.t" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../extern/doctest/doctest"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 seir.t"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="seir.t/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/tests/seir.t" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../include/seir"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../extern/doctest/doctest"/>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/src/seir/../../include/seir"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 seir.t/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test_main">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/tests/CMakeFiles/test_main.dir/test_main.objlib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/tests"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../extern/doctest/doctest"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 test_main"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test_main/fast">
+				<Option output="/Users/niccolozanotti/Desktop/epidemic/build-release/tests/CMakeFiles/test_main.dir/test_main.objlib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/niccolozanotti/Desktop/epidemic/build-release/tests"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/niccolozanotti/Desktop/epidemic/tests/../extern/doctest/doctest"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 test_main/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/niccolozanotti/Desktop/epidemic/build-release/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/apps/main-seir1.cpp">
+			<Option target="seir1"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/apps/main-seir2.cpp">
+			<Option target="seir2"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/apps/main-sim-graphics.cpp">
+			<Option target="sim-graphics"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/apps/main-sim.cpp">
+			<Option target="sim"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/build-release/tests/CMakeFiles/test_main.dir/main.cpp.o">
+			<Option target="sim.t"/>
+			<Option target="seir.t"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/extern/doctest/doctest/parts/doctest.cpp">
+			<Option target="doctest_with_main"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/seir/seir1.hpp">
+			<Option target="runge_kutta_solver"/>
+			<Option target="standard_solver"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/seir/seir2.hpp">
+			<Option target="runge_kutta_solver"/>
+			<Option target="standard_solver"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/cluster.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/group.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/location.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/mobility_model.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/parameters.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/person.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/position.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/random.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/rectangle.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/simulation.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/include/simulation/world.hpp">
+			<Option target="group"/>
+			<Option target="mobility_model"/>
+			<Option target="person"/>
+			<Option target="simulation"/>
+			<Option target="cluster"/>
+			<Option target="world"/>
+			<Option target="rectangle"/>
+			<Option target="position"/>
+			<Option target="location"/>
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/seir/SEIR.cpp">
+			<Option target="standard_solver"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/seir/SEIRode.cpp">
+			<Option target="runge_kutta_solver"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/cluster.cpp">
+			<Option target="cluster"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/group.cpp">
+			<Option target="group"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/location.cpp">
+			<Option target="location"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/mobility_model.cpp">
+			<Option target="mobility_model"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/person.cpp">
+			<Option target="person"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/position.cpp">
+			<Option target="position"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/random.cpp">
+			<Option target="random"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/rectangle.cpp">
+			<Option target="rectangle"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/simulation.cpp">
+			<Option target="simulation"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/world.cpp">
+			<Option target="world"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/tests/main.cpp">
+			<Option target="test_main"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/tests/test1.cpp">
+			<Option target="seir.t"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/tests/test2.cpp">
+			<Option target="sim.t"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/extern/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\extern\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/extern/doctest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\extern\doctest\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/extern/doctest/scripts/cmake/Config.cmake.in">
+			<Option virtualFolder="CMake Files\extern\doctest\scripts\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\extern\Lyra\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/extern/Lyra/data/cmake/lyraConfig.cmake.in">
+			<Option virtualFolder="CMake Files\extern\Lyra\data\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/cmake/ClangFormat.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/lib/cmake/SFML/SFMLConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/lib/cmake/SFML/SFMLConfigDependencies.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/lib/cmake/SFML/SFMLConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/lib/cmake/SFML/SFMLSharedTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/lib/cmake/SFML/SFMLSharedTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\SFML\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/share/root/cmake/ROOTConfig-targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\root\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/share/root/cmake/ROOTConfig-targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\root\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/share/root/cmake/ROOTConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\root\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/share/root/cmake/ROOTConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\root\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/share/root/cmake/ROOTUseFile.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\root\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/../../../../usr/local/share/root/cmake/RootMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\root\cmake\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/seir/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\seir\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/src/simulation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\simulation\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/apps/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\"/>
+		</Unit>
+		<Unit filename="/Users/niccolozanotti/Desktop/epidemic/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

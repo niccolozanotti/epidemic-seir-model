@@ -1,7 +1,8 @@
 #to be tested with multiple versions
 cmake_minimum_required(VERSION 3.16)
+cmake_policy(VERSION 3.16)
 project(epidemic
-        VERSION 1.0
+        VERSION 3.0
         DESCRIPTION "SEIR model for an epidemic"
         LANGUAGES CXX)
 
@@ -21,9 +22,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)  #main project
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     set(CMAKE_CXX_EXTENSIONS OFF)
 
-
-    configure_file(epidemicConfig.h.in epidemicConfig.h)
-
     list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
     include(ClangFormat)
@@ -33,10 +31,34 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)  #main project
 
 endif() ##main project
 
+#################### GIT SUBMODULES  #############################
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+    # Update submodules as needed
+    option(GIT_SUBMODULE "Check submodules during build" ON)
+    if(GIT_SUBMODULE)
+        message(STATUS "Update submodules of this project")
+        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                RESULT_VARIABLE GIT_SUBMOD_RESULT)
+        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+            message(FATAL_ERROR "git submodule update --init --recursive failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+        endif()
+    endif()
+endif()
+
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/extern/CMakeLists.txt")
+    message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+endif()
+##################################################################
+
+
+#SFML package
 find_package(SFML 2.5 COMPONENTS system window graphics network audio)
 
 if(SFML_FOUND)
     message(STATUS "SFML package found")
+    include_directories(${SFML_INCLUDE_DIR})
 endif()
 
 find_package(ROOT 6.16 CONFIG REQUIRED)
@@ -51,14 +73,17 @@ else()
     include("${ROOT_DIR}/RootMacros.cmake")
 endif()
 
-
 # The compiled library code is here
 add_subdirectory(src)
+
+#The bundled external library are here(as git submodules)
+add_subdirectory(extern)
 
 # The executable code is here
 add_subdirectory(apps)
 
 # Test code is here
+enable_testing()
 add_subdirectory(tests)
 
 

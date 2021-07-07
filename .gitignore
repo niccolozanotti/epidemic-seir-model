@@ -1,9 +1,11 @@
 build
+sim_build
+test_build
 cmake-build-debug
+cmake-build-release
 .idea
 *.swp
 *.DS_Store
-########################## PRE-MADE############
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -15,3 +17,5 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+/test_build/
+/sim_build/

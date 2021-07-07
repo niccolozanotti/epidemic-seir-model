@@ -1,16 +1,19 @@
-#include "epidemic1/SEIR.hpp"
-#include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <stdexcept>
-
 #include <TApplication.h>
 #include <TCanvas.h>
 #include <TGraph.h>
 #include <TMultiGraph.h>
 #include <TRootCanvas.h>
 
-int main(int argc, char *argv[])
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <stdexcept>
+
+#include "seir1.hpp"
+
+using namespace Euler;
+
+int main(int argc, char* argv[])
 {
 
     int pop{0};
@@ -70,7 +73,7 @@ int main(int argc, char *argv[])
             }
         }
     }
-    catch (std::runtime_error const &e)
+    catch (std::runtime_error const& e)
     {
         std::cerr << e.what() << std::endl;
         return 1;
@@ -78,11 +81,17 @@ int main(int argc, char *argv[])
     std::vector<State> result = ode.generate_all_points(sim_time);
 
     std::ofstream out{"output.txt"};
-    std::cout << "┌─────┬───────────────┬───────────────┬───────────────┬───────────────┐" << std::endl;
-    std::cout << "│ Day │       S       │       E       │       I       │       R       │" << std::endl;
-    std::cout << "├─────├───────────────├───────────────├───────────────├───────────────├" << std::endl;
+    std::cout << "┌─────┬───────────────┬───────────────┬───────────────┬────────"
+                 "───────┐"
+              << std::endl;
+    std::cout << "│ Day │       S       │       E       │       I       │       "
+                 "R       │"
+              << std::endl;
+    std::cout << "├─────├───────────────├───────────────├───────────────├────────"
+                 "───────├"
+              << std::endl;
     int t1 = 1;
-    for (auto &a : result)
+    for (auto& a : result)
     {
         out << "S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
 
@@ -91,7 +100,9 @@ int main(int argc, char *argv[])
                   << std::endl;
         t1++;
     }
-    std::cout << "└─────┴───────────────┴───────────────┴───────────────┴───────────────┘" << std::endl;
+    std::cout << "└─────┴───────────────┴───────────────┴───────────────┴────────"
+                 "───────┘"
+              << std::endl;
 
     // ROOT CODE
 
@@ -110,7 +121,7 @@ int main(int argc, char *argv[])
     mg->SetTitle("Evolution; time (days); number of people");
 
     int t2 = 0;
-    for (auto &a : result)
+    for (auto& a : result)
     {
         gS->SetPoint(t2, t2, a.S);
         gE->SetPoint(t2, t2, a.E);
@@ -133,7 +144,7 @@ int main(int argc, char *argv[])
 
     c0->Modified();
     c0->Update();
-    TRootCanvas *rc = (TRootCanvas *)c0->GetCanvasImp();
+    TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
     rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
     app.Run();
 

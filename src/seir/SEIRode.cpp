@@ -1,4 +1,4 @@
-#include <epidemic1/SEIRode.hpp>
+#include "seir2.hpp"
 #include <iostream>
 #include <stdexcept>
 
@@ -14,7 +14,12 @@ void error(std::string s)
 //                     CONSTRUCTOR                           //
 ///////////////////////////////////////////////////////////////
 ode::ode(int population, int time, State initial_state, double beta, double alpha, double gamma)
-    : N{population}, t{time}, S_0{initial_state}, beta{beta}, alpha{alpha}, gamma{gamma}
+    : N{population},
+      t{time},
+      S_0{initial_state},
+      beta{beta},
+      alpha{alpha},
+      gamma{gamma}
 {
     is_valid(*this);
 }
@@ -22,7 +27,7 @@ ode::ode(int population, int time, State initial_state, double beta, double alph
 //  DEFAULT CONDITIONS : POPULATION: 100000,TIME: 80 DAYS, 1 //
 //   INFECTED, BETA = 0.7, ALPHA = 0.5 , GAMMA = 0.2       //
 ///////////////////////////////////////////////////////////////
-const ode &default_ode()
+const ode& default_ode()
 {
     State df{99999, 0, 1, 0};
     static ode def{100000, 80, df, 0.7, 0.5, 0.2};
@@ -33,8 +38,12 @@ const ode &default_ode()
 ///////////////////////////////////////////////////////////////
 ode::ode()
     // default constructor:CHECK IF IT MAKES SENSE
-    : N{default_ode().N}, t{default_ode().t}, S_0{default_ode().S_0}, beta{default_ode().beta},
-      alpha{default_ode().alpha}, gamma{default_ode().gamma}
+    : N{default_ode().N},
+      t{default_ode().t},
+      S_0{default_ode().S_0},
+      beta{default_ode().beta},
+      alpha{default_ode().alpha},
+      gamma{default_ode().gamma}
 {
 }
 
@@ -78,7 +87,8 @@ bool ode::is_valid(ode obj)
 
     if (obj.S_0.S + obj.S_0.E + obj.S_0.I + obj.S_0.R != obj.N)
     {
-        error("The sum of susceptibles, latent, infected and removed individuals must equal the total population!");
+        error("The sum of susceptibles, latent, infected and removed individuals "
+              "must equal the total population!");
     }
 
     return true;
@@ -87,7 +97,7 @@ bool ode::is_valid(ode obj)
 //     RUNGE KUTTA METHOD     //
 ////////////////////////////////
 // 4TH order method with an error of O(h^5)
-State ode::RungeKuttaSolver(const State &oldState)
+State ode::RungeKuttaSolver(const State& oldState)
 // method solving solving SEIR system of differential equations
 // using Runge Kutta 4th order method
 {
@@ -158,7 +168,7 @@ State ode::RungeKuttaSolver(const State &oldState)
 ////////////////////////////////
 //     SIMULATION FUNCTION    //
 ////////////////////////////////
-void simulation(ode sim, Simulation &result)
+void simulation(ode sim, Simulation& result)
 {
     result.clear(); // empty the vector
     State current_state = sim.initial_state();
