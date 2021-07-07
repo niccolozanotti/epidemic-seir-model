@@ -13,9 +13,9 @@ int main()
     //    std::chrono::duration<float> duration{};
     double Sim_side = 1000;
     double Graph_width = 800;
-    Simulation prova{25000, 3, 200, 4, 5, 1500, Sim_side, 0.1, 0.02, 0.2, 1, 20};
+    Simulation prova{25000, 3, 200, 4, 5, 800, Sim_side, 0.3, 0.02, 0.2, 1, 20};
     std::vector<Data> Result = {prova.get_data()};
-    sf::RenderWindow window(sf::VideoMode(Sim_side + Graph_width, Sim_side), "My window");
+    sf::RenderWindow window(sf::VideoMode(Sim_side + Graph_width, Sim_side), "Epidemic simulation");
     window.display();
 
     sf::VertexArray Clusters(sf::Quads, 4 * prova.world().size());

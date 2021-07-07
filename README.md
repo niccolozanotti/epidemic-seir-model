@@ -1,7 +1,8 @@
 # Epidemic simulation
-This project represents the solution to our University Programming Course [final assignment][assignment].
-We, the authors(Niccolò Zanotti and Filippo Pretolani), are two Physics Undegraduates studying at
-University of Bologna.
+This project represents the solution which we, Niccolò Zanotti and Filippo Pretolani, two Physics Undegraduates studying at
+University of Bologna, gave to our University Programming Course [final assignment][assignment].
+<!-- put relative path to extern -->
+We collaborated on writing the source code found in this repository except for, of course, external libraries [code][ext]
 
 The project is made up of 2 main parts:
 
@@ -195,6 +196,7 @@ The Simulation class handle the evolution of the epidemic, it is composed of 7 p
 It is then composed of various function, the most important are:
 * `move()` move all the person in the wrld object.
 * `spread()` spread the epidemic.
+* `update_status()` update all person's status.
 * `update_zone()` update the color of every cluster based on the number of Infected.
 
 The simulation is divided in cycles, which is composed of 10(TO BE POSSIBLY CHANGED) step:  
@@ -226,14 +228,7 @@ vector, following the rules decided by the cluster color
 When the path is empty it returns home. 
 
 #### spread() function
-The spread function check every *Exposed* and *Infected* person in the world.
-* For every *Exposed* person it check if it becomes *Infected* using `alpha` probability.
-* For every *Infected* person:
-  * It checks the color of the cluster in which the person reside
-    * If it is *Green* it checks all person to see which are *Susceptible*, inside the spread radius and not
-    at home, to see if they become *Exposed* using `beta` probability.
-    * If it is *Yellow* or *Red* it only checks all person in the same cluster of the person.
-  * It checks if it becomes *Recovered*  using `gamma` probabilty.
+
 
 ### Random
 This class implements the random generation features critical for this project. It  making use of the header-only library
@@ -244,7 +239,6 @@ sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved
 [randutil][randutils_git]
 which guarantees high entropy seeding which sometimes may not be
 achieved through std::random_device. Additionally it implements some random operations useful for our Simulation.
-
 --------------------------------------------------------------------------------
 ## Tests
 Testing is enabled by default in cmake; so if you want to run a test you just need to build and run it.
@@ -270,6 +264,7 @@ The test are(TO FILL):
 --------------------------------------------------------------------------------
 ## Additional Notes
 
+<!-- [ext](extern) -->
 [euler]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
 [rk4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
 [assignment]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
