@@ -1,5 +1,5 @@
 # Epidemic simulation
-This project is 
+This project is
 
 The project is divided in 2 parts:
 1. Solving the SEIR differential equations
@@ -12,7 +12,7 @@ and implements a division in Clusters which can change color, changing how peopl
 
 --------------------------------------------------------------------------------
 ## Dependencies
-- [Lyra](https://github.com/bfgroup/Lyra) (bundled) 
+- [Lyra](https://github.com/bfgroup/Lyra) (bundled)
 - [Doctest](https://github.com/onqtam/doctest) (bundled)
 - [SFML](http://www.sfml-dev.org/) (required)
 - [Root](https://root.cern) (required)
@@ -25,7 +25,7 @@ Make sure that all the required dependencies are installed.
 The first step is to clone the repository:
 ```shell
 #clone the final branch of the repository
-git clone -b final --single-branch https://github.com/TeamFisico/epidemic.git 
+git clone -b final --single-branch https://gitlab.com/Feyn-23/epidemic.git 
 #enter the repository
 cd epidemic
 ```
@@ -72,7 +72,7 @@ If you are on WSL make sure the Xserver is running as it is required for every a
 TO ADD ALL THE PARTS RELATED TO INPUT
 
 --------------------------------------------------------------------------------
-#Implementation
+# Implementation
 ## Classes
 
 ### Position
@@ -83,12 +83,12 @@ are close and to move a position closer to another
 ### Location
 The Location class represent a place that a person can visit and where a person will stay for a randomized
 time, it's where usually the virus spread.  
-The class is composed of three private members: 
+The class is composed of three private members:
 1. `position` an object of the Position class which represent the Location center position in the simulated world
 2. `radius` a double type member which represent the size of the location
 3. `cluster_index` Index of the cluster where the location is located(See Cluster)
 
-###Status
+### Status
 it's an enum class composed of 4 possible values:
 1. `Susceptible` Can contract the disease if in contact with an infected individual.
 2. `Exposed` It has the disease but cannot spread the disease to other people.
@@ -114,11 +114,11 @@ This class is used to implement movement in the simulation, it is composed of 7 
 6. `at_home` a boolean object which represent if the person is at_home or not
 7. `going_home` a boolean object which represent if the person is going_home
 
-It is then composed of various function, the most important are: 
+It is then composed of various function, the most important are:
 * `move()` which move the person closer to the **target_location**.
 * `next_location()` which follows the Least Action Trip Planning algorithm(LATP) to select the next
-location to visit from the **path** vector.
-  
+  location to visit from the **path** vector.
+
 ### Rectangle
 The Rectangle class represent a rectangle. The simulation world is in fact represented by a square divided in
 rectangles as it is a very simple shape to handle. It is composed of 2 private members:
@@ -127,16 +127,16 @@ rectangles as it is a very simple shape to handle. It is composed of 2 private m
 
 It is then composed of various function, the most important are:
 * `Split()` which split a rectangle in 2 rectangles of different sizes.
-* `Divide(int n)` which divide the rectangle in n rectangles using the Split function. 
+* `Divide(int n)` which divide the rectangle in n rectangles using the Split function.
 
 ### Group
 The Group class represent a group of Location object that are generated close to each other; it is composed
 of three private members:
 1. `Locations` a vector of Location object.
 2. `center` the coordinate of the centre around which the Locations are generated.
-3. `grp_engine` an object of the Random class, used to generate random number.
+3. `grp_engine` an object of the Random class, used to generate random numbers.
 
-###Zone
+### Zone
 It's an enum class that represent the color of the cluster, which is dependant on the number of infected;
 there are 3 possible values, which have different restrictions:
 1. `Green` people can go to every other green cluster, big number of location to visit per person.
@@ -151,23 +151,76 @@ The Cluster class represent the various part in which the world is divided, it h
 4. `zone` represent the cluster color.
 5. `index` index of the cluster.
 6. `LATP_alpha` represent the value of the alpha parameter for the LATP algorithm.
-7. `cl_engine` an object of the Random class, used to generate random number
+7. `cl_engine` an object of the Random class, used to generate random numbers.
 
 It is then composed of various function, the most important are:
-* `generate_path(vector<Location*>&, int n)` generate a path of n locations selected them from the cluster 
+* `generate_path(int n, vector<Location*>&)` generate a path of n locations selected them from the cluster
   and put them in the referenced vector
 
 ### World
+The World class represent the world of the Simulation, it has 3 private members:
+1. `Area` an object of the Rectangle class, that represent the Area of the world.
+2. `Clusters` a vector of Cluster object in which the world is divided.
+3. `wrld_engine` an object of the Random class, used to generate random numbers.
 
+It is then composed of various function, the most important are:
+* `generate_path(int n, vector<double> wehights, vector<Location*>& path)` generate a path of n random
+  locations selected from the clusters, based on the weights vector.
 ### Simulation
-The Simulation class
+The Simulation class handle the evolution of the epidemic, it is composed of 7 private members:
+1. `sim_engine` an object of the Random class, used to generate random numbers.
+2. `wrld` an object of the World class, it represent the world where the epidemic is simulated.
+3. `alpha` represent the probability that a person pass from Exosed to Infected status.
+4. `beta` represent the probability that a person pass from Susceptible to Exposed status when in contact
+   with an Infected person
+5. `gamma` represent the probability that a person pass from the Infected to Recovered status
+6. `spread_radius` it's the radius that represent when a person is in contact with another
+7. `time` represent the duration of the simulation NEED TO PROBABLY REMOVE
+
+It is then composed of various function, the most important are:
+* `move()` move all the person in the wrld object.
+* `spread()` spread the epidemic.
+* `update_status()` update all person's status.
+* `update_zone()` update the color of every cluster based on the number of Infected.
+
+The simulation is divided in cycles, which is composed of 10(TO BE POSSIBLY CHANGED) step:  
+Every step consist in calling the `move()`, the `spread()` and the `update_status()` functions.  
+Every cycle consist in calling 10 steps and the calling the `update_zone()` function to, if necessary,
+change the cluster color.
+
+#### move() function
+The move function is an adaptation of the random waypoint mobility model seen in the SMOOTH paper.  
+It checks every cluster and, based on the zone color, it calls the correspondent move function from:
+* `move_white(Cluster&)`
+* `move_yellow(Cluster&)`
+* `move_red(Cluster&)`
+
+The cluster color decide the number of location to visit and from which cluster they will be chosen.
+If the cluster is *Green* then about half of the location will be chosen from the person's cluster, while the
+other half from other green cluster; if the cluster is *Red* or *Yellow* then they will all be chosen from
+the person's cluster.
+
+Every move function checks every people in the cluster:
+* If they are home it checks if they leave it based on `home_probability`, and if they do it fill the path
+vector, following the rules decided by the cluster color
+* If they are not at home:
+  + If it has arrived at target location:
+    - If `stay` is higher than 0 than it remain at the target location
+    - if `stay` is 0 then it selects a new target location from the path with `mobility_model::next_location()`
+  + If it has not arrived at the target location it moves closer to it with `mobility_model::move()`
+    
+When the path is empty it returns home. 
+
+#### spread() function
+
+
 ### Random
-This class implements the neededed features for random generation critical for this project making use of the header library 
+This class implements the needed features for random generation critical for this project making use of the header library
 `randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use
 class. The main purpose of our use of it in our random implementation is the high quality seeding given by the use of multiple
 sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved trough `std::random_device`.
 
-[randutil][randutils_git] 
+[randutil][randutils_git]
 which guarantees high entropy seeding which sometimes may not be
 achieved through std::random_device. Additionally it implements some random operations useful for our Simulation.
 --------------------------------------------------------------------------------
