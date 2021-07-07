@@ -67,7 +67,7 @@ The possible apps to build are:
 
 | App name     | function                                                     |
 | ------------ | ------------------------------------------------------------ |
-| seir         | Solve the SEIR differential equation with Euler Method       |
+| seir1        | Solve the SEIR differential equation with Euler Method       |
 | seir2        | Solve the SEIR differential equation with Runge-Kutta Method |
 | sim          | Simulate an epidemic, without graphical output               |
 | sim-graphics | Simulate an pandemic, with graphical output                  |
