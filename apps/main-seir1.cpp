@@ -11,10 +11,10 @@
 
 #include "seir1.hpp"
 
-using namespace Euler;
 
 int main(int argc, char* argv[])
 {
+    using namespace Euler;
 
     int pop{0};
     int sim_time{100};

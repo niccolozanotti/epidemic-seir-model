@@ -3,6 +3,9 @@
 namespace smooth_sim
 {
 
+//////////////////////////////////////////////
+///////        GROUP CONSTRUCTOR        //////
+//////////////////////////////////////////////
 Group::Group(int number_of_locations, Position group_centre, int cluster_label) : centre{group_centre}, grp_engine{}
 {
     ///////// Group Waypoints plot over the simulation area  /////////

@@ -28,7 +28,7 @@ Person Mobility_model::get_person() const
     return pers;
 }
 ///////////////// TARGET LOCATION /////////////////
-Location * Mobility_model::get_target_location()
+Location* Mobility_model::get_target_location()
 {
     return target_location;
 }
