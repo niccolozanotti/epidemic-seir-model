@@ -4,13 +4,13 @@
 #include <stdexcept>
 #include <vector>
 
-namespace RK_4
-{
-
 void error(std::string s)
 {
     throw std::runtime_error(s);
 }
+
+namespace seir
+{
 
 //////////////////////////////////////////////
 ///////        SEIR CONSTRUCTOR         //////
@@ -240,4 +240,4 @@ double State::dR_dt(double gamma) const
 {
     return +gamma * I;
 }
-} // namespace RK_4
+} // namespace seir

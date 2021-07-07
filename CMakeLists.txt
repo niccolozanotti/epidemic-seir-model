@@ -56,7 +56,7 @@ endif()
 
 
 #SFML package
-find_package(SFML 2.5 COMPONENTS system window graphics network audio)
+find_package(SFML 2.5 COMPONENTS system window graphics)
 
 if(SFML_FOUND)
     message(STATUS "SFML package found")
@@ -78,6 +78,7 @@ endif()
 # The compiled library code is here
 add_subdirectory(src)
 
+add_subdirectory(include/simulation)
 #The bundled external library are here(as git submodules)
 add_subdirectory(extern)
 

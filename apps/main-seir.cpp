@@ -16,7 +16,7 @@
 
 int main(int argc, char* argv[])
 {
-    using namespace RK_4;
+    using namespace seir;
 
     bool use_rk4 = false;
     // default simulation parameters
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
     std::vector<State> states{};
 
     // perform the simulation filling states vector with all the states over time
-    simulation.evolve(states,use_rk4);
+    simulation.evolve(states, use_rk4);
 
     std::cout << "┌─────┬───────────────┬───────────────┬───────────────┬────────"
                  "───────┐"

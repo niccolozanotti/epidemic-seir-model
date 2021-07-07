@@ -50,8 +50,8 @@ void Position::move_toward(Position target, double speed, Random& engine)
     double dx = target.x - x;
     double dy = target.y - y;
     double angle = std::atan2(dy, dx);
-    double delta_angle =
-        engine.uniform(-1.0 * MAXIMUM_ANGLE_VARIATION, MAXIMUM_ANGLE_VARIATION); // random variation from -5° to 5°
+    // random angle variation
+    double delta_angle = engine.uniform(-1.0 * MAXIMUM_ANGLE_VARIATION, MAXIMUM_ANGLE_VARIATION);
     while (distance_to(target) < speed)
     {
         speed = engine.uniform(0, 2);

@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-namespace RK_4
+namespace seir
 {
 
 int constexpr TIME_STEP = 1; // days
@@ -61,6 +61,6 @@ class SEIR
     void evolve(std::vector<State>& states, bool method = 0);
 };
 
-} // namespace RK_4
+} // namespace seir
 
 #endif

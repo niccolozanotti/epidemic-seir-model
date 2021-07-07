@@ -1,58 +1,122 @@
+//////  STL //////
 #include <chrono>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-
-#include "lyra/lyra.hpp" // LYRA HEADER
-#include "simulation.hpp"
-
-/////////  ROOT HEADERS  ///////
+//////  LYRA (CMD LINE PARSER) //////
+#include <lyra/lyra.hpp>
+//////  ROOT HEADERS  //////
 #include "TApplication.h"
 #include "TCanvas.h"
 #include "TF1.h"
 #include "TGraph.h"
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
+////// PROJECT HEADERS //////
+#include "simulation.hpp"
 
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 {
-    using namespace smooth_sim;
 
-    /*    auto start = std::chrono::high_resolution_clock::now();
+    ///////////////////////  Simulation input parameters ///////////////////////
 
-        Simulation prova{25000 ,3, 25000, 4, 5, 500, 1000,0.5,0.3,0.2,0.5,20,10};
+    bool show_help = false;
+    bool get_help = false;
+    int people {25000};
+    int susceptibles {};
+    int exposed {};
+    int infected {};
+    int recovered {};
 
-        auto end = std::chrono::high_resolution_clock::now();
+    // if true,sets the default chosen ratio of S,E,I,R individuals among the population(which is specified)
+    // it can assume false value if all S,E,I,R are specified
+    bool default_seir {true};
+    double def_S {0.95};
+    double def_E {0.02};
+    double def_I {0.02};
+    double def_R {0.01};
 
-        std::chrono::duration<float> duration = end - start;
-        std::cout << "Time taken : " << duration.count() << " s " << std::endl;
 
-        auto start2 = std::chrono::high_resolution_clock::now();
+    int clusters_num {5};
+    int side {1000};
+    double alpha {0.1};
+    double beta {0.2};
+    double gamma {0.02};
+    double spread_radius {1};
+    double time_in_days {10};
+    int choice {0};
 
-        prova.move();
+    /* clang-format off */
 
-        auto end2 = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<float> duration2 = end2 - start2;
-        std::cout << "Time taken : " << duration2.count() << " s " << std::endl;
+    lyra::cli cli;  //command line input
+    cli.add_argument(lyra::help(get_help))
+            .add_argument(lyra::opt(people, "people")
+                                  ["-p"]["--people"]
+                                  .help("How many people should there be in the simulation?"))
+            .add_argument(lyra::group([&](const lyra::group &) {
+                default_seir = false;
+            })
+                                  .add_argument(lyra::opt(susceptibles, "Susceptibles")
+                                                        ["-S"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0;})
+                                                        .help("Susceptible individuals in the simulation."))
+                                  .add_argument(lyra::opt(exposed, "Exposed")
+                                                        ["-E"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0;})
+                                                        .help("Exposed individuals in the simulation."))
+                                  .add_argument(lyra::opt(infected, "Infected")
+                                                        ["-I"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0;})
+                                                        .help("Infected individuals in the simulation."))
+                                  .add_argument(lyra::opt(recovered, "Recovered")
+                                                         ["-R"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0;})
+                                                        .help("Recovered individuals in the simulation."))) //end group
+            .add_argument(lyra::opt(side, "Side")
+                                   ["-sd"]["--side"]
+                                   .choices([](int value){ return value >= 700 && value <= 1500;})
+                                  .help("Side of the simulation area."))
+            .add_argument(lyra::opt(alpha, "alpha")
+                          ["-a"]["--alpha"]
+                                  .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                  .help("Parameter: governs the lag between infectious contact and showing symptoms."))
+            .add_argument(lyra::opt(beta, "beta")
+                          ["-b"]["--beta"]
+                                  .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                  .help("Parameter: number of people an infective person infects each day."))
+            .add_argument(lyra::opt(gamma, "gamma")
+                          ["-g"]["--gamma"]
+                                  .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                  .help("Parameter: cumulative probability for a person to recover or die."));
+    /* clang-format on */
 
-        auto start3 = std::chrono::high_resolution_clock::now();
+    // Parse the program arguments:
+    auto result = cli.parse({ argc, argv });
 
-        prova.move();
+    // Check that the arguments where valid:
+    if (!result)
+    {
+        std::cerr << "Error in command line: " << result.errorMessage() << std::endl;
+        std::cerr << cli << "\n";
+        return 1;
+    }
 
-        auto end3 = std::chrono::high_resolution_clock::now();
+    // Show the help when asked for.
+    if (show_help)
+    {
+        std::cout << cli << "\n";
+        return 0;
+    }
 
-        std::chrono::duration<float> duration3 = end3 - start3;
-        std::cout << "Time taken : " << duration3.count() << " s " << std::endl;
 
-        auto start4 = std::chrono::high_resolution_clock::now();
 
-        prova.spread();
+    // Everything was ok, width will have a value if supplied on command line.
+        using namespace smooth_sim;
 
-        auto end4 = std::chrono::high_resolution_clock::now();
-
-        std::chrono::duration<float> duration4 = end4 - start4;
-        std::cout << "Time taken : " << duration4.count() << " s " << std::endl;
-    */
 
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -76,7 +140,7 @@ int main(int argc, char* argv[])
     double move_count;
     double spread_count;
 
-    std::vector<Data> result{};
+    std::vector<Data> res{};
     std::vector<Position> positions{};
     std::vector<bool> at_home{};
     for (int i = 0; i < 30; ++i)
@@ -92,7 +156,7 @@ int main(int argc, char* argv[])
             start2 = std::chrono::high_resolution_clock::now();
             prova.spread();
             end2 = std::chrono::high_resolution_clock::now();
-            result.push_back(prova.get_data());
+            res.push_back(prova.get_data());
             positions.push_back(prova.get_person_pos(0, 0));
             at_home.push_back(prova.is_person_at_home(0, 0));
 
@@ -111,7 +175,7 @@ int main(int argc, char* argv[])
 
     std::ofstream out{"output.txt"};
 
-    for (auto& a : result)
+    for (auto& a : res)
     {
         out << "S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
     }
@@ -139,7 +203,7 @@ int main(int argc, char* argv[])
     mg->SetTitle("Evolution; steps; number of people");
 
     int t2 = 0;
-    for (auto& a : result)
+    for (auto& a : res)
     {
         gS->SetPoint(t2, t2, a.S);
         gE->SetPoint(t2, t2, a.E);

@@ -49,6 +49,7 @@ target_link_libraries(sim-graphics PRIVATE  simulation
                                             rectangle
                                             location
                                             position
+                                            display
                                             random)
 target_link_libraries(sim-graphics PRIVATE lyra)
 target_link_libraries(sim-graphics PRIVATE sfml-graphics)

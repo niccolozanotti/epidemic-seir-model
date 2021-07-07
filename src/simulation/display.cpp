@@ -2,11 +2,12 @@
 
 using namespace smooth_sim;
 
-Display::Display(Simulation& simulation, double Graph_width){
-    //fill cluster VertexArray and borders VertexArray
+Display::Display(Simulation& simulation, double Graph_width)
+{
+    // fill cluster VertexArray and borders VertexArray
     clusters.setPrimitiveType(sf::Quads);
     borders.setPrimitiveType(sf::Lines);
-    std::array<float,4> X{}, Y{};
+    std::array<float, 4> X{}, Y{};
     for (unsigned i = 0; i < simulation.world().size(); ++i)
     {
         auto& cl_a = simulation.world().clusters()[i].area();
@@ -35,7 +36,7 @@ Display::Display(Simulation& simulation, double Graph_width){
         borders.append(sf::Vertex(sf::Vector2f(X[0], X[0]), sf::Color::Black));
     }
 
-    //Fill locations VertexArray
+    // Fill locations VertexArray
     locations.setPrimitiveType(sf::Triangles);
     std::array<double, 9> x{}, y{};
     double r;
@@ -58,14 +59,14 @@ Display::Display(Simulation& simulation, double Graph_width){
                 for (int j = 0; j < 7; ++j)
                 { // The first 7 triangles
                     // Set the vertices and the color of the triangles
-                    locations.append(sf::Vertex(sf::Vector2f(x[0], y[0]),sf::Color::Blue));
-                    locations.append(sf::Vertex(sf::Vector2f(x[j + 1], y[j + 1]),sf::Color::Blue));
-                    locations.append(sf::Vertex(sf::Vector2f(x[j + 2], y[j + 2]),sf::Color::Blue));
+                    locations.append(sf::Vertex(sf::Vector2f(x[0], y[0]), sf::Color::Blue));
+                    locations.append(sf::Vertex(sf::Vector2f(x[j + 1], y[j + 1]), sf::Color::Blue));
+                    locations.append(sf::Vertex(sf::Vector2f(x[j + 2], y[j + 2]), sf::Color::Blue));
                 }
                 // Set the vertices and color of the eight triangle
-                locations.append(sf::Vertex(sf::Vector2f(x[0], y[0]),sf::Color::Blue));
-                locations.append(sf::Vertex(sf::Vector2f(x[8], y[8]),sf::Color::Blue));
-                locations.append(sf::Vertex(sf::Vector2f(x[1], y[1]),sf::Color::Blue));
+                locations.append(sf::Vertex(sf::Vector2f(x[0], y[0]), sf::Color::Blue));
+                locations.append(sf::Vertex(sf::Vector2f(x[8], y[8]), sf::Color::Blue));
+                locations.append(sf::Vertex(sf::Vector2f(x[1], y[1]), sf::Color::Blue));
             }
         }
     }
@@ -80,7 +81,7 @@ sf::VertexArray Display::population(Simulation& simulation)
 {
     sf::VertexArray people(sf::Quads, simulation.world().people_num() * 4);
     double x_0, y_0;
-    double r = 1; //half diagonal of the square that represent the person
+    double r = 1; // half diagonal of the square that represent the person
     int count = 0;
     for (auto& a : simulation.world().clusters())
     {
