@@ -202,10 +202,10 @@ World Simulation::get_world() const
 
 Data Simulation::get_Cluster_data(int i)
 {
-    unsigned int nS = 0;
-    unsigned int nE = 0;
-    unsigned int nI = 0;
-    unsigned int nR = 0;
+    int nS = 0;
+    int nE = 0;
+    int nI = 0;
+    int nR = 0;
     for (auto& a : wrld.Clusters[i].get_people())
     {
         switch (a.get_person().get_current_status())
@@ -229,10 +229,10 @@ Data Simulation::get_Cluster_data(int i)
 
 Data Simulation::get_data()
 {
-    unsigned int nS{};
-    unsigned int nE{};
-    unsigned int nI{};
-    unsigned int nR{};
+    int nS{};
+    int nE{};
+    int nI{};
+    int nR{};
     for (auto& c : wrld.Clusters)
     {
         for (auto& a : c.get_people())

@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    Simulation prova{25000, 3, 200, 4, 5, 1000, 800, 0.1, 0.02, 0.1, 1, 20, 10};
+    Simulation prova{25000, 3, 200, 4, 5, 1000, 800, 0.1, 0.02, 0.1, 1, 20};
     for (int k = 0; k < 10; ++k)
     {
         prova.move();
@@ -92,10 +92,9 @@ int main(int argc, char* argv[])
             start2 = std::chrono::high_resolution_clock::now();
             prova.spread();
             end2 = std::chrono::high_resolution_clock::now();
-            prova.update_people_status();
             result.push_back(prova.get_data());
-            positions.push_back(prova.person_pos(0, 0));
-            at_home.push_back(prova.at_home(0, 0));
+            positions.push_back(prova.get_person_pos(0, 0));
+            at_home.push_back(prova.is_person_at_home(0, 0));
 
             std::chrono::duration<float> duration1 = end1 - start1;
             std::chrono::duration<float> duration2 = end2 - start2;
