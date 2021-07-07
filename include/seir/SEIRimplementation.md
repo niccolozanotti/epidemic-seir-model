@@ -28,4 +28,4 @@ from which is easy to evaluate the system of equations.
 In the program we use floating point number for `S`,`E`,`I`,`R`. This can seem counter-intuitive as they 
 represent numbers of person and should be represented by unsigned integer. But, by using integers the
 value would be truncated and so we would add an approximation that will result in wrong results. As 
-$`S + E + I + R != cost`$.
+$`S + E + I + R \neq cost`$.
