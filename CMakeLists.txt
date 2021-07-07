@@ -29,6 +29,8 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)  #main project
     #support IDE to show all the folders
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+    set(CMAKE_BUILD_TYPE "Release")   ## Release building
+
 endif() ##main project
 
 #################### GIT SUBMODULES  #############################

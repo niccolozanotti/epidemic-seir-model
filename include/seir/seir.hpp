@@ -34,9 +34,9 @@ class SEIR
     int N;        // total number of individuals
     int t;        // duration time of the simualtion(days)
     State S_0;    // initial state
-    double beta;  // average number of people infected by an infected in a day
-    double alpha; // parameter: inverse of disease incubation period
-    double gamma; // parameter: probability of recovery(or death) of an infected
+    double beta;  // number of people an infective person infects each day
+    double alpha; // governs the lag between infectious contact and showing symptoms
+    double gamma; // probability to recover or die (accounts for two parameters)
 
   public:
     // constructor
@@ -46,15 +46,19 @@ class SEIR
     SEIR();
 
   private:
+    // returns newly calculated State using Euler method(1th order numerical approximation)
+    State EulerSolver(const State& current_state);
+
     // returns newly calculated State using Runge Kutta method(4th order numerical approximation)
-    State RungeKuttaSolver(const State& oldState);
+    State RungeKuttaSolver(const State& current_state);
 
     // check for the validity of a SEIR object
     bool is_valid(SEIR obj);
 
   public:
-    // performs the actual SEIRulation over the setted time interval
-    void evolve(std::vector<State>& states);
+    // performs the actual simulation:determines the various states by solving the ode system
+    // over the setted time interval either with Euler method (method == 0) or with RK4 (method == 1)
+    void evolve(std::vector<State>& states, bool method = 0);
 };
 
 } // namespace RK_4

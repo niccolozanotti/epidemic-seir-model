@@ -1,5 +1,5 @@
 
-#include "seir2.hpp"
+#include "seir.hpp"
 
 ////////STANDARD ///////
 #include <fstream>
@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
 {
     using namespace RK_4;
 
+    bool use_rk4 = false;
     // default simulation parameters
     int population{};
     int sim_time{};
@@ -80,7 +81,7 @@ int main(int argc, char* argv[])
     std::vector<State> states{};
 
     // perform the simulation filling states vector with all the states over time
-    simulation.evolve(states);
+    simulation.evolve(states,use_rk4);
 
     std::cout << "┌─────┬───────────────┬───────────────┬───────────────┬────────"
                  "───────┐"

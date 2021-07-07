@@ -1,7 +1,6 @@
-#include "seir2.hpp"
+#include "seir.hpp"
 #include <array>
 #include <cassert>
-#include <iostream>
 #include <stdexcept>
 #include <vector>
 
@@ -36,9 +35,9 @@ const SEIR& default_SEIR()
     static SEIR def{100000, 80, df, 0.7, 0.5, 0.2};
     return def;
 }
-///////////////////////////////////////////////////////////////
-//                   DEFAULT CONSTRUCTOR                     //
-///////////////////////////////////////////////////////////////
+//////////////////////////////////////////////
+///////     SEIR DEFAULT CONSTRUCTOR    //////
+//////////////////////////////////////////////
 SEIR::SEIR()
     // default constructor:CHECK IF IT MAKES SENSE
     : N{default_SEIR().N},
@@ -50,7 +49,11 @@ SEIR::SEIR()
 {
 }
 
-// argument checking in object construction
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////           PRIVATE METHODS           /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////// CHECK SEIR PROBLEM VALIDITY /////////////////
 bool SEIR::is_valid(SEIR obj)
 {
     if (obj.t <= 0)
@@ -96,27 +99,38 @@ bool SEIR::is_valid(SEIR obj)
 
     return true;
 }
+///////////////// DETERMINE NEW STATE WITH EULER METHOD /////////////////
+State SEIR::EulerSolver(const State& current_state)
+{
+    State new_state{};
+    new_state.S = current_state.S + current_state.dS_dt(beta, N);
+    new_state.E = current_state.E + current_state.dE_dt(beta, alpha, N);
+    new_state.I = current_state.I + current_state.dI_dt(alpha, gamma);
+    new_state.R = current_state.R + current_state.dR_dt(gamma);
+
+    return new_state;
+}
 ///////////////// DETERMINE NEW STATE WITH RUNGE KUTTA METHOD/////////////////
-State SEIR::RungeKuttaSolver(State const& oldState)
+State SEIR::RungeKuttaSolver(State const& current_state)
 {
     State newState;
     State updatedState;
 
-    // 1st order term in formula for S,E,I,R
+    // 1st order term
     // k1 = f(S,E,I,R)
     std::array<double, 4> k1{};
-    k1[0] = TIME_STEP * oldState.dS_dt(beta, N);
-    k1[1] = TIME_STEP * oldState.dE_dt(beta, alpha, N);
-    k1[2] = TIME_STEP * oldState.dI_dt(alpha, gamma);
-    k1[3] = TIME_STEP * oldState.dR_dt(gamma);
+    k1[0] = TIME_STEP * current_state.dS_dt(beta, N);
+    k1[1] = TIME_STEP * current_state.dE_dt(beta, alpha, N);
+    k1[2] = TIME_STEP * current_state.dI_dt(alpha, gamma);
+    k1[3] = TIME_STEP * current_state.dR_dt(gamma);
 
     // update the state by half a TIME_STEP
-    updatedState.S = oldState.S + k1[0] / 2.0;
-    updatedState.E = oldState.E + k1[1] / 2.0;
-    updatedState.I = oldState.I + k1[2] / 2.0;
-    updatedState.R = oldState.R + k1[3] / 2.0;
+    updatedState.S = current_state.S + k1[0] / 2.0;
+    updatedState.E = current_state.E + k1[1] / 2.0;
+    updatedState.I = current_state.I + k1[2] / 2.0;
+    updatedState.R = current_state.R + k1[3] / 2.0;
 
-    // 2nd order term in formula for S,E,I,R
+    // 2nd order term
     // k2 = f(S+h/2*k1 ,E+h/2*k1 ,I+h/2*k1 ,R+h/2*k1)
     std::array<double, 4> k2{};
     k2[0] = TIME_STEP * updatedState.dS_dt(beta, N);
@@ -125,12 +139,12 @@ State SEIR::RungeKuttaSolver(State const& oldState)
     k2[3] = TIME_STEP * updatedState.dR_dt(gamma);
 
     // update the state by half a TIME_STEP
-    updatedState.S = oldState.S + k2[0] / 2.0;
-    updatedState.E = oldState.E + k2[1] / 2.0;
-    updatedState.I = oldState.I + k2[2] / 2.0;
-    updatedState.R = oldState.R + k2[3] / 2.0;
+    updatedState.S = current_state.S + k2[0] / 2.0;
+    updatedState.E = current_state.E + k2[1] / 2.0;
+    updatedState.I = current_state.I + k2[2] / 2.0;
+    updatedState.R = current_state.R + k2[3] / 2.0;
 
-    // 3rd order term in formula for S,E,I,R
+    // 3rd order term
     // k3 = f(S+h/2*k ,E+h/2*k2 ,I+h/2*k2 ,R+h/2*k2)
     std::array<double, 4> k3{};
     k3[0] = TIME_STEP * updatedState.dS_dt(beta, N);
@@ -139,12 +153,12 @@ State SEIR::RungeKuttaSolver(State const& oldState)
     k3[3] = TIME_STEP * updatedState.dR_dt(gamma);
 
     // update the state by the whole TIME_STEP
-    updatedState.S = oldState.S + k3[0];
-    updatedState.E = oldState.E + k3[1];
-    updatedState.I = oldState.I + k3[2];
-    updatedState.R = oldState.R + k3[3];
+    updatedState.S = current_state.S + k3[0];
+    updatedState.E = current_state.E + k3[1];
+    updatedState.I = current_state.I + k3[2];
+    updatedState.R = current_state.R + k3[3];
 
-    // 4th order term in formula for S,E,I,R
+    // 4th order term
     // k4 = f(S+h ,E+h ,I+h ,R+h)
     std::array<double, 4> k4{};
     k4[0] = TIME_STEP * updatedState.dS_dt(beta, N);
@@ -154,31 +168,56 @@ State SEIR::RungeKuttaSolver(State const& oldState)
 
     // calculating the values of S,E,I,R for the new state
     // yn+1= yn + 1/6(k1+2k2+2k3+k4)
-    newState.S = oldState.S + (k1[0] + 2.0 * k2[0] + 2.0 * k3[0] + k4[0]) / 6.0;
-    newState.E = oldState.E + (k1[1] + 2.0 * k2[1] + 2.0 * k3[1] + k4[1]) / 6.0;
-    newState.I = oldState.I + (k1[2] + 2.0 * k2[2] + 2.0 * k3[2] + k4[2]) / 6.0;
-    newState.R = oldState.R + (k1[3] + 2.0 * k2[3] + 2.0 * k3[3] + k4[3]) / 6.0;
+    newState.S = current_state.S + (k1[0] + 2.0 * k2[0] + 2.0 * k3[0] + k4[0]) / 6.0;
+    newState.E = current_state.E + (k1[1] + 2.0 * k2[1] + 2.0 * k3[1] + k4[1]) / 6.0;
+    newState.I = current_state.I + (k1[2] + 2.0 * k2[2] + 2.0 * k3[2] + k4[2]) / 6.0;
+    newState.R = current_state.R + (k1[3] + 2.0 * k2[3] + 2.0 * k3[3] + k4[3]) / 6.0;
 
-    // if one of SEIR is <0 set it to 0
+    // handle case when one variable is negative
+    if (newState.S < 0) newState.S = 0;
+    if (newState.E < 0) newState.E = 0;
+    if (newState.I < 0) newState.I = 0;
+    if (newState.R < 0) newState.R = 0;
+
     return newState;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////           PUBLIC METHODS            /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////// EVOLVE /////////////////
-void SEIR::evolve(std::vector<State>& states)
+void SEIR::evolve(std::vector<State>& states, bool method)
 {
     assert(states.empty());
-    states.reserve(t);
+    states.reserve(t); // allocated the needed space
 
     State current_state = S_0;
     State new_state;
 
-    states.push_back(current_state); // the first state corresponds to initial conditions
+    // set the initial conditions as the first state
+    states.push_back(current_state);
 
-    for (int i = 0; i < t; ++i)
+    ///////// Euler method to solve SEIR equations /////////
+    if (method == 0)
     {
-        new_state = RungeKuttaSolver(current_state); // calculate new state with Runge Kutta
-        states.push_back(new_state);                 // push into the SEIRulation
-        current_state = new_state;
+        for (int i = 0; i < t; ++i)
+        {
+            new_state = EulerSolver(current_state);
+            states.push_back(new_state);
+            current_state = new_state;
+        }
+        return;
+    }
+
+    ///////// Runge Kutta method to solve SEIR equations /////////
+    if (method == 1)
+    {
+        for (int i = 0; i < t; ++i)
+        {
+            new_state = RungeKuttaSolver(current_state);
+            states.push_back(new_state);
+            current_state = new_state;
+        }
     }
 }
 ///////////////// RATE OF CHANGE OF SUSCEPTIBLES /////////////////
