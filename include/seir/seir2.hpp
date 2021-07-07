@@ -2,12 +2,11 @@
 #define SEIRODE_HPP
 
 #include <iostream>
-#include <vector>
 
-namespace seir
+namespace RK_4
 {
 
-int constexpr time_step = 1;
+int constexpr TIME_STEP = 1; // days
 
 struct State
 {
@@ -16,42 +15,48 @@ struct State
     double I;
     double R;
 
-    double dS_dt(double beta, int N) const { return -(beta / N) * S * I; }
-    double dE_dt(double beta, double alpha, int N) const { return +beta * S * I / N - alpha * E; }
-    double dI_dt(double alpha, double gamma) const { return alpha * E - gamma * I; }
-    double dR_dt(double gamma) const { return +gamma * I; }
+    // susceptibles change rate
+    double dS_dt(double beta, int N) const;
+
+    // exposed change rate
+    double dE_dt(double beta, double alpha, int N) const;
+
+    // infected change rate
+    double dI_dt(double alpha, double gamma) const;
+
+    // Recovered change rate
+    double dR_dt(double gamma) const;
 };
 
-// class to solve SEIR characteristic system of differential equations
-class ode
+class SEIR
 {
   private:
-    int N; // population
-    int t; // time of the simulation(days)
-    State S_0;
-    double beta;
-    double alpha;
-    double gamma;
+    int N;        // total number of individuals
+    int t;        // duration time of the simualtion(days)
+    State S_0;    // initial state
+    double beta;  // average number of people infected by an infected in a day
+    double alpha; // parameter: inverse of disease incubation period
+    double gamma; // parameter: probability of recovery(or death) of an infected
 
   public:
-    // constructor of the class
-    ode(int population, int time, State S0, double beta, double alpha, double gamma);
-    ode(); // default constructor
+    // constructor
+    SEIR(int population, int time, State S0, double beta, double alpha, double gamma);
 
-    static bool is_valid(ode obj); // check whether the object is valid or not
-    uint population() const { return N; }
-    int simulation_time() const { return t; }
-    State initial_state() const { return S_0; }
+    // default constructor
+    SEIR();
 
-    State RungeKuttaSolver(const State& oldState); // returns the new state calculated
-                                                   // with RungeKutta 4th order method
+  private:
+    // returns newly calculated State using Runge Kutta method(4th order numerical approximation)
+    State RungeKuttaSolver(const State& oldState);
+
+    // check for the validity of a SEIR object
+    bool is_valid(SEIR obj);
+
+  public:
+    // performs the actual SEIRulation over the setted time interval
+    void evolve(std::vector<State>& states);
 };
 
-// The simulation output is a vector containing the States
-using Simulation = std::vector<State>;
-
-void simulation(ode sim, Simulation& result);
-
-} // namespace seir
+} // namespace RK_4
 
 #endif

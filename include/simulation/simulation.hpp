@@ -9,10 +9,10 @@ namespace smooth_sim
 
 struct Data
 {
-     int S;
-     int E;
-     int I;
-     int R;
+    int S;
+    int E;
+    int I;
+    int R;
 };
 
 class Simulation

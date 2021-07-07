@@ -45,10 +45,7 @@ void Simulation::move_white(Cluster& cluster, std::vector<double>& weights_v)
         }
         else if (p.at_target_location())
         {
-            if (p.stay_time() <= 0)
-            {
-                p.next_location(cluster.get_LATP(), sim_engine);
-            }
+            if (p.stay_time() <= 0) { p.next_location(cluster.get_LATP(), sim_engine); }
             else
             {
                 p.decrease_stay();
@@ -83,10 +80,7 @@ void Simulation::move_yellow(Cluster& cluster)
         }
         else if (p.at_target_location())
         {
-            if (p.stay_time() <= 0)
-            {
-                p.next_location(cluster.get_LATP(), sim_engine);
-            }
+            if (p.stay_time() <= 0) { p.next_location(cluster.get_LATP(), sim_engine); }
             else
             {
                 p.decrease_stay();
@@ -121,10 +115,7 @@ void Simulation::move_red(Cluster& cluster)
         }
         else if (p.at_target_location())
         {
-            if (p.stay_time() <= 0)
-            {
-                p.next_location(cluster.get_LATP(), sim_engine);
-            }
+            if (p.stay_time() <= 0) { p.next_location(cluster.get_LATP(), sim_engine); }
             else
             {
                 p.decrease_stay();
@@ -265,10 +256,12 @@ void Simulation::update_zones()
         {
             wrld.Clusters[i].set_zone(Zone::Red);
             wrld.Clusters[i].set_LATP(RED_ZONE_LATP_ALPHA);
-            for(auto& person: wrld.Clusters[i].people()){ //clean the path and check target location validity
+            for (auto& person : wrld.Clusters[i].people())
+            { // clean the path and check target location validity
                 clean_cluster_path(person);
-                if(person.get_target_location()->get_label() != i){ // if target location is not valid, select next location
-                    person.next_location(LATP,sim_engine);
+                if (person.get_target_location()->get_label() != i)
+                { // if target location is not valid, select next location
+                    person.next_location(LATP, sim_engine);
                 }
             }
         }
@@ -276,10 +269,12 @@ void Simulation::update_zones()
         {
             wrld.Clusters[i].set_zone(Zone::Yellow);
             wrld.Clusters[i].set_LATP(YELLOW_ZONE_LATP_ALPHA);
-            for(auto& person: wrld.Clusters[i].people()){ //clean the path and check target location validity
+            for (auto& person : wrld.Clusters[i].people())
+            { // clean the path and check target location validity
                 clean_cluster_path(person);
-                if(person.get_target_location()->get_label() != i){ // if target location is not valid, select next location
-                    person.next_location(LATP,sim_engine);
+                if (person.get_target_location()->get_label() != i)
+                { // if target location is not valid, select next location
+                    person.next_location(LATP, sim_engine);
                 }
             }
         }
@@ -287,10 +282,12 @@ void Simulation::update_zones()
         {
             wrld.Clusters[i].set_zone(Zone::Green);
             wrld.Clusters[i].set_LATP(WHITE_ZONE_LATP_ALPHA);
-            for(auto& person: wrld.Clusters[i].people()){ //clean the path and check target location validity
+            for (auto& person : wrld.Clusters[i].people())
+            { // clean the path and check target location validity
                 clean_path(person);
-                if(wrld.Clusters[person.get_target_location()->get_label()].get_zone() != Zone::Green){ // if target location is not valid, select next location
-                    person.next_location(LATP,sim_engine);
+                if (wrld.Clusters[person.get_target_location()->get_label()].get_zone() != Zone::Green)
+                { // if target location is not valid, select next location
+                    person.next_location(LATP, sim_engine);
                 }
             }
         }
@@ -374,7 +371,8 @@ void Simulation::clean_path(Mobility_model& person)
 {
     for (unsigned long i = 0; i < person.path().size(); ++i)
     {
-        if (wrld.Clusters[person.path()[i]->get_label()].get_zone() != Zone::Green) // check if the location is in a Green Cluster
+        if (wrld.Clusters[person.path()[i]->get_label()].get_zone() !=
+            Zone::Green) // check if the location is in a Green Cluster
         {
             // access the vector from opposite size, so to check all the elements correctly since erasing element
             // copy the last element of the vector to the current
@@ -389,7 +387,8 @@ void Simulation::clean_cluster_path(Mobility_model& person)
 {
     for (unsigned long i = 0; i < person.path().size(); ++i)
     {
-        if (person.path()[i]->get_label() != person.get_label()) // check if the location is in the same cluster iun which the person reside
+        if (person.path()[i]->get_label() !=
+            person.get_label()) // check if the location is in the same cluster iun which the person reside
         {
             // access the vector from opposite size, so to check all the elements correctly since erasing element
             // copy the last element of the vector to the current

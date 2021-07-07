@@ -16,17 +16,18 @@
 
 int main(int argc, char* argv[])
 {
-    using namespace seir;
+    using namespace RK_4;
 
     // default simulation parameters
-    int pop{0};
-    int sim_time{0};
-    double param1{0.0}; // beta
-    double param2{0.0}; // alpha
-    double param3{0.0}; // gamma
-    // initialState
-    State start{(double)pop, 0.0, 1.0, 0.0};
-    ode conditions;
+    int population{};
+    int sim_time{};
+    double param1{};       // beta
+    double param2{};       // alpha
+    double param3{};       // gamma
+    State initial_state{}; // initial state
+
+    // construct a simulation with chosen default values
+    SEIR simulation{};
 
     // input quest
     std::string answer;
@@ -38,7 +39,7 @@ int main(int argc, char* argv[])
         if (answer == "y" || answer == "yes" || answer == "Y")
         {
             std::cout << std::setw(15) << "Population : ";
-            std::cin >> pop;
+            std::cin >> population;
             std::cout << std::setw(15) << "Simulation time(days) : ";
             std::cin >> sim_time;
             std::cout << std::setw(15) << "Parameter beta : ";
@@ -48,16 +49,16 @@ int main(int argc, char* argv[])
             std::cout << std::setw(15) << "Parameter gamma : ";
             std::cin >> param3;
             std::cout << std::setw(15) << "Susceptible individuals : ";
-            std::cin >> start.S;
+            std::cin >> initial_state.S;
             std::cout << std::setw(15) << "Latent individuals : ";
-            std::cin >> start.E;
+            std::cin >> initial_state.E;
             std::cout << std::setw(15) << "Infected individuals : ";
-            std::cin >> start.I;
+            std::cin >> initial_state.I;
             std::cout << std::setw(15) << "Removed individuals : ";
-            std::cin >> start.R;
+            std::cin >> initial_state.R;
             try
             {
-                conditions = {pop, sim_time, start, param1, param2, param3};
+                simulation = {population, sim_time, initial_state, param1, param2, param3};
             }
             catch (std::runtime_error const& e)
             {
@@ -75,10 +76,11 @@ int main(int argc, char* argv[])
             std::cout << "ERROR: input not supported, Type y or n." << std::endl;
         }
     }
-    Simulation mysimulation;
 
-    simulation(conditions, mysimulation);
-    std::ofstream out{"output.txt"};
+    std::vector<State> states{};
+
+    // perform the simulation filling states vector with all the states over time
+    simulation.evolve(states);
 
     std::cout << "┌─────┬───────────────┬───────────────┬───────────────┬────────"
                  "───────┐"
@@ -90,10 +92,8 @@ int main(int argc, char* argv[])
                  "───────├"
               << std::endl;
     int t1 = 1;
-    for (auto& a : mysimulation)
+    for (auto& a : states)
     {
-        out << "S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
-
         std::cout << std::setprecision(9) << std::left << "│" << std::setw(5) << t1 << "│" << std::setw(15) << a.S
                   << "│" << std::setw(15) << a.E << "│" << std::setw(15) << a.I << "│" << std::setw(15) << a.R << "│"
                   << std::endl;
@@ -103,7 +103,8 @@ int main(int argc, char* argv[])
                  "───────┘"
               << std::endl;
 
-    // ROOT CODE
+    ///////////////// ROOT CODE /////////////////
+
     TApplication app("app", &argc, argv);
 
     auto c0 = new TCanvas("c0", "Epidemic evolution");
@@ -119,7 +120,7 @@ int main(int argc, char* argv[])
     mg->SetTitle("Evolution; time (days); number of people");
 
     int t = 0;
-    for (auto a : mysimulation)
+    for (auto a : states)
     {
         gS->SetPoint(t, t, a.S);
         gE->SetPoint(t, t, a.E);

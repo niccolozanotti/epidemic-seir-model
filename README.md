@@ -1,8 +1,8 @@
 # Epidemic simulation
 This project represents the solution which we, Niccolò Zanotti and Filippo Pretolani, two Physics Undegraduates studying at
 University of Bologna, gave to our University Programming Course [final assignment][assignment].
-<!-- put relative path to extern -->
-We collaborated on writing the source code found in this repository except for, of course, external libraries [code](##Building)
+Except for external libraries [code](extern/ExternLibraries.md#external-libraries), we elaborated all the source code
+available in this repository.
 
 The project is made up of 2 main parts:
 
@@ -277,3 +277,5 @@ The test are(TO FILL):
 [randutils_web]:https://gist.github.com/imneme/540829265469e673d045
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
 [seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
+
+[Building]: #building
