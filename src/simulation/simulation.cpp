@@ -47,7 +47,6 @@ void Simulation::move_white(Cluster& cluster, std::vector<double>& weights_v)
         {
             if (p.stay_time() <= 0)
             {
-                clean_path(p);
                 p.next_location(cluster.get_LATP(), sim_engine);
             }
             else
@@ -86,7 +85,6 @@ void Simulation::move_yellow(Cluster& cluster)
         {
             if (p.stay_time() <= 0)
             {
-                clean_path(p);
                 p.next_location(cluster.get_LATP(), sim_engine);
             }
             else
@@ -125,7 +123,6 @@ void Simulation::move_red(Cluster& cluster)
         {
             if (p.stay_time() <= 0)
             {
-                clean_path(p);
                 p.next_location(cluster.get_LATP(), sim_engine);
             }
             else
@@ -263,20 +260,39 @@ void Simulation::update_zones()
     for (unsigned long i = 0; i < wrld.Clusters.size(); ++i)
     {
         Data data = get_Cluster_data(i);
+        double LATP = wrld.Clusters[i].get_LATP();
         if (static_cast<double>(data.I) / static_cast<double>(data.S) >= RED_ZONE_CONDITION)
         {
             wrld.Clusters[i].set_zone(Zone::Red);
             wrld.Clusters[i].set_LATP(RED_ZONE_LATP_ALPHA);
+            for(auto& person: wrld.Clusters[i].people()){ //clean the path and check target location validity
+                clean_cluster_path(person);
+                if(person.get_target_location()->get_label() != i){ // if target location is not valid, select next location
+                    person.next_location(LATP,sim_engine);
+                }
+            }
         }
         else if (static_cast<double>(data.I) / static_cast<double>(data.S) >= YELLOW_ZONE_CONDITION)
         {
             wrld.Clusters[i].set_zone(Zone::Yellow);
             wrld.Clusters[i].set_LATP(YELLOW_ZONE_LATP_ALPHA);
+            for(auto& person: wrld.Clusters[i].people()){ //clean the path and check target location validity
+                clean_cluster_path(person);
+                if(person.get_target_location()->get_label() != i){ // if target location is not valid, select next location
+                    person.next_location(LATP,sim_engine);
+                }
+            }
         }
         else
         {
             wrld.Clusters[i].set_zone(Zone::Green);
             wrld.Clusters[i].set_LATP(WHITE_ZONE_LATP_ALPHA);
+            for(auto& person: wrld.Clusters[i].people()){ //clean the path and check target location validity
+                clean_path(person);
+                if(wrld.Clusters[person.get_target_location()->get_label()].get_zone() != Zone::Green){ // if target location is not valid, select next location
+                    person.next_location(LATP,sim_engine);
+                }
+            }
         }
     }
 }
@@ -353,12 +369,12 @@ void Simulation::move()
         }
     }
 }
-///////////////// CLEAN PATH OF A MODELED PERSON /////////////////
+///////////////// CLEAN PATH OF A PERSON IN GREEN CLUSTER /////////////////
 void Simulation::clean_path(Mobility_model& person)
 {
     for (unsigned long i = 0; i < person.path().size(); ++i)
     {
-        if (wrld.Clusters[person.path()[i]->get_label()].get_zone() != Zone::Green)
+        if (wrld.Clusters[person.path()[i]->get_label()].get_zone() != Zone::Green) // check if the location is in a Green Cluster
         {
             // access the vector from opposite size, so to check all the elements correctly since erasing element
             // copy the last element of the vector to the current
@@ -368,6 +384,22 @@ void Simulation::clean_path(Mobility_model& person)
         }
     }
 }
+///////////////// CLEAN PATH OF A PERSON IN A YELLOW OR RED CLUSTER /////////////////
+void Simulation::clean_cluster_path(Mobility_model& person)
+{
+    for (unsigned long i = 0; i < person.path().size(); ++i)
+    {
+        if (person.path()[i]->get_label() != person.get_label()) // check if the location is in the same cluster iun which the person reside
+        {
+            // access the vector from opposite size, so to check all the elements correctly since erasing element
+            // copy the last element of the vector to the current
+            person.path()[i] = person.path()[person.path().size() - 1];
+            person.path().pop_back();
+            --i;
+        }
+    }
+}
+
 ///////////////// PERFORM THE SIMULATION /////////////////
 void Simulation::simulate()
 {

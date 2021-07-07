@@ -27,6 +27,11 @@ Person Mobility_model::get_person() const
 {
     return pers;
 }
+///////////////// TARGET LOCATION /////////////////
+Location * Mobility_model::get_target_location()
+{
+    return target_location;
+}
 ///////////////// IS THE PERSON AT HIS/HER TARGET LOCATION? /////////////////
 bool Mobility_model::at_target_location() const
 {

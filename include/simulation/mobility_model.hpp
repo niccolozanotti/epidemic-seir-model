@@ -29,6 +29,9 @@ class Mobility_model
     // returns the person subject to the model
     Person get_person() const;
 
+    // returns the target location
+    Location* get_target_location();
+
     // returns true if the person is currently inside its current target location(in location radius), false otherwise
     bool at_target_location() const;
 
