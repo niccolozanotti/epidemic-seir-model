@@ -6,7 +6,6 @@ build-release
 .idea
 *.swp
 *.DS_Store
-########################## PRE-MADE############
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
