@@ -2,7 +2,7 @@
 This project represents the solution which we, Niccolò Zanotti and Filippo Pretolani, two Physics Undegraduates studying at
 University of Bologna, gave to our University Programming Course [final assignment][assignment].
 <!-- put relative path to extern -->
-We collaborated on writing the source code found in this repository except for, of course, external libraries [code][ext]
+We collaborated on writing the source code found in this repository except for, of course, external libraries [code](#Simulation)
 
 The project is made up of 2 main parts:
 
@@ -271,7 +271,6 @@ The test are(TO FILL):
 --------------------------------------------------------------------------------
 ## Additional Notes
 
-<!-- [ext](extern) -->
 [euler]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
 [rk4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
 [assignment]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
