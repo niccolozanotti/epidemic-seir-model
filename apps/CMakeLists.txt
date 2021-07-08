@@ -40,7 +40,8 @@ add_executable(sim-graphics main-sim-graphics.cpp)
 target_compile_features(sim-graphics PRIVATE cxx_std_17)
 target_compile_options(sim-graphics PRIVATE -Wall -Wextra -fsanitize=address)
 target_link_options(sim-graphics PRIVATE -fsanitize=address)
-target_link_libraries(sim-graphics PRIVATE  simulation
+target_link_libraries(sim-graphics PRIVATE  display
+                                            simulation
                                             mobility_model
                                             person
                                             world

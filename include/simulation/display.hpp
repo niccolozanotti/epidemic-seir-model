@@ -9,24 +9,36 @@ namespace smooth_sim{
 
 class Display{
   private:
-    sf::RenderWindow window; // window where all will be rendered
-    sf::VertexArray clusters; // vertex array that represent the clusters
-    sf::VertexArray borders; // vertex array that represent the clusters borders
-    sf::VertexArray locations; // vertex array that represent the locations
+    Simulation* sim; //pointer to the simulation ti display
+    sf::RenderWindow &Window; // reference to the window where all will be rendered
+    sf::VertexArray Clusters; // vertex array that represent the clusters
+    sf::VertexArray Borders; // vertex array that represent the clusters borders
+    sf::VertexArray Locations; // vertex array that represent the locations
     // vertex arrays that are used for the graph
+    unsigned Graph_width;
+    double dx; //increment for every step of the graph
+    double coeff; // coefficient that make sure the graphs stay in the window
+    double offset; // offset to plot the graphs, it's equivalent to the side of the simulation
     sf::VertexArray Susceptible;
     sf::VertexArray Exposed;
     sf::VertexArray Infected;
     sf::VertexArray Recovered;
   public:
-    Display(Simulation& simulation, double Graph_width);
+    Display(Simulation& simulation, sf::RenderWindow &window, unsigned Graph_width);
 
   private:
     //generate the vertex array population
-    sf::VertexArray population(Simulation& simulation);
+    sf::VertexArray population();
 
     //color the clusters
-    void Color_clusters(Simulation& simulation);
+    void Color_clusters();
+
+    //update the Graphs
+    void update_graphs();
+
+  public:
+    // update arrays and draw
+    void Draw();
 };
 
 }

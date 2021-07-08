@@ -9,13 +9,13 @@ namespace smooth_sim
 ////////////////////////////////////////////////////////
 /////               WORLD CONSTRUCTOR             //////
 ////////////////////////////////////////////////////////
-World::World(double Side_length, int number_of_clusters, int number_of_locations, int S, int E, int I, int R)
-    : wrld_eng{}
+World::World(unsigned Side_length, int number_of_clusters, int number_of_locations, int S, int E, int I, int R)
+    : wrld_eng{}, Side{Side_length}
 {
     ///////// Area partitioning  /////////
 
     Position blh_corner{0, 0};
-    Position trh_corner{Side_length, Side_length};
+    Position trh_corner{static_cast<double>(Side_length), static_cast<double>(Side_length)};
     Area = {blh_corner, trh_corner};
     std::vector<Rectangle> cluster_areas = Area.divide(number_of_clusters);
 
@@ -160,6 +160,11 @@ unsigned World::people_num() const
 std::vector<Cluster> World::get_clusters() const
 {
     return Clusters;
+}
+///////////////// GET AREA SIDE /////////////////
+unsigned World::get_side() const
+{
+    return Side;
 }
 ///////////////// REFERENCE TO CLUSTERS /////////////////
 std::vector<Cluster>& World::clusters()

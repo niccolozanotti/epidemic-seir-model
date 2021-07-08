@@ -10,10 +10,11 @@ class World
     Rectangle Area;
     std::vector<Cluster> Clusters;
     Random wrld_eng;
+    unsigned Side;
 
   public:
     // Constructor
-    World(double Side_length, int number_of_clusters, int number_of_locations, int S, int E, int I, int R);
+    World(unsigned Side_length, int number_of_clusters, int number_of_locations, int S, int E, int I, int R);
 
     // Disable compiler generated default constructor
     World() = delete;
@@ -45,6 +46,9 @@ class World
 
     // returns vector containing clusters in World
     std::vector<Cluster> get_clusters() const;
+
+    // return side of Area
+    unsigned get_side() const;
 
     // returns reference to the vector containing all World's clusters
     std::vector<Cluster>& clusters();
