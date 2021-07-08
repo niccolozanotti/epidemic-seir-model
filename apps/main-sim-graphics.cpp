@@ -2,12 +2,10 @@
 #include <chrono>
 #include <cmath>
 #include <iostream>
-//////  SFML GRAPHICS LIBRARY //////
-#include <SFML/Graphics.hpp>
 //////  LYRA (CMD LINE PARSER) //////
 #include <Lyra/lyra.hpp>
 ////// PROJECT HEADERS //////
-#include "display.hpp"
+#include "../src/simulation/graphics/display.hpp"
 #include "simulation.hpp"
 
 using namespace smooth_sim;

@@ -3,7 +3,6 @@
 include("${ROOT_USE_FILE}")
 separate_arguments(ROOT_EXE_LINKER_FLAGS)
 
-
 ##############################################################################################
 add_executable(seir main-seir.cpp)
 target_compile_features(seir PRIVATE cxx_std_17)
@@ -50,7 +49,7 @@ target_link_libraries(sim-graphics PRIVATE  display
                                             rectangle
                                             location
                                             position
-                                            display
+                                            graphics
                                             random)
 target_link_libraries(sim-graphics PRIVATE lyra)
 target_link_libraries(sim-graphics PRIVATE sfml-graphics)

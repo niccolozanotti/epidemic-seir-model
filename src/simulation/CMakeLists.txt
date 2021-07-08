@@ -79,13 +79,7 @@ target_compile_options(simulation PRIVATE -Wall -Wextra -fsanitize=address)
 target_link_options(simulation PRIVATE -fsanitize=address)
 target_clangformat_setup(simulation) ##allow for code formatting
 
-########## DISPLAY  #############
-add_library(display display.cpp ${HEADER_LIST_SIM})
-target_include_directories(display PUBLIC ../../include/simulation)
-target_compile_features(display PUBLIC cxx_std_17)
-target_compile_options(display PRIVATE -Wall -Wextra -fsanitize=address)
-target_link_options(display PRIVATE -fsanitize=address)
-target_clangformat_setup(display) ##allow for code formatting
+
 
 source_group(
         TREE "${PROJECT_SOURCE_DIR}/include/simulation"
