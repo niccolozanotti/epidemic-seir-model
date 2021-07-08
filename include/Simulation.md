@@ -150,6 +150,52 @@ The spread function check every *Exposed* and *Infected* person in the world.
           at home, to see if they become *Exposed* using `beta` probability.
         * If it is *Yellow* or *Red* it only checks all person in the same cluster of the person.
     * It checks if it becomes *Recovered*  using `gamma` probabilty.
+    
+### Display
+The display class is used to display the simulation. We used SFML for everything.
+The class has 13 private members:
+1. `sim` Pointer to the Simulation object that will be displayed.
+2. `Window` a reference to the window in which everything will be displayed.
+3. `Cluster` a Vertex Array of *sf::Quads* primitive to draw the Clusters.
+4. `Borders` a Vertex Array of *sf::Lines* primitive to draw the Clusters Borders.
+5. `Locations` a Vertex Array of *sf::Triangles* primitive to draw octagon that represents the various locations
+and their radius.
+6. `Graph_width` The width of the Graph.
+7. `coeff` a coefficient to adapt the values of S to the Height of the windows so that the plotted graphs use
+the entire window.
+8. `dx` the increment used to plot the graphs.
+9. `offset` offset needed to draw the graphs, it ha the same value of the world side in sim.
+10. `Susceptible` a Vertex Array of *sf::LineStrip* primitive to plot the graph of susceptible people.
+11. `Exposed` a Vertex Array of *sf::LineStrip* primitive to plot the graph of exposed people.
+12. `Infected` a Vertex Array of *sf::LineStrip* primitive to plot the graph of infected people.
+13. `Recovered` a Vertex Array of *sf::LineStrip* primitive to plot the graph of recovered people.
+
+It's functions are:
+* `Color_clusters()` which checks the cluster color and color the vertexes of the cluster to color
+  it when it is drawn;
+* `population()` which checks every person and create a Vertex Array of *sf::Quads* primitive to draw every
+person.
+* `update_graphs()` add the next point to all graphs.
+* `Draw()` draw all Vertex arrays using *sf::Window::draw()*.
+
+The colors of the objects are chosen as follows:
+
+Clusters:
+
+| Color     | meaning                                |
+| --------- | -------------------------------------- |
+| ![green]  | When *Cluster::zone* is `Zone::Green`  |
+| ![yellow] | When *Cluster::zone* is `Zone::Yellow` |
+| ![red]    | When *Cluster::zone* is `Zone::Red`    |
+
+People:
+
+| Color     | meaning                                |
+| --------- | -------------------------------------- |
+| ![green]  | When *Person::Status* is `Status::S`   |
+| ![yellow] | When *Person::Status* is `Status::E`   |
+| ![red]    | When *Person::Status* is `Status::I`   |
+| ![red]    | When *Person::Status* is `Status::R`   |
 
 ### Random
 This class implements the random generation features critical for this project. It  making use of the header-only library
@@ -166,3 +212,7 @@ achieved through std::random_device. Additionally it implements some random oper
 [randutils_web]:https://gist.github.com/imneme/540829265469e673d045
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
 [seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
+
+[green]: asset/
+[yellow]: asset/
+[red]: asset/
