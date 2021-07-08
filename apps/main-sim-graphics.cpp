@@ -6,35 +6,30 @@
 #include "../src/simulation/graphics/display.hpp"
 #include "simulation.hpp"
 
-using namespace smooth_sim;
+
 
 int main(int argc,char** argv)
 {
 
+    /* clang-format off */
     ///////////////////////  Simulation input parameters ///////////////////////
     bool get_help = false;
-
-    bool def_sim {false};
-    // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
-    bool default_seir {true};
+    bool def_sim {false};     //should the simulation be performed with default parameters?
+    bool default_seir {true};          // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
     bool clusters_and_locations {false}; // are both clusters and locations values get specified?
     bool default_params {true};
-    int people {25000};
-    int susceptibles {};
-    int exposed {};
-    int infected {};
-    int recovered {};
-    int locations {};
-    int clusters {};
-    int side {};
-    double alpha {0.1};
-    double beta {0.2};
-    double gamma {0.02};
-    double spread_radius {1};
-    double time_in_days {10};
-    int choice {0};
-
-    /* clang-format off */
+    int people{};
+    static int susceptibles{};
+    static int exposed{};
+    static int infected{};
+    static int recovered{};
+    static int locations{};
+    static int clusters{};
+    int side{};
+    double alpha{};
+    double beta{};
+    double gamma{};
+    double spread_radius{};
 
     lyra::cli cli;  //command line input
 
@@ -51,22 +46,22 @@ int main(int argc,char** argv)
                                   .add_argument(lyra::opt(susceptibles, "Susceptibles")
                                                 ["-S"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0;})
+                                                        .choices([](int value){ return value > 0 && value < 70000;})
                                                         .help("Susceptible individuals in the simulation."))
                                   .add_argument(lyra::opt(exposed, "Exposed")
                                                 ["-E"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0;})
+                                                        .choices([](int value){ return value >= 0 && value < susceptibles;})
                                                         .help("Exposed individuals in the simulation."))
                                   .add_argument(lyra::opt(infected, "Infected")
                                                 ["-I"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0;})
+                                                        .choices([](int value){ return value >=0 && value < susceptibles;})
                                                         .help("Infected individuals in the simulation."))
                                   .add_argument(lyra::opt(recovered, "Recovered")
                                                 ["-R"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0;})
+                                                        .choices([](int value){ return value >= 0 && value < 70000;})
                                                         .help("Recovered individuals in the simulation."))) //end group
             .add_argument(lyra::opt(locations, "locations")
                           ["-l"]["--loc"]
@@ -74,7 +69,7 @@ int main(int argc,char** argv)
                                   .help("How many locations should there be on the map?"))
             .add_argument(lyra::opt(clusters, "clusters")
                           ["-c"]["--clust"]
-                                  .choices([](int value){ return value >= 0;})
+                                  .choices([](int value){ return value > 0 && value < 40;})
                                   .help("How many cluster should the area be divided into?"))
             .add_argument(lyra::group([&](const lyra::group &) {
                 clusters_and_locations = true;
@@ -82,15 +77,15 @@ int main(int argc,char** argv)
                                   .add_argument(lyra::opt(locations, "locations")
                                                 ["-l"]["--loc"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0;})
+                                                        .choices([](int value){ return value / clusters >= MINIMUM_LOC_CLUST_RATIO; })
                                                         .help("How many locations should there be on the map?"))
                                   .add_argument(lyra::opt(clusters, "clusters")
                                                 ["-c"]["--cl"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0;})
+                                                        .choices([](int value){ return locations / value >= MINIMUM_LOC_CLUST_RATIO; })
                                                         .help("How many cluster should the area be divided into?")))//end group
             .add_argument(lyra::group([&](const lyra::group &) {
-                default_params = true;
+                default_params = false;
             })
                                   .add_argument(lyra::opt(alpha, "alpha")
                                                 ["-a"]["--alpha"]
@@ -103,7 +98,12 @@ int main(int argc,char** argv)
                                   .add_argument(lyra::opt(gamma, "gamma")
                                                 ["-g"]["--gamma"]
                                                         .choices([](double value){ return value >= 0.0 && value <= 1.0;})
-                                                        .help("Parameter: cumulative probability for a person to recover or die."))); //end group
+                                                        .help("Parameter: cumulative probability for a person to recover or die."))) //end group
+            .add_argument(lyra::opt(side, "side")
+                          ["--sd"]["--side"]
+                                  .choices([](int value){ return value >=locations;})
+                                  .help("How big should the simulation area side be"));
+
     /* clang-format on */
 
     // Parse the program arguments:
@@ -124,6 +124,14 @@ int main(int argc,char** argv)
         return 0;
     }
 
+
+    // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
+    if (def_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != DEF_SIDE || spread_radius != DEF_SPREAD_RADIUS))
+    {
+        std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by the user\n";
+        std::cerr << "Use --def 1 (or --default 1) without any other argument to simulate with default values"<<std::endl;
+        return EXIT_FAILURE;
+    }
     //////// Perform simulation with default chosen parameters ////////
     if (def_sim)
     {
@@ -137,11 +145,31 @@ int main(int argc,char** argv)
         alpha = DEF_ALPHA;
         beta = DEF_BETA;
         gamma = DEF_GAMMA;
+        side = DEF_SIDE;
         spread_radius = 1;
     }
-        //////// The user has chosen to set the parameters himself ////////
+        //////// The user has chosen to set simulation parameters himself ////////
     else
     {
+        // handle missing input cases
+        if (default_seir && people == 0)
+        {
+            std::cerr << "At least one parameter among 'people' and the group 'S,E,I,R' must be specified." << std::endl;
+            return EXIT_FAILURE;
+        }
+        if (!clusters_and_locations && locations == 0 && clusters == 0)
+        {
+            std::cerr << "At least one parameter among 'clusters' and 'locations' must be specified." << std::endl;
+            return EXIT_FAILURE;
+        }
+        // only simulation people number have been specified: set S,E,I,R default ratio among people
+        if (default_seir)
+        {
+            susceptibles = people * DEF_S;
+            exposed = people * DEF_E;
+            infected= people * DEF_I;
+            recovered = people * DEF_R;
+        }
         // only clusters have been specified leaving locations out
         if (!clusters_and_locations && locations == 0 && clusters > 0)
         {
@@ -152,20 +180,28 @@ int main(int argc,char** argv)
         {
             clusters = locations / 150;
         }
-        else if (!clusters_and_locations && locations == 0 && clusters == 0) {
-            std::cerr << "At least one parameter among 'clusters' and 'locations' must be specified." << std::endl;
-            return EXIT_FAILURE;
+
+        // automatically set the chosen epidemic parameters if not specified in the command line
+        if (default_params)
+        {
+            alpha = DEF_ALPHA;
+            beta = DEF_BETA;
+            gamma = DEF_GAMMA;
         }
+
+        spread_radius = (double)(side) / 1000.0;  //TODO determine a smart way to do that
 
     }
 
     std::cout << "Clusters == " <<clusters<<"\t Locations == "<<locations<<std::endl;
     std::cout << "People == " <<people<<std::endl;
     std::cout << "S == " <<susceptibles<<"\nE == "<<exposed<<"\nI == "<<infected <<"\nR == "<<recovered<<std::endl;
+    std::cout << "Simulation side == "<< side << "\t Spread radius == "<<spread_radius<<std::endl;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     std::cout << "Width and height of your screen "<< std::endl;
     std::cout << sf::VideoMode::getDesktopMode().width <<std::endl;
     std::cout << sf::VideoMode::getDesktopMode().height <<std::endl;
+    using namespace smooth_sim;
     unsigned Graph_width = 800;
     Simulation prova {susceptibles,exposed,infected,recovered,clusters,locations,side,alpha,beta,gamma,spread_radius};
     std::vector<Data> Result = {prova.get_data()};
