@@ -33,4 +33,22 @@ target_link_libraries(sim.t PRIVATE     simulation
                                         random)
 add_test(NAME sim.t COMMAND sim.t )
 
+add_executable(test3 test3.cpp $<TARGET_OBJECTS:test_main>)
+
+target_include_directories(test3 PUBLIC ../include/simulation
+        ../extern/doctest/doctest)
+target_compile_features(test3 PRIVATE cxx_std_17)
+target_compile_options(test3 PRIVATE -Wall -Wextra -fsanitize=address)
+target_link_options(test3 PRIVATE -fsanitize=address)
+target_link_libraries(test3 PRIVATE     simulation
+                                        mobility_model
+                                        person
+                                        world
+                                        cluster
+                                        group
+                                        rectangle
+                                        location
+                                        position
+                                        random)
+add_test(NAME test3 COMMAND test3 )
 
