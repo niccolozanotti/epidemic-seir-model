@@ -1,11 +1,9 @@
-
-#include "seir.hpp"
-
-////////STANDARD ///////
+////////  STL ///////
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-
+//////  LYRA (CMD LINE PARSER) //////
+#include <lyra/lyra.hpp>
 /////////  ROOT  ///////
 #include "TApplication.h"
 #include "TCanvas.h"
@@ -13,75 +11,185 @@
 #include "TGraph.h"
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
+////// PROJECT HEADERS //////
+#include "seir.hpp"
 
 int main(int argc, char* argv[])
 {
-    using namespace seir;
+    // Default simulation parameters
+    int constexpr DEF_PEOPLE = 25000;
+    double constexpr DEF_S = 0.95;
+    double constexpr DEF_E = 0.03;
+    double constexpr DEF_I = 0.015;
+    double constexpr DEF_R = 0.005;
+    double constexpr DEF_ALPHA = 0.3;
+    double constexpr DEF_BETA = 0.1;
+    double constexpr DEF_GAMMA = 0.05;
+    int constexpr DEF_TIME = 300;
+    ////////////////////////////////////////////////  INPUT COLLECTION  ////////////////////////////////////////////////
 
-    bool use_rk4 = false;
-    // default simulation parameters
-    int population{};
-    int sim_time{};
-    double param1{};       // beta
-    double param2{};       // alpha
-    double param3{};       // gamma
-    State initial_state{}; // initial state
+    /* clang-format off */
 
-    // construct a simulation with chosen default values
-    SEIR simulation{};
+    bool get_help = false;               // evaluates true if there's any lyra-detected input error
+    bool def_sim {false};                //should the simulation be performed with default parameters?
+    bool default_seir {true};            // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
+    bool default_params {true};          // should default values for alpha,beta and gamma be used rather than user defined?
+    bool numerical_method {0};          //method use to solve SEIR ode system(Euler method by default)
+    int people{};
+    static int susceptibles{};
+    static int exposed{};
+    static int infected{};
+    static int recovered{};
+    double alpha{};
+    double beta{};
+    double gamma{};
+    int time{};
 
-    // input quest
-    std::string answer;
-    std::cout << "Do you want to set the simulation parameters yourself?" << std::endl;
-    std::cout << "Type y or n." << std::endl;
-    //////////FARE ERROR CHECKING (COME CHIAMARE ISVALID)
-    while (std::cin >> answer)
+
+    lyra::cli cli;  //Lyra object: command line input
+
+    cli.add_argument(lyra::help(get_help))
+            .add_argument(lyra::opt(def_sim, "default")
+                          ["--def"]["--default"]
+                                  .help("Perform the simulation with default chosen values"))
+            .add_argument(lyra::opt(numerical_method, "numerical method")
+                          ["-m"]["--method"]
+                                  .help("Numerical method used to solve SEIR odes: \n'0'(false)-->Euler Method\n'1'(true)-->Runge Kutta Method\n"))
+            .add_argument(lyra::opt(people, "people")
+                          ["-p"]["--people"]
+                                  .choices([](int value){ return value > 0;})
+                                  .help("How many people should there be in the simulation?"))
+            .add_argument(lyra::group([&](const lyra::group &) {
+                default_seir = false;
+            })
+                                  .add_argument(lyra::opt(susceptibles, "Susceptibles")
+                                                ["-S"]
+                                                        .required()
+                                                        .choices([](int value){ return value > 0 && value < 70000;})
+                                                        .help("Susceptible individuals in the simulation."))
+                                  .add_argument(lyra::opt(exposed, "Exposed")
+                                                ["-E"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0 && value < susceptibles;})
+                                                        .help("Exposed individuals in the simulation."))
+                                  .add_argument(lyra::opt(infected, "Infected")
+                                                ["-I"]
+                                                        .required()
+                                                        .choices([](int value){ return value >=0 && value < susceptibles;})
+                                                        .help("Infected individuals in the simulation."))
+                                  .add_argument(lyra::opt(recovered, "Recovered")
+                                                ["-R"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0 && value < 70000;})
+                                                        .help("Recovered individuals in the simulation."))) //end group
+            .add_argument(lyra::group([&](const lyra::group &) {
+                default_params = false;
+            })
+                                  .add_argument(lyra::opt(alpha, "alpha")
+                                                ["-a"]["--alpha"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: governs the lag between infectious contact and showing symptoms."))
+                                  .add_argument(lyra::opt(beta, "beta")
+                                                ["-b"]["--beta"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: number of people an infective person infects each day."))
+                                  .add_argument(lyra::opt(gamma, "gamma")
+                                                ["-g"]["--gamma"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: cumulative probability for a person to recover or die."))) //end group
+            .add_argument(lyra::opt(time, "time")
+                          ["-t"]["--time"]
+                                  .choices([](int value){ return value > 0;})
+                                  .help("How many days should the simulation last for?"));
+
+    /* clang-format on */
+
+    // Parse the program arguments:
+    auto result = cli.parse({argc, argv});
+
+    // Check that the arguments validity
+    if (!result)
     {
-        if (answer == "y" || answer == "yes" || answer == "Y")
-        {
-            std::cout << std::setw(15) << "Population : ";
-            std::cin >> population;
-            std::cout << std::setw(15) << "Simulation time(days) : ";
-            std::cin >> sim_time;
-            std::cout << std::setw(15) << "Parameter beta : ";
-            std::cin >> param1;
-            std::cout << std::setw(15) << "Parameter alpha : ";
-            std::cin >> param2;
-            std::cout << std::setw(15) << "Parameter gamma : ";
-            std::cin >> param3;
-            std::cout << std::setw(15) << "Susceptible individuals : ";
-            std::cin >> initial_state.S;
-            std::cout << std::setw(15) << "Latent individuals : ";
-            std::cin >> initial_state.E;
-            std::cout << std::setw(15) << "Infected individuals : ";
-            std::cin >> initial_state.I;
-            std::cout << std::setw(15) << "Removed individuals : ";
-            std::cin >> initial_state.R;
-            try
-            {
-                simulation = {population, sim_time, initial_state, param1, param2, param3};
-            }
-            catch (std::runtime_error const& e)
-            {
-                std::cerr << "Runtime error: " << e.what() << std::endl;
-                return 1;
-            }
-            break;
-        }
-        else if (answer == "n" || answer == "no" || answer == "N")
-        {
-            break;
-        }
-        else
-        {
-            std::cout << "ERROR: input not supported, Type y or n." << std::endl;
-        }
+        std::cerr << "Error in command line: " << result.errorMessage() << std::endl;
+        std::cerr << cli << "\n";
+        return EXIT_FAILURE;
     }
 
-    std::vector<State> states{};
+    // Show help indications if needed
+    if (get_help)
+    {
+        std::cout << cli << "\n";
+        return 0;
+    }
 
-    // perform the simulation filling states vector with all the states over time
-    simulation.evolve(states, use_rk4);
+    // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
+    if (def_sim && (people != 0 || !default_seir || !default_params || numerical_method != 0 || time != 0))
+    {
+        std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by "
+                     "the user\n";
+        std::cerr << "Use --def 1 (or --default 1) without any other argument to simulate with default values"
+                  << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    /////////// The user has chosen to use default chosen parameters ///////////
+
+    if (def_sim)
+    {
+        people = DEF_PEOPLE;
+        susceptibles = people * DEF_S;
+        exposed = people * DEF_E;
+        infected = people * DEF_I;
+        recovered = people * DEF_R;
+        alpha = DEF_ALPHA;
+        beta = DEF_BETA;
+        gamma = DEF_GAMMA;
+        time = DEF_TIME;
+    }
+
+        /////////// The user has chosen to set simulation parameters himself ///////////
+
+    else
+    {
+        // handle missing input cases
+        if (default_seir && people == 0)
+        {
+            std::cerr << "At least one parameter among 'people' and the group 'S,E,I,R' must be specified."
+                      << std::endl;
+            return EXIT_FAILURE;
+        }
+        // only simulation people number have been specified: set S,E,I,R default ratio among people
+        if (default_seir)
+        {
+            susceptibles = people * DEF_S;
+            exposed = people * DEF_E;
+            infected = people * DEF_I;
+            recovered = people * DEF_R;
+        }
+
+        // automatically set the chosen epidemic parameters if not specified in the command line
+        if (default_params)
+        {
+            alpha = DEF_ALPHA;
+            beta = DEF_BETA;
+            gamma = DEF_GAMMA;
+        }
+        if (time == 0 ) { time = DEF_TIME; }
+    }
+
+    //Temporary checking for correct variables assignment
+    std::cout << "People == " << people << std::endl;
+    std::cout << "S == " << susceptibles << "\nE == " << exposed << "\nI == " << infected << "\nR == " << recovered<<"\n";
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    using namespace seir;
+
+    State initial_state {(double)susceptibles,(double)exposed,(double)infected,(double)recovered};
+    SEIR simulation{people,time,initial_state,alpha,beta,gamma};
+
+    std::vector<State> states{};  //vector containing all the states over the simulation time
+
+    simulation.evolve(states, numerical_method);
 
     std::cout << "┌─────┬───────────────┬───────────────┬───────────────┬────────"
                  "───────┐"

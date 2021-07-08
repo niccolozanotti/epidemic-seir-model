@@ -48,6 +48,7 @@ int main(int argc, char** argv)
                                   .help("Perform the simulation with default chosen values"))
             .add_argument(lyra::opt(people, "people")
                           ["-p"]["--people"]
+                                  .choices([](int value){ return value > 0;})
                                   .help("How many people should there be in the simulation?"))
             .add_argument(lyra::group([&](const lyra::group &) {
                 default_seir = false;

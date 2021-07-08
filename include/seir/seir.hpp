@@ -35,13 +35,13 @@ class SEIR
     int N;        // total number of individuals
     int t;        // duration time of the simualtion(days)
     State S_0;    // initial state
-    double beta;  // number of people an infective person infects each day
     double alpha; // governs the lag between infectious contact and showing symptoms
+    double beta;  // number of people an infective person infects each day
     double gamma; // probability to recover or die (accounts for two parameters)
 
   public:
     // constructor
-    SEIR(int population, int time, State S0, double beta, double alpha, double gamma);
+    SEIR(int population, int time, State S0, double alpha, double beta, double gamma);
 
     // default constructor
     SEIR();

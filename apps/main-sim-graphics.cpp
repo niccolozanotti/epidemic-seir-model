@@ -10,7 +10,7 @@
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
 ////// PROJECT HEADERS //////
-#include "display.hpp"
+#include "../src/simulation/graphics/display.hpp"
 #include "simulation.hpp"
 
 int main(int argc, char** argv)
@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     bool def_sim {false};                //should the simulation be performed with default parameters?
     bool default_seir {true};            // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
     bool clusters_and_locations {false}; // are both clusters and locations values get specified?
-    bool default_params {true};
+    bool default_params {true};          // should default values for alpha,beta and gamma be used rather than user defined?
     int people{};
     static int susceptibles{};
     static int exposed{};
@@ -46,6 +46,7 @@ int main(int argc, char** argv)
                                   .help("Perform the simulation with default chosen values"))
             .add_argument(lyra::opt(people, "people")
                           ["-p"]["--people"]
+                                  .choices([](int value){ return value > 0;})
                                   .help("How many people should there be in the simulation?"))
             .add_argument(lyra::group([&](const lyra::group &) {
                 default_seir = false;

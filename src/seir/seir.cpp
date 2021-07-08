@@ -14,89 +14,19 @@ namespace seir
 //////////////////////////////////////////////
 ///////        SEIR CONSTRUCTOR         //////
 //////////////////////////////////////////////
-SEIR::SEIR(int population, int time, State initial_state, double beta, double alpha, double gamma)
+SEIR::SEIR(int population, int time, State initial_state, double alpha, double beta, double gamma)
     : N{population},
       t{time},
       S_0{initial_state},
-      beta{beta},
       alpha{alpha},
+      beta{beta},
       gamma{gamma}
 {
 }
-/////////////////////////////////////////////////////////////////
-///  DEFAULT CONDITIONS : POPULATION: 100000,TIME: 80 DAYS, 1 ///
-///   INFECTED, BETA = 0.7, ALPHA = 0.5 , GAMMA = 0.2        ////
-/////////////////////////////////////////////////////////////////
-const SEIR& default_SEIR()
-{
-    State df{99999, 0, 1, 0};
-    static SEIR def{100000, 80, df, 0.7, 0.5, 0.2};
-    return def;
-}
-//////////////////////////////////////////////
-///////     SEIR DEFAULT CONSTRUCTOR    //////
-//////////////////////////////////////////////
-SEIR::SEIR()
-    // default constructor:CHECK IF IT MAKES SENSE
-    : N{default_SEIR().N},
-      t{default_SEIR().t},
-      S_0{default_SEIR().S_0},
-      beta{default_SEIR().beta},
-      alpha{default_SEIR().alpha},
-      gamma{default_SEIR().gamma}
-{
-}
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////           PRIVATE METHODS           /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/////////////////// CHECK SEIR PROBLEM VALIDITY /////////////////
-// bool SEIR::is_valid(SEIR obj)
-//{
-//    if (obj.t <= 0)
-//    {
-//        error("The SEIRulation duration have a non-positive value!");
-//        return false;
-//    }
-//    else if (obj.t < 10)
-//    {
-//        error("The simulation period is too small for the SEIRulation to be "
-//              "accurate!");
-//        return false;
-//    }
-//    if (obj.N <= 0)
-//    {
-//        error("The population has a non-positive value!");
-//        return false;
-//    }
-//    else if (obj.N < 100)
-//    {
-//        error("The population sample is too small for the SEIRulation to be "
-//              "accurate!");
-//        return false;
-//    }
-//    if (obj.S_0.E == 0 && obj.S_0.I == 0)
-//    { // 0 people with, at least, virus in latent phase
-//        error("The disease will not spread if nobody has taken the virus in "
-//              "the initial state!");
-//        return false;
-//    }
-//    if (obj.beta <= 0.0 || obj.gamma <= 0.0 || obj.alpha <= 0.0)
-//    {
-//        error("The parameters can't be negative or 0!");
-//        return false;
-//        // add some more constraints
-//    }
-//
-//    if (obj.S_0.S + obj.S_0.E + obj.S_0.I + obj.S_0.R != obj.N)
-//    {
-//        error("The sum of susceptibles, latent, infected and removed individuals "
-//              "must equal the total population!");
-//    }
-//
-//    return true;
-//}
 ///////////////// DETERMINE NEW STATE WITH EULER METHOD /////////////////
 State SEIR::EulerSolver(const State& current_state)
 {
