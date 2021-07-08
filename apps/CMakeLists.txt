@@ -39,7 +39,7 @@ add_executable(sim-graphics main-sim-graphics.cpp)
 target_compile_features(sim-graphics PRIVATE cxx_std_17)
 target_compile_options(sim-graphics PRIVATE -Wall -Wextra -fsanitize=address)
 target_link_options(sim-graphics PRIVATE -fsanitize=address)
-target_link_libraries(sim-graphics PRIVATE  display
+target_link_libraries(sim-graphics PRIVATE  graphics
                                             simulation
                                             mobility_model
                                             person
@@ -49,7 +49,6 @@ target_link_libraries(sim-graphics PRIVATE  display
                                             rectangle
                                             location
                                             position
-                                            graphics
                                             random)
 target_link_libraries(sim-graphics PRIVATE lyra)
 target_link_libraries(sim-graphics PRIVATE sfml-graphics)

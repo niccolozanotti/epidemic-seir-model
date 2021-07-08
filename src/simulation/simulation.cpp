@@ -399,19 +399,6 @@ void Simulation::clean_cluster_path(Mobility_model& person)
     }
 }
 
-///////////////// PERFORM THE SIMULATION /////////////////
-void Simulation::simulate()
-{
-    // TODO set the variables based on the total simulation time and the time interval of simulation, as the speed of
-    // movement, the spreads variables, ecc..
-    for (int i = 0; i < time_in_minutes / STEP_TIME; ++i)
-    {
-        move();   // move all people
-        spread(); // spread the virus
-        update_people_status();
-    }
-}
-
 /////////////////// FUNCTIONS USED FOR TESTING  /////////////////////////////////////////
 Position Simulation::get_person_pos(int cluster_label, int person_index)
 {

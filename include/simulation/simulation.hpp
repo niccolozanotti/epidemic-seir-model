@@ -77,9 +77,6 @@ class Simulation
     // move step of the simulation
     void move();
 
-    // performs the actual simulation
-    void simulate();
-
     // returns true if the indexed person is at home
     bool is_person_at_home(int cluster_index, int person_index);
 

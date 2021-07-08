@@ -19,7 +19,6 @@ double constexpr YELLOW_PATH_MEAN = 2;
 double constexpr YELLOW_PATH_STDDEV = 0.5;
 double constexpr RED_PATH_MEAN = 0;
 double constexpr RED_PATH_STDDEV = 0.2;
-// double constexpr WHITE_ZONE_CONDITION = 0.25;
 double constexpr YELLOW_ZONE_CONDITION = 0.03;
 double constexpr RED_ZONE_CONDITION = 0.10;
 double constexpr WHITE_ZONE_LATP_ALPHA = 5;
@@ -32,5 +31,8 @@ double constexpr MIN_SPEED = 2.0;
 double constexpr MAX_SPEED = 5.0;
 double constexpr MAX_PAUSE = 15.0;
 double constexpr MIN_PAUSE = 5.0;
+
+
+//////////////////////////// STARTING DEFAULT PARAMETERS ////////////////////////////
 
 #endif
