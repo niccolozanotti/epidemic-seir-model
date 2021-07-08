@@ -7,15 +7,14 @@ namespace smooth_sim
 ////////////////////////////////////////////////////////
 /////          SIMULATION CONSTRUCTOR             //////
 ////////////////////////////////////////////////////////
-Simulation::Simulation(int S, int E, int I, int R, int number_of_clusters, int number_of_Locations, unsigned side,
-                       double alpha, double gamma, double beta, double spread_radius, int time_in_minutes)
+Simulation::Simulation(int S, int E, int I, int R, int number_of_clusters, int number_of_Locations, int side,
+                       double alpha, double beta, double gamma,double spread_radius)
     : sim_engine{},
       wrld{side, number_of_clusters, number_of_Locations, S, E, I, R},
       alpha{alpha},
       beta{beta},
       gamma{gamma},
-      spread_radius{spread_radius},
-      time_in_minutes{time_in_minutes}
+      spread_radius{spread_radius}
 {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

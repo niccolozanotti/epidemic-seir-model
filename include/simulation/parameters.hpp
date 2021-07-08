@@ -31,6 +31,17 @@ double constexpr MIN_SPEED = 2.0;
 double constexpr MAX_SPEED = 5.0;
 double constexpr MAX_PAUSE = 15.0;
 double constexpr MIN_PAUSE = 5.0;
+int constexpr DEF_PEOPLE = 25000;
+int constexpr DEF_CLUSTERS = 10;
+int constexpr DEF_LOCATIONS = 1000;
+double constexpr DEF_S = 0.95;
+double constexpr DEF_E = 0.02;
+double constexpr DEF_I = 0.015;
+double constexpr DEF_R = 0.005;
+double constexpr DEF_ALPHA = 0.3;
+double constexpr DEF_BETA = 0.1;
+double constexpr DEF_GAMMA = 0.05;
+
 
 
 //////////////////////////// STARTING DEFAULT PARAMETERS ////////////////////////////

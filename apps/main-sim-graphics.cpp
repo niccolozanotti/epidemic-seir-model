@@ -12,24 +12,18 @@ int main(int argc,char** argv)
 {
 
     ///////////////////////  Simulation input parameters ///////////////////////
-
     bool get_help = false;
-    bool clusters_and_locations {false};
+
+    bool def_sim {false};
+    // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
+    bool default_seir {true};
+    bool clusters_and_locations {false}; // are both clusters and locations values get specified?
     bool default_params {true};
     int people {25000};
     int susceptibles {};
     int exposed {};
     int infected {};
     int recovered {};
-
-    // if true,sets the default chosen ratio of S,E,I,R individuals among the population(which is specified)
-    // it can assume false value if all S,E,I,R are specified
-    bool default_seir {true};
-    double def_S {0.95};
-    double def_E {0.02};
-    double def_I {0.02};
-    double def_R {0.01};
-
     int locations {};
     int clusters {};
     int side {};
@@ -45,6 +39,9 @@ int main(int argc,char** argv)
     lyra::cli cli;  //command line input
 
     cli.add_argument(lyra::help(get_help))
+            .add_argument(lyra::opt(def_sim, "default")
+                          ["--def"]["--default"]
+                                  .help("Perform the simulation with default chosen values"))
             .add_argument(lyra::opt(people, "people")
                           ["-p"]["--people"]
                                   .help("How many people should there be in the simulation?"))
@@ -95,18 +92,18 @@ int main(int argc,char** argv)
             .add_argument(lyra::group([&](const lyra::group &) {
                 default_params = true;
             })
-            .add_argument(lyra::opt(alpha, "alpha")
-                          ["-a"]["--alpha"]
-                                  .choices([](double value){ return value >= 0.0 && value <= 1.0;})
-                                  .help("Parameter: governs the lag between infectious contact and showing symptoms."))
-            .add_argument(lyra::opt(beta, "beta")
-                          ["-b"]["--beta"]
-                                  .choices([](double value){ return value >= 0.0 && value <= 1.0;})
-                                  .help("Parameter: number of people an infective person infects each day."))
-            .add_argument(lyra::opt(gamma, "gamma")
-                          ["-g"]["--gamma"]
-                                  .choices([](double value){ return value >= 0.0 && value <= 1.0;})
-                                  .help("Parameter: cumulative probability for a person to recover or die."))); //end group
+                                  .add_argument(lyra::opt(alpha, "alpha")
+                                                ["-a"]["--alpha"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: governs the lag between infectious contact and showing symptoms."))
+                                  .add_argument(lyra::opt(beta, "beta")
+                                                ["-b"]["--beta"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: number of people an infective person infects each day."))
+                                  .add_argument(lyra::opt(gamma, "gamma")
+                                                ["-g"]["--gamma"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: cumulative probability for a person to recover or die."))); //end group
     /* clang-format on */
 
     // Parse the program arguments:
@@ -120,38 +117,57 @@ int main(int argc,char** argv)
         return EXIT_FAILURE;
     }
 
-    // Show the help when asked for.
+    // Show help indications if needed
     if (get_help)
     {
         std::cout << cli << "\n";
         return 0;
     }
 
-    // only clusters have been specified
-    if (!clusters_and_locations && locations == 0 && clusters >0)
+    //////// Perform simulation with default chosen parameters ////////
+    if (def_sim)
     {
-        locations = clusters * 150;
+        people = DEF_PEOPLE;
+        susceptibles = people * DEF_S;
+        exposed = people * DEF_E;
+        infected= people * DEF_I;
+        recovered = people * DEF_R;
+        locations = DEF_LOCATIONS;
+        clusters = DEF_CLUSTERS;
+        alpha = DEF_ALPHA;
+        beta = DEF_BETA;
+        gamma = DEF_GAMMA;
+        spread_radius = 1;
     }
-    // only locations have been specified: set
-    else if (!clusters_and_locations && locations > 0 && clusters  == 0)
+        //////// The user has chosen to set the parameters himself ////////
+    else
     {
-        clusters = locations / 150;
-    }
+        // only clusters have been specified leaving locations out
+        if (!clusters_and_locations && locations == 0 && clusters > 0)
+        {
+            locations = clusters * 150;
+        }
+            // only locations have been specified leaving clusters out
+        else if (!clusters_and_locations && locations > 0 && clusters == 0)
+        {
+            clusters = locations / 150;
+        }
+        else if (!clusters_and_locations && locations == 0 && clusters == 0) {
+            std::cerr << "At least one parameter among 'clusters' and 'locations' must be specified." << std::endl;
+            return EXIT_FAILURE;
+        }
 
-    else if(!clusters_and_locations && locations == 0 && clusters == 0)
-    {
-        std::cerr << "At least one parameter among 'clusters' and 'locations' must be specified."<<std::endl;
-        return EXIT_FAILURE;
     }
 
     std::cout << "Clusters == " <<clusters<<"\t Locations == "<<locations<<std::endl;
+    std::cout << "People == " <<people<<std::endl;
+    std::cout << "S == " <<susceptibles<<"\nE == "<<exposed<<"\nI == "<<infected <<"\nR == "<<recovered<<std::endl;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     std::cout << "Width and height of your screen "<< std::endl;
     std::cout << sf::VideoMode::getDesktopMode().width <<std::endl;
     std::cout << sf::VideoMode::getDesktopMode().height <<std::endl;
-    unsigned Sim_side = 1000;
     unsigned Graph_width = 800;
-    Simulation prova{25000, 3, 200, 4, 1, 800, Sim_side, 0.3, 0.02, 0.2, 1, 20};
+    Simulation prova {susceptibles,exposed,infected,recovered,clusters,locations,side,alpha,beta,gamma,spread_radius};
     std::vector<Data> Result = {prova.get_data()};
     sf::RenderWindow window;
     Display Window{prova,window,Graph_width};

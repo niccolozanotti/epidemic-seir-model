@@ -10,11 +10,11 @@ class World
     Rectangle Area;
     std::vector<Cluster> Clusters;
     Random wrld_eng;
-    unsigned Side;
+    int side;
 
   public:
     // Constructor
-    World(unsigned Side_length, int number_of_clusters, int number_of_locations, int S, int E, int I, int R);
+    World(int side_length, int number_of_clusters, int number_of_locations, int S, int E, int I, int R);
 
     // Disable compiler generated default constructor
     World() = delete;

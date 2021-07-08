@@ -20,14 +20,13 @@ class Simulation
   private:
     Random sim_engine;    // Random engine used for random generation in this class
     World wrld;           // World where the simulation takes place,made up of Clusters,Groups,People
-    double alpha;         // epidemic parameter: see
-    double beta;          // epidemic parameter: see
-    double gamma;         // epidemic parameter: see
+    double alpha;         // epidemic parameter: governs the lag between infectious contact and showing symptoms
+    double beta;          // epidemic parameter: number of people an infective person infects each day
+    double gamma;         // epidemic parameter: probability to recover or die (accounts for two parameters)
     double spread_radius; // epidemic parameter: maximum distance for two people to be considered close
-    int time_in_minutes;  // simulation time(m)
   public:
-    Simulation(int S, int E, int I, int R, int number_of_clusters, int number_of_Locations, unsigned side, double alpha,
-               double gamma, double beta, double spread_radius, int time_in_days);
+    Simulation(int S, int E, int I, int R, int number_of_clusters, int number_of_Locations, int side, double alpha,
+               double beta,double gamma,  double spread_radius);
     Simulation() = delete;
 
   private:
