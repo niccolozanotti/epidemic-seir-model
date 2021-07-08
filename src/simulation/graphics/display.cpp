@@ -88,10 +88,14 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Grap
     offset = static_cast<double>(simulation.world().get_side());
     // set fisrt point for every graphs
     Data data = simulation.get_data();
-    Susceptible.append(sf::Vertex(sf::Vector2f(offset, offset - coeff * data.S), sf::Color::White));
-    Exposed.append(sf::Vertex(sf::Vector2f(offset, offset - coeff * data.E), sf::Color::Cyan));
-    Infected.append(sf::Vertex(sf::Vector2f(offset, offset - coeff * data.I), sf::Color::Magenta));
-    Recovered.append(sf::Vertex(sf::Vector2f(offset, offset - coeff * data.R), sf::Color::Red));
+    sf::Color S_color = sf::Color(255,255,255);
+    sf::Color E_color = sf::Color(0,110,110);
+    sf::Color I_color = sf::Color(90,0,110);
+    sf::Color R_color = sf::Color(125,125,125);
+    Susceptible.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.S),S_color));
+    Exposed.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.E),E_color));
+    Infected.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.I),I_color));
+    Recovered.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.R),R_color));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -101,6 +105,11 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Grap
 ///////////    POPULATION    //////////
 sf::VertexArray Display::population()
 {
+    sf::Color S_color = sf::Color(255,255,255);
+    sf::Color E_color = sf::Color(0,110,110);
+    sf::Color I_color = sf::Color(90,0,110);
+    sf::Color R_color = sf::Color(125,125,125);
+
     sf::VertexArray people(sf::Quads, sim->world().people_num() * 4);
     double x_0, y_0;
     double r = 1; // half diagonal of the square that represent the person
@@ -113,31 +122,31 @@ sf::VertexArray Display::population()
             {
                 if (b.person().get_current_status() == Status::Susceptible)
                 {
-                    people[4 * count].color = sf::Color::White;
-                    people[4 * count + 1].color = sf::Color::White;
-                    people[4 * count + 2].color = sf::Color::White;
-                    people[4 * count + 3].color = sf::Color::White;
+                    people[4 * count].color = S_color;
+                    people[4 * count + 1].color = S_color;
+                    people[4 * count + 2].color = S_color;
+                    people[4 * count + 3].color = S_color;
                 }
                 else if (b.person().get_current_status() == Status::Exposed)
                 {
-                    people[4 * count].color = sf::Color::Cyan;
-                    people[4 * count + 1].color = sf::Color::Cyan;
-                    people[4 * count + 2].color = sf::Color::Cyan;
-                    people[4 * count + 3].color = sf::Color::Cyan;
+                    people[4 * count].color = E_color;
+                    people[4 * count + 1].color = E_color;
+                    people[4 * count + 2].color = E_color;
+                    people[4 * count + 3].color = E_color;
                 }
                 else if (b.person().get_current_status() == Status::Infected)
                 {
-                    people[4 * count].color = sf::Color::Magenta;
-                    people[4 * count + 1].color = sf::Color::Magenta;
-                    people[4 * count + 2].color = sf::Color::Magenta;
-                    people[4 * count + 3].color = sf::Color::Magenta;
+                    people[4 * count].color = I_color;
+                    people[4 * count + 1].color = I_color;
+                    people[4 * count + 2].color = I_color;
+                    people[4 * count + 3].color = I_color;
                 }
                 else
                 {
-                    people[4 * count].color = sf::Color::Black;
-                    people[4 * count + 1].color = sf::Color::Black;
-                    people[4 * count + 2].color = sf::Color::Black;
-                    people[4 * count + 3].color = sf::Color::Black;
+                    people[4 * count].color = R_color;
+                    people[4 * count + 1].color = R_color;
+                    people[4 * count + 2].color = R_color;
+                    people[4 * count + 3].color = R_color;
                 }
                 x_0 = b.person().get_position().get_x();
                 y_0 = b.person().get_position().get_y();
@@ -181,6 +190,11 @@ void Display::Color_clusters()
 ///////////    UPDATE THE GRAPHS    //////////
 void Display::update_graphs()
 {
+    sf::Color S_color = sf::Color(255,255,255);
+    sf::Color E_color = sf::Color(0,110,110);
+    sf::Color I_color = sf::Color(90,0,110);
+    sf::Color R_color = sf::Color(125,125,125);
+
     Data data = sim->get_data();
     unsigned vertex_count = Susceptible.getVertexCount();
     float Sim_side = static_cast<float>(sim->world().get_side());
@@ -201,10 +215,10 @@ void Display::update_graphs()
 
     // append new points to the graph
     float previous_x = Susceptible[vertex_count - 1].position.x;
-    Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff * data.S), sf::Color::White));
-    Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff * data.E), sf::Color::Cyan));
-    Infected.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff * data.I), sf::Color::Magenta));
-    Recovered.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff * data.R), sf::Color::Red));
+    Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.S),S_color));
+    Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.E),E_color));
+    Infected.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.I),I_color));
+    Recovered.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.R),R_color));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -214,7 +228,7 @@ void Display::update_graphs()
 ///////////    DISPLAY    //////////
 void Display::Draw()
 {
-    // call teh function to update the arrays
+    // call the function to update the arrays
     Color_clusters();
     update_graphs();
     // Draw the arrays

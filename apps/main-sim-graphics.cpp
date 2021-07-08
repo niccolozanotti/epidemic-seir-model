@@ -222,8 +222,7 @@ int main(int argc, char** argv)
     // Simulation prova{23750,500,375,125,10,1000,1000,0.3,0.1,0.05,1};
     std::vector<Data> Result = {prova.get_data()};
     sf::RenderWindow window;
-    std::cout << "I'm here";
-    Display Window{prova, window, Graph_width};
+    Display Window{prova,window,Graph_width};
     Window.Draw();
     window.display();
     /*for(auto& a: prova.world_ref().Clusters())
