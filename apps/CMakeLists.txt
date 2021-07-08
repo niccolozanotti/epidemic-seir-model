@@ -54,6 +54,7 @@ target_link_libraries(sim-graphics PUBLIC ${ROOT_LIBRARIES} ${ROOT_EXE_LINKER_FL
 target_link_libraries(sim-graphics PRIVATE lyra)
 target_link_libraries(sim-graphics PRIVATE sfml-graphics)
 target_include_directories(sim-graphics PUBLIC "${PROJECT_BINARY_DIR}"
-                                               ../include/simulation)
+                                               ../include/simulation
+                                                ../src/simulation/graphics)
 target_clangformat_setup(sim-graphics) ##allow for code formatting
 

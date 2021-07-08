@@ -10,7 +10,7 @@
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
 ////// PROJECT HEADERS //////
-#include "../src/simulation/graphics/display.hpp"
+#include "display.hpp"
 #include "simulation.hpp"
 
 
