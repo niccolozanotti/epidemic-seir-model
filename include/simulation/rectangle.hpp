@@ -15,12 +15,21 @@ class Rectangle
   public:
     Rectangle(Position& blh_corner, Position& trh_corner); // constructor
     Rectangle();
-    double get_area(); // return the Area of the rectangle
-    Position get_blh_corner() { return blh_corner; }
-    Position get_trh_corner() { return trh_corner; }
+
+    // return the Area of the rectangle
+    double get_area();
+
+    // return the bottom-left corner of the rectangle
+    Position get_blh_corner();
+
+    //return the top-right corner of the rectangle
+    Position get_trh_corner();
+
+    // Split the rectangle in two randomly uneven rectangle/
     std::vector<Rectangle> split(Random& engine);
-    // Split the rectangle in two randomly uneven rectangle
-    std::vector<Rectangle> divide(int areas_to_divide); // Divide the Rectangle in n part using Split() function
+
+    // Divide the Rectangle in n part using Split() function
+    std::vector<Rectangle> divide(int areas_to_divide);
 };
 
 } // namespace smooth_sim

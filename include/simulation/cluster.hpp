@@ -92,15 +92,3 @@ class Cluster
 } // namespace smooth_sim
 
 #endif
-
-// TODO Unused
-
-//    returns base of the cluster rectangular Area
-//    double base();
-//
-//    // returns height of the cluster rectangular Area
-//    double height();
-
-// select the nth location and return his pointer, used for generate_path
-//    std::vector<Location*> Location_list(); // get a vector of pointer to all locations in the cluster
-//    std::vector<Person*> Person_list();     // get a vector of pointer to all People in the cluster

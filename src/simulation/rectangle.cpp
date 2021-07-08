@@ -13,11 +13,25 @@ Rectangle::Rectangle() : blh_corner{}, trh_corner{}
 {
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////           PUBLIC METHODS            /////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////// GET AREA /////////////////
 double Rectangle::get_area()
 {
     return (trh_corner.get_x() - blh_corner.get_x()) * (trh_corner.get_y() - blh_corner.get_y());
 }
-
+///////////////// GET BOTTOM-LEFT HAND CORNER /////////////////
+Position Rectangle::get_blh_corner()
+{
+    return blh_corner;
+}
+///////////////// GET TOP-RIGHT HAND CORNER /////////////////
+Position Rectangle::get_trh_corner()
+{
+    return trh_corner;
+}
 ///////////////// SPLIT /////////////////
 std::vector<Rectangle> Rectangle::split(Random& engine)
 {
@@ -67,10 +81,6 @@ std::vector<Rectangle> Rectangle::split(Random& engine)
     }
     return result;
 }
-
-// TODO Add error checking to the following function when n < 1, and change the random selection of what rectangle
-// divide to an algorithm that is based on the area,
-// as the current method favor a too uneven division.
 ///////////////// DIVIDE  /////////////////
 std::vector<Rectangle> Rectangle::divide(int areas_to_divide)
 {

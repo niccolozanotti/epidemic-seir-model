@@ -35,4 +35,3 @@ class Group
 
 #endif
 
-// unused   Location* get_location(int i);          // get pointer to i_nth Location

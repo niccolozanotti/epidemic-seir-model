@@ -57,14 +57,6 @@ class World
     void generate_path(int to_visit, const std::vector<double>& weights, std::vector<Location*>& path, Random& engine);
 };
 
-// unused functions
-//    std::vector<Location*> Location_list();  // get a vector of pointer to all locations in the world
-//    std::vector<Person*> Total_Population(); // get a vector of pointer to all Person in the world
-//    Cluster* select_cluster();               // randomly chose a cluster based on number of Locations
-//    Cluster* get_cluster(int index);         // return a pointer to index cluster
-// std::vector<Location*> generate_path(std::vector<Location*> list, double mean,double dev); // generate a random
-// number of pointer to Location from the provided one
-
 } // namespace smooth_sim
 
 #endif
