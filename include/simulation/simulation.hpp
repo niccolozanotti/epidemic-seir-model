@@ -26,7 +26,7 @@ class Simulation
     double spread_radius; // epidemic parameter: maximum distance for two people to be considered close
   public:
     Simulation(int S, int E, int I, int R, int number_of_clusters, int number_of_Locations, int side, double alpha,
-               double beta,double gamma,  double spread_radius);
+               double beta, double gamma, double spread_radius);
     Simulation() = delete;
 
   private:

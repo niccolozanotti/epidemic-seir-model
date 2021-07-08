@@ -2,8 +2,8 @@
 #include "parameters.hpp"
 #include "random.hpp"
 #include <cassert>
-#include <random>
 #include <iostream>
+#include <random>
 
 namespace smooth_sim
 {
@@ -65,12 +65,13 @@ void Cluster::generate_groups(int locations_num)
     // Determine groups number
     int number_of_groups = cl_engine.rounded_gauss(locations_num * MEAN_GROUP_SIZE, locations_num * GROUP_SIZE_STDDEV);
 
-    if(number_of_groups <= 0) //make sure there is at least one group
+    if (number_of_groups <= 0) // make sure there is at least one group
     {
         number_of_groups = 1;
     }
 
-    if(number_of_groups > locations_num){ //make sure the number of Locations is >= than the number og groups
+    if (number_of_groups > locations_num)
+    { // make sure the number of Locations is >= than the number og groups
         number_of_groups = locations_num;
     }
 
@@ -90,7 +91,7 @@ void Cluster::generate_groups(int locations_num)
             ++loc_num[i];
             i = number_of_groups; // end the loop
         }
-        else if(i == number_of_groups - 1) //if it is the last group
+        else if (i == number_of_groups - 1) // if it is the last group
         {
             loc_num[i] += loc_left;
         }
@@ -101,7 +102,7 @@ void Cluster::generate_groups(int locations_num)
             loc_left -= rnum;
         }
     }
-    assert(std::accumulate(loc_num.begin(),loc_num.end(),0) == locations_num);
+    assert(std::accumulate(loc_num.begin(), loc_num.end(), 0) == locations_num);
     assert(Groups.empty());
     Groups.reserve(number_of_groups);
     for (int i = 0; i < number_of_groups; ++i) // construct groups vector element by element
@@ -241,10 +242,11 @@ void Cluster::set_LATP(double new_LATP_parameter)
 ///////////////// PATH GENERATION FOR A PERSON /////////////////
 void Cluster::generate_path(int to_visit, std::vector<Location*>& path)
 {
-    if(to_visit >= locations_num()){ //if there are more location to visit than in the cluster, return pointers to all locations
-        for(auto &gr: Groups)
+    if (to_visit >= locations_num())
+    { // if there are more location to visit than in the cluster, return pointers to all locations
+        for (auto& gr : Groups)
         {
-            for(auto &l: gr.locations())
+            for (auto& l : gr.locations())
             {
                 path.push_back(&l);
             }

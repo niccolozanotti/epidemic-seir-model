@@ -53,8 +53,8 @@ class SEIR
     // returns newly calculated State using Runge Kutta method(4th order numerical approximation)
     State RungeKuttaSolver(const State& current_state);
 
-//    // check for the validity of a SEIR object
-//    bool is_valid(SEIR obj);
+    //    // check for the validity of a SEIR object
+    //    bool is_valid(SEIR obj);
 
   public:
     // performs the actual simulation:determines the various states by solving the ode system

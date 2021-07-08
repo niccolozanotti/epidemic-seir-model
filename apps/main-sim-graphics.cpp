@@ -13,16 +13,16 @@
 #include "display.hpp"
 #include "simulation.hpp"
 
-
-
-int main(int argc,char** argv)
+int main(int argc, char** argv)
 {
 
+    ////////////////////////////////////////////////  INPUT COLLECTION  ////////////////////////////////////////////////
+
     /* clang-format off */
-    ///////////////////////  Simulation input parameters ///////////////////////
-    bool get_help = false;
-    bool def_sim {false};     //should the simulation be performed with default parameters?
-    bool default_seir {true};          // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
+
+    bool get_help = false;               // evaluates true if there's any lyra-detected input error
+    bool def_sim {false};                //should the simulation be performed with default parameters?
+    bool default_seir {true};            // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
     bool clusters_and_locations {false}; // are both clusters and locations values get specified?
     bool default_params {true};
     int people{};
@@ -38,7 +38,7 @@ int main(int argc,char** argv)
     double gamma{};
     double spread_radius{};
 
-    lyra::cli cli;  //command line input
+    lyra::cli cli;  //Lyra object: command line input
 
     cli.add_argument(lyra::help(get_help))
             .add_argument(lyra::opt(def_sim, "default")
@@ -114,9 +114,9 @@ int main(int argc,char** argv)
     /* clang-format on */
 
     // Parse the program arguments:
-    auto result = cli.parse({ argc, argv });
+    auto result = cli.parse({argc, argv});
 
-    // Check that the arguments where valid:
+    // Check that the arguments validity
     if (!result)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << std::endl;
@@ -131,21 +131,25 @@ int main(int argc,char** argv)
         return 0;
     }
 
-
     // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
-    if (def_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 || spread_radius != 0))
+    if (def_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 ||
+                    spread_radius != 0))
     {
-        std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by the user\n";
-        std::cerr << "Use --def 1 (or --default 1) without any other argument to simulate with default values"<<std::endl;
+        std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by "
+                     "the user\n";
+        std::cerr << "Use --def 1 (or --default 1) without any other argument to simulate with default values"
+                  << std::endl;
         return EXIT_FAILURE;
     }
-    //////// Perform simulation with default chosen parameters ////////
+
+    /////////// The user has chosen to use default chosen parameters ///////////
+
     if (def_sim)
     {
         people = DEF_PEOPLE;
         susceptibles = people * DEF_S;
         exposed = people * DEF_E;
-        infected= people * DEF_I;
+        infected = people * DEF_I;
         recovered = people * DEF_R;
         locations = DEF_LOCATIONS;
         clusters = DEF_CLUSTERS;
@@ -155,13 +159,16 @@ int main(int argc,char** argv)
         side = DEF_SIDE;
         spread_radius = 1;
     }
-        //////// The user has chosen to set simulation parameters himself ////////
+
+    /////////// The user has chosen to set simulation parameters himself ///////////
+
     else
     {
         // handle missing input cases
         if (default_seir && people == 0)
         {
-            std::cerr << "At least one parameter among 'people' and the group 'S,E,I,R' must be specified." << std::endl;
+            std::cerr << "At least one parameter among 'people' and the group 'S,E,I,R' must be specified."
+                      << std::endl;
             return EXIT_FAILURE;
         }
         if (!clusters_and_locations && locations == 0 && clusters == 0)
@@ -174,19 +181,13 @@ int main(int argc,char** argv)
         {
             susceptibles = people * DEF_S;
             exposed = people * DEF_E;
-            infected= people * DEF_I;
+            infected = people * DEF_I;
             recovered = people * DEF_R;
         }
         // only clusters have been specified leaving locations out
-        if (!clusters_and_locations && locations == 0 && clusters > 0)
-        {
-            locations = clusters * 150;
-        }
-            // only locations have been specified leaving clusters out
-        else if (!clusters_and_locations && locations > 0 && clusters == 0)
-        {
-            clusters = locations / 150;
-        }
+        if (!clusters_and_locations && locations == 0 && clusters > 0) { locations = clusters * 150; }
+        // only locations have been specified leaving clusters out
+        else if (!clusters_and_locations && locations > 0 && clusters == 0){ clusters = locations / 150;}
 
         // automatically set the chosen epidemic parameters if not specified in the command line
         if (default_params)
@@ -196,26 +197,33 @@ int main(int argc,char** argv)
             gamma = DEF_GAMMA;
         }
 
-        spread_radius = (double)(side) / 1000.0;  //TODO determine a smart way to do that
-
+        spread_radius = (double)(side) / 1000.0; // TODO determine a smart way to determine spread radius
     }
 
-    std::cout << "Clusters == " <<clusters<<"\t Locations == "<<locations<<std::endl;
-    std::cout << "People == " <<people<<std::endl;
-    std::cout << "S == " <<susceptibles<<"\nE == "<<exposed<<"\nI == "<<infected <<"\nR == "<<recovered<<std::endl;
-    std::cout << "Simulation side == "<< side << "\t Spread radius == "<<spread_radius<<std::endl;
+    //Temporary checking for correct variables assignment
+    std::cout << "Clusters == " << clusters << "\t Locations == " << locations << std::endl;
+    std::cout << "People == " << people << std::endl;
+    std::cout << "S == " << susceptibles << "\nE == " << exposed << "\nI == " << infected << "\nR == " << recovered
+              << std::endl;
+    std::cout << "Simulation side == " << side << "\t Spread radius == " << spread_radius << std::endl;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    std::cout << "Width and height of your screen "<< std::endl;
-    std::cout << sf::VideoMode::getDesktopMode().width <<std::endl;
-    std::cout << sf::VideoMode::getDesktopMode().height <<std::endl;
+
+    //TODO Resize if needed considering user screen size
+    std::cout << "Width and height of your screen " << std::endl;
+    std::cout << sf::VideoMode::getDesktopMode().width << std::endl;
+    std::cout << sf::VideoMode::getDesktopMode().height << std::endl;
+
+
+    //////////////////////////////////////////////  GRAPHICS SIMULATION  ///////////////////////////////////////////////
     using namespace smooth_sim;
-    unsigned Graph_width = 800;
-    Simulation prova {susceptibles,exposed,infected,recovered,clusters,locations,side,alpha,beta,gamma,spread_radius};
-    //Simulation prova{23750,500,375,125,10,1000,1000,0.3,0.1,0.05,1};
+    unsigned Graph_width = 800;   //TODO Determine graph width
+    Simulation prova{susceptibles, exposed, infected, recovered, clusters,     locations,
+                     side,         alpha,   beta,     gamma,     spread_radius};
+    // Simulation prova{23750,500,375,125,10,1000,1000,0.3,0.1,0.05,1};
     std::vector<Data> Result = {prova.get_data()};
     sf::RenderWindow window;
     std::cout << "I'm here";
-    Display Window{prova,window,Graph_width};
+    Display Window{prova, window, Graph_width};
     Window.Draw();
     window.display();
     /*for(auto& a: prova.world_ref().Clusters())
@@ -249,45 +257,45 @@ int main(int argc,char** argv)
 
     // ROOT CODE
 
-   /* TApplication app("app", &argc, argv);
+    /* TApplication app("app", &argc, argv);
 
-    auto c0 = new TCanvas("c0", "Evoluzione");
-    auto mg = new TMultiGraph();
-    auto gS = new TGraph();
-    auto gE = new TGraph();
-    auto gI = new TGraph();
-    auto gR = new TGraph();
-    gS->SetLineColor(kBlue);
-    gE->SetLineColor(kOrange);
-    gI->SetLineColor(kGreen);
-    gR->SetLineColor(kRed);
-    mg->SetTitle("Evolution; steps; number of people");
+     auto c0 = new TCanvas("c0", "Evoluzione");
+     auto mg = new TMultiGraph();
+     auto gS = new TGraph();
+     auto gE = new TGraph();
+     auto gI = new TGraph();
+     auto gR = new TGraph();
+     gS->SetLineColor(kBlue);
+     gE->SetLineColor(kOrange);
+     gI->SetLineColor(kGreen);
+     gR->SetLineColor(kRed);
+     mg->SetTitle("Evolution; steps; number of people");
 
-    int t2 = 0;
-    for (auto& a : Result)
-    {
-        gS->SetPoint(t2, t2, a.S);
-        gE->SetPoint(t2, t2, a.E);
-        gI->SetPoint(t2, t2, a.I);
-        gR->SetPoint(t2, t2, a.R);
-        t2++;
-    }
+     int t2 = 0;
+     for (auto& a : Result)
+     {
+         gS->SetPoint(t2, t2, a.S);
+         gE->SetPoint(t2, t2, a.E);
+         gI->SetPoint(t2, t2, a.I);
+         gR->SetPoint(t2, t2, a.R);
+         t2++;
+     }
 
-    mg->Add(gS);
-    gS->SetTitle("S");
-    mg->Add(gE);
-    gE->SetTitle("E");
-    mg->Add(gI);
-    gI->SetTitle("I");
-    mg->Add(gR);
-    gR->SetTitle("R");
+     mg->Add(gS);
+     gS->SetTitle("S");
+     mg->Add(gE);
+     gE->SetTitle("E");
+     mg->Add(gI);
+     gI->SetTitle("I");
+     mg->Add(gR);
+     gR->SetTitle("R");
 
-    mg->Draw("AL");
-    c0->BuildLegend();
+     mg->Draw("AL");
+     c0->BuildLegend();
 
-    c0->Modified();
-    c0->Update();
-    TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
-    rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
-    app.Run();*/
+     c0->Modified();
+     c0->Update();
+     TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
+     rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
+     app.Run();*/
 }

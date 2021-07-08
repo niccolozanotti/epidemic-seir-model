@@ -1,8 +1,8 @@
 #include "world.hpp"
 #include "random.hpp"
 #include <cassert>
-#include <random>
 #include <iostream>
+#include <random>
 
 namespace smooth_sim
 {
@@ -11,7 +11,8 @@ namespace smooth_sim
 /////               WORLD CONSTRUCTOR             //////
 ////////////////////////////////////////////////////////
 World::World(int side_length, int number_of_clusters, int number_of_locations, int S, int E, int I, int R)
-    : wrld_eng{}, side{side_length}
+    : wrld_eng{},
+      side{side_length}
 {
     ///////// Area partitioning  /////////
 
@@ -22,7 +23,7 @@ World::World(int side_length, int number_of_clusters, int number_of_locations, i
 
     ///////// Locations in each cluster determination /////////
 
-    std::vector<int> locations_number(number_of_clusters, 1); //make sure every cluster has at least a location
+    std::vector<int> locations_number(number_of_clusters, 1); // make sure every cluster has at least a location
     fill_with_locations_num(number_of_clusters, number_of_locations - number_of_clusters, locations_number);
 
     ///////// Distribution of S,E,I,R people over the clusters determination /////////
@@ -90,7 +91,8 @@ void World::fill_with_S_individuals(unsigned clusters_num, int S, std::vector<in
         {
             double mean = (static_cast<double>(S_pop_left) / static_cast<double>(left_clusters));
             int current = wrld_eng.rounded_gauss(mean, mean / 4);
-            while (current >= 8 * mean / 5 || current <= mean / 5 || current >= S_pop_left || current <= 0) // limit the values
+            while (current >= 8 * mean / 5 || current <= mean / 5 || current >= S_pop_left ||
+                   current <= 0) // limit the values
             {
                 current = wrld_eng.rounded_gauss(mean, mean / 4);
             }

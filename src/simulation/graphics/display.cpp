@@ -2,7 +2,10 @@
 
 using namespace smooth_sim;
 
-Display::Display(Simulation& simulation, sf::RenderWindow &window, unsigned Graph_width) : sim{&simulation}, Window{window}, Graph_width{Graph_width}
+Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Graph_width)
+    : sim{&simulation},
+      Window{window},
+      Graph_width{Graph_width}
 {
     // fill cluster VertexArray and borders VertexArray
     Clusters.setPrimitiveType(sf::Quads);
@@ -70,24 +73,25 @@ Display::Display(Simulation& simulation, sf::RenderWindow &window, unsigned Grap
             }
         }
     }
-    //Window.close();
-    Window.create(sf::VideoMode(simulation.world().get_side() + Graph_width,simulation.world().get_side()),"Simulation");
+    // Window.close();
+    Window.create(sf::VideoMode(simulation.world().get_side() + Graph_width, simulation.world().get_side()),
+                  "Simulation");
 
-    //Set primitive type for the graphs
+    // Set primitive type for the graphs
     Susceptible.setPrimitiveType(sf::LineStrip);
     Exposed.setPrimitiveType(sf::LineStrip);
     Infected.setPrimitiveType(sf::LineStrip);
     Recovered.setPrimitiveType(sf::LineStrip);
-    //set the starting value of dx and coeff
+    // set the starting value of dx and coeff
     coeff = static_cast<double>(simulation.world().get_side()) / static_cast<double>(simulation.world().people_num());
     dx = static_cast<double>(Graph_width) / 100.0;
     offset = static_cast<double>(simulation.world().get_side());
-    //set fisrt point for every graphs
+    // set fisrt point for every graphs
     Data data = simulation.get_data();
-    Susceptible.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.S),sf::Color::White));
-    Exposed.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.E),sf::Color::Cyan));
-    Infected.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.I),sf::Color::Magenta));
-    Recovered.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.R),sf::Color::Red));
+    Susceptible.append(sf::Vertex(sf::Vector2f(offset, offset - coeff * data.S), sf::Color::White));
+    Exposed.append(sf::Vertex(sf::Vector2f(offset, offset - coeff * data.E), sf::Color::Cyan));
+    Infected.append(sf::Vertex(sf::Vector2f(offset, offset - coeff * data.I), sf::Color::Magenta));
+    Recovered.append(sf::Vertex(sf::Vector2f(offset, offset - coeff * data.R), sf::Color::Red));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,18 +155,15 @@ sf::VertexArray Display::population()
 ///////////    COLOR THE CLUSTERS    //////////
 void Display::Color_clusters()
 {
-    sf::Color green = sf::Color(10,220,0);
-    sf::Color yellow = sf::Color(235,242,22);
-    sf::Color red = sf::Color(240,70,70);
+    sf::Color green = sf::Color(10, 220, 0);
+    sf::Color yellow = sf::Color(235, 242, 22);
+    sf::Color red = sf::Color(240, 70, 70);
 
     for (unsigned i = 0; i < sim->world().clusters().size(); ++i)
     {
         auto& cl = sim->world().clusters()[i];
         sf::Color color;
-        if (cl.get_zone() == Zone::Green)
-        {
-            color = green;
-        }
+        if (cl.get_zone() == Zone::Green) { color = green; }
         else if (cl.get_zone() == Zone::Yellow)
         {
             color = yellow;
@@ -184,7 +185,7 @@ void Display::update_graphs()
     unsigned vertex_count = Susceptible.getVertexCount();
     float Sim_side = static_cast<float>(sim->world().get_side());
 
-    //Check if the Graphs are over 4/5 of the Graph width, and if neccessary resize
+    // Check if the Graphs are over 4/5 of the Graph width, and if neccessary resize
     if (Susceptible[vertex_count - 1].position.x - Sim_side >= 4 * Graph_width / 5)
     { // if last graph point x is >= of 4/5 of Graph_width, adapt the graph so that it stay in half Graph_width
         double k = Graph_width / (2 * (Susceptible[vertex_count - 1].position.x - Sim_side));
@@ -198,12 +199,12 @@ void Display::update_graphs()
         dx *= k; // adapt the delta_x
     }
 
-    //append new points to the graph
+    // append new points to the graph
     float previous_x = Susceptible[vertex_count - 1].position.x;
-    Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.S),sf::Color::White));
-    Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.E),sf::Color::Cyan));
-    Infected.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.I),sf::Color::Magenta));
-    Recovered.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.R),sf::Color::Red));
+    Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff * data.S), sf::Color::White));
+    Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff * data.E), sf::Color::Cyan));
+    Infected.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff * data.I), sf::Color::Magenta));
+    Recovered.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff * data.R), sf::Color::Red));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,10 +214,10 @@ void Display::update_graphs()
 ///////////    DISPLAY    //////////
 void Display::Draw()
 {
-    //call teh function to update the arrays
+    // call teh function to update the arrays
     Color_clusters();
     update_graphs();
-    //Draw the arrays
+    // Draw the arrays
     Window.draw(Clusters);
     Window.draw(Borders);
     Window.draw(Locations);
@@ -225,5 +226,4 @@ void Display::Draw()
     Window.draw(Exposed);
     Window.draw(Infected);
     Window.draw(Recovered);
-
 }
