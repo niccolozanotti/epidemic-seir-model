@@ -113,7 +113,7 @@ void World::fill_with_E_I_R_individuals(unsigned clusters_nums, int E, int I, in
     int E_pop_left = E;
     while (E_pop_left > ppl_block)
     {
-        E_v[wrld_eng.int_uniform(0, -1)] += ppl_block;
+        E_v[wrld_eng.int_uniform(0, clusters_nums - 1)] += ppl_block;
         E_pop_left -= ppl_block;
     }
     E_v[wrld_eng.int_uniform(0, clusters_nums - 1)] += E_pop_left;
