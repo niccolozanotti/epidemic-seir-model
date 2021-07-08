@@ -63,6 +63,3 @@ class Person
 } // namespace smooth_sim
 
 #endif
-
-//     Return a pointer to location home
-//    Location* get_home_pointer(); // return pointer to Location home

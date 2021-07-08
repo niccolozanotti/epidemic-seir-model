@@ -81,7 +81,6 @@ class Simulation
 
     // returns position of the indexed perosn
     Position get_person_pos(int cluster_index, int person_index);
-    // unused   std::vector<Location *> green_loc_list(); // list of locations of non_red clusters
 };
 
 } // namespace smooth_sim
