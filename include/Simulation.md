@@ -209,7 +209,7 @@ are moving, all the people that are in their home are not displayed.
 This class implements the random generation features critical for this project. It  making use of the header-only library
 `randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use
 class. The main purpose of our use of it in our random implementation is the high quality seeding given by the use of multiple
-sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved trough `std::random_device`.
+sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved through `std::random_device`.
 
 [randutil][randutils_git]
 which guarantees high entropy seeding which sometimes may not be

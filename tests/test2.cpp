@@ -6,7 +6,7 @@ using namespace smooth_sim;
 
 TEST_CASE("Path cleaning test")
 {
-    Simulation Test(10000, 0, 0, 0,10,1000,1000,0.1,0.1,0.1,1,100);
+    Simulation Test(10000, 0, 0, 0,10,1000,1000,0.1,0.1,0.1,1);
     for(unsigned int i = 0; i < 10; ++i) //move ten times
     {
         Test.move();

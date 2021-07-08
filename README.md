@@ -56,8 +56,8 @@ Or you can build directly:
 ```shell
 #create and enter a build directory
 mkdir build && cd build
-#prepare to build files
-cmake ..
+#prepare to build files in release mode
+cmake .. -DCMAKE_BUILD_TYPE=Release
 #if you want to build every app
 make
 #if you want to build a specific app
@@ -95,6 +95,8 @@ TO ADD ALL THE PARTS RELATED TO INPUT
 ## Tests
 Testing is enabled by default in cmake; so if you want to run a test you just need to build and run it.
 ```shell
+#prepare to build file in debug mode
+cmake .. -DCMAKE_BUILD_TYPE=Debug
 #build the test
 make testname
 #run the test
@@ -106,10 +108,10 @@ The tests are(TO FILL):
 
 | App name     | function    |
 | ------------ | ----------- |
-| test         | Description |
-| test         | Description |
-| test         | Description |
-| test         | Description | 
+| test1         | Test if `S + I + E + R` remain costant when solving the SEIR system |
+| test2         | Test if both `Simulation::clean_path` and `Simulation::clean_cluster_path` works correctly  |
+| test3         | Check if the generation of a Simulation object works correctly |
+ 
 
 
 
