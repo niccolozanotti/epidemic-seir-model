@@ -3,6 +3,7 @@
 #include "random.hpp"
 #include <cassert>
 #include <random>
+#include <iostream>
 
 namespace smooth_sim
 {
@@ -64,6 +65,16 @@ void Cluster::generate_groups(int locations_num)
     // Determine groups number
     int number_of_groups = cl_engine.rounded_gauss(locations_num * MEAN_GROUP_SIZE, locations_num * GROUP_SIZE_STDDEV);
 
+    if(number_of_groups <= 0) //make sure there is at least one group
+    {
+        number_of_groups = 1;
+    }
+
+    if(number_of_groups > locations_num){ //make sure the number of Locations is >= than the number og groups
+        number_of_groups = locations_num;
+    }
+
+    assert(locations_num >= number_of_groups && number_of_groups >= 1);
     // Create a Vector which will have the partition of locations in group,with every group having at least one location
     std::vector<int> loc_num(number_of_groups, 1);
 
@@ -79,6 +90,10 @@ void Cluster::generate_groups(int locations_num)
             ++loc_num[i];
             i = number_of_groups; // end the loop
         }
+        else if(i == number_of_groups - 1) //if it is the last group
+        {
+            loc_num[i] += loc_left;
+        }
         else
         {
             int rnum = cl_engine.int_uniform(1, nearbyint(loc_left / 2));
@@ -86,6 +101,7 @@ void Cluster::generate_groups(int locations_num)
             loc_left -= rnum;
         }
     }
+    assert(std::accumulate(loc_num.begin(),loc_num.end(),0) == locations_num);
     assert(Groups.empty());
     Groups.reserve(number_of_groups);
     for (int i = 0; i < number_of_groups; ++i) // construct groups vector element by element
@@ -225,34 +241,46 @@ void Cluster::set_LATP(double new_LATP_parameter)
 ///////////////// PATH GENERATION FOR A PERSON /////////////////
 void Cluster::generate_path(int to_visit, std::vector<Location*>& path)
 {
-    int last_index = -1;
-    for (auto& a : Groups)
-    {
-        last_index += a.locations_num();
-    }
-    std::vector<int> result_indexes;
-    for (int i = 0; i < to_visit; ++i) // select the random indeces
-    {
-        bool continue_loop = true;
-        int curr_index;
-        while (continue_loop)
+    if(to_visit >= locations_num()){ //if there are more location to visit than in the cluster, return pointers to all locations
+        for(auto &gr: Groups)
         {
-            continue_loop = false;
-            curr_index = cl_engine.int_uniform(0, last_index);
-            for (auto& a : result_indexes)
+            for(auto &l: gr.locations())
             {
-                if (curr_index == a)
-                {
-                    continue_loop = true;
-                    break;
-                }
+                path.push_back(&l);
             }
         }
-        result_indexes.push_back(curr_index);
     }
-    for (int i = 0; i < to_visit; ++i)
+    else
     {
-        path.push_back(select_location(result_indexes[i]));
+        int last_index = -1;
+        for (auto& a : Groups)
+        {
+            last_index += a.locations_num();
+        }
+        std::vector<int> result_indexes;
+        for (int i = 0; i < to_visit; ++i) // select the random indeces
+        {
+            bool continue_loop = true;
+            int curr_index;
+            while (continue_loop)
+            {
+                continue_loop = false;
+                curr_index = cl_engine.int_uniform(0, last_index);
+                for (auto& a : result_indexes)
+                {
+                    if (curr_index == a)
+                    {
+                        continue_loop = true;
+                        break;
+                    }
+                }
+            }
+            result_indexes.push_back(curr_index);
+        }
+        for (int i = 0; i < to_visit; ++i)
+        {
+            path.push_back(select_location(result_indexes[i]));
+        }
     }
 }
 

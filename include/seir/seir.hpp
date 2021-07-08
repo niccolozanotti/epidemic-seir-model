@@ -2,6 +2,7 @@
 #define SEIRODE_HPP
 
 #include <iostream>
+#include <vector>
 
 namespace seir
 {
