@@ -1,29 +1,14 @@
 # Epidemic simulation
 This project represents the solution which we, Niccolò Zanotti and Filippo Pretolani, two Physics Undegraduates studying at
 University of Bologna, gave to our University Programming Course [final assignment][assignment].
-<!-- put relative path to extern -->
-We collaborated on writing the source code found in this repository except for, of course, external libraries [code](##Building)
+We collaborated on writing the source code found in this repository except for, of course, external libraries [code](extern/ExternLibraries.md)
 
 The project is made up of 2 main parts:
 
-1. Using the known SEIR model to determine the spread of an epidemic, given initial conditions and
-   parameters
+1. Using the known SEIR model to determine the spread of an epidemic, given initial conditions(see [here](include/SEIR.md))
 
-2. Simulating an epidemic
+2. Simulating an epidemic, given simulation parameters(see [here](include/Simulation.md))
 
-We solved the SEIR ordinary differential equations using both a first-order numerical method([Euler][euler] method) and
-with a local error of
-
-```math
-\frac{dS}{dt} = -\beta \frac{S}{N} I \\[4mm]
-\frac{dE}{dt} = \beta \frac{S}{N} I - \alpha E \\[4mm]
-\frac{dI}{dt} = \alpha E - \gamma I \\[4mm]
-\frac{dR}{dt} = \gamma I
-```
-
-
-a fourth-order one ([Runge-Kutta][rk4] method).
-The point was t
 
 The Simulation of epidemic is based on the SMOOTH* model to simulate how people moves
 and implements a division in Clusters which can change color, changing how people move.
@@ -102,11 +87,7 @@ Therefore, the command to pass the value of two generic input variables named re
 is the following:
 ```shell
 ./appname -var1 value_of_var1 -v value_of_v
-#or
-./appname -v value_of_v -var1 value_of_var1 
 ```
-showing also the fact that order is not critical for correct parsing.
-
 Clearly, each application has its own input variables. 
 The following tables show the available input options
 for each application(an empty cell means the variable doesn't have a second name):
@@ -162,35 +143,54 @@ for each application(an empty cell means the variable doesn't have a second name
 |   gamma              |        `-g`        |       `--gamma`     |  `double`: cumulative probability for a person to recover or die  |
 |   side               |        `--sd`      |        `--side`     |  `int`: side of the simulation area                               |
 
-Of course the user has not to pass all these variables to run the program; there are optionals which can be
-default chosen, and some which have to be specified. 
-The following examples show all the possible combinations of input variables, choosing,when available, the longer name and omitting
-variables values just for the sake of clarity:
-```shell
-#seir 
-exec 
-exec --method --people --alpha --beta --gamma --time
-exec --method -- 
-```
-The standard parameters used to perform the simulation 
-
 Lyra offers a help interface consisting of a summary of all input variables with relative names and descriptions
 which can be accessed simply by specifying `-h` or `--help` at execution time.
 
-
-
+Of course the user has not to pass all these variables to run the program; there are optionals which can be
+default chosen, and some which have to be specified. 
+The following examples show some of the possible combinations of input variables, choosing,when available, the longer name and omitting
+variables values, just for the sake of clarity:
 ```shell
-./appname --def 1
-#or
-./appname --default 1
+#app: seir
+exec  --default 1                                                #default values
+exec --method --people --alpha --beta --gamma --time              
+exec --method --alpha --beta --gamma --time -S -E -I -R         
+exec --method --people --time
 ```
-is equivalent to execute the following command
 ```shell
-./appname 
+#app: sim
+exec  --default 1                                              #default values
+exec --people --clust --loc --alpha --beta --gamma --time      #input clusters and locations 
+exec --people --clust --alpha --beta --gamma --time            #input only cluster
+exec --people --loc --alpha --beta --gamma --time              #input only locations
+exec --clust -loc --time -S -E -I -R --time                    #do not use default S,E,I,R ratio
 ```
+```shell
+#app: sim-graphics
+exec  --default 1                                              #default values
+exec --people --clust --loc --alpha --beta --gamma             #input clusters and locations
+exec --people --clust --alpha --beta --gamma                   #input only cluster
+exec --people --loc --alpha --beta --gamma                     #input only locations
+exec --clust -loc --time -S -E -I -R                           #do not use default S,E,I,R ratio
+```
+Note that , in order for the parsing to occur correctly, the `S`,`E`,`I`,`R` _group_ of parameters need to be specified at 
+the end of the parameters list(see [input validation][inp-val]). \
+The standard parameters used when  `default_sim` is setted are the ones in [parameters.hpp](include/simulation/parameters.hpp).
 
 ### Input validation
-All arguments 
+All input values are subject to validity conditions, some more restrictive than others.
+Our major source of understanding about reasonable parameters values came from the graphical simulation:
+testing multiple times in a variety of conditions allowed us to get a good grasp in this sense.
+We decided not to put tight constraints on S,E,I,R values since the cases where they are supposed to assume
+weird values are not realistic.
+
+World constraints:
+
+- For the combined value of clusters and locations in the simulation area to be valid, the minimum
+  number of locations per cluster should be **10**;
+- The number of clusters should be less than **40**;
+
+CONTINUA
 
 ## Running
 All the built apps will be in the epidemic/apps directory.
@@ -233,4 +233,6 @@ The tests are(TO FILL):
 [euler]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
 [rk4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
 [assignment]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
+
+[inp-val]:#input-validation
 

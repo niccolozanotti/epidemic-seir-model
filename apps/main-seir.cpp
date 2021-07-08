@@ -70,12 +70,12 @@ int main(int argc, char* argv[])
                                   .add_argument(lyra::opt(exposed, "Exposed")
                                                 ["-E"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0 && value < susceptibles;})
+                                                        .choices([](int value){ return value >= 0;})
                                                         .help("Exposed individuals in the simulation."))
                                   .add_argument(lyra::opt(infected, "Infected")
                                                 ["-I"]
                                                         .required()
-                                                        .choices([](int value){ return value >=0 && value < susceptibles;})
+                                                        .choices([](int value){ return value >=0;})
                                                         .help("Infected individuals in the simulation."))
                                   .add_argument(lyra::opt(recovered, "Recovered")
                                                 ["-R"]
