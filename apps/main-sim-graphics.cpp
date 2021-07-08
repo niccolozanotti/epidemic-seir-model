@@ -133,7 +133,7 @@ int main(int argc,char** argv)
 
 
     // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
-    if (def_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != DEF_SIDE || spread_radius != DEF_SPREAD_RADIUS))
+    if (def_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 || spread_radius != 0))
     {
         std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by the user\n";
         std::cerr << "Use --def 1 (or --default 1) without any other argument to simulate with default values"<<std::endl;
