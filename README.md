@@ -28,8 +28,8 @@ and implements a division in Clusters which can change color, changing how peopl
 
 --------------------------------------------------------------------------------
 ## Dependencies
-- [Lyra](https://github.com/bfgroup/Lyra) (bundled)
-- [Doctest](https://github.com/onqtam/doctest) (bundled)
+- [Lyra][lyra] (submodule)
+- [Doctest][doctest] (submodule)
 - [SFML](http://www.sfml-dev.org/) (required)
 - [Root](https://root.cern) (required)
 - [CMake](https://cmake.org/) (required)
@@ -79,7 +79,8 @@ cmake -B path-to-build-dir -S path-to-source -DROOT_DIR="path-to-ROOT-installati
 ```
 --------------------------------------------------------------------------------
 ## Input
-The applications 
+The applications which are built by this project collect user input through 
+command line arguments. Lyra library
 
 --------------------------------------------------------------------------------
 ## Running
@@ -101,7 +102,7 @@ cd tests && ./testname
 #or
 ./tests/testname
 ```
-The test are(TO FILL):
+The tests are(TO FILL):
 
 | App name     | function    |
 | ------------ | ----------- |
@@ -115,6 +116,9 @@ The test are(TO FILL):
 --------------------------------------------------------------------------------
 ## Additional Notes
 
+
+[lyra]:https://github.com/bfgroup/Lyra
+[doctest]:https://github.com/onqtam/doctest
 [euler]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
 [rk4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
 [assignment]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md

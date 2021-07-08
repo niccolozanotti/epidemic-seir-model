@@ -11,8 +11,7 @@ target_include_directories(seir.t PUBLIC ../include/seir
 target_compile_features(seir.t PRIVATE cxx_std_17)
 target_compile_options(seir.t PRIVATE -Wall -Wextra -fsanitize=address)
 target_link_options(seir.t PRIVATE -fsanitize=address)
-target_link_libraries(seir.t PRIVATE standard_solver
-                                     runge_kutta_solver)
+target_link_libraries(seir.t PRIVATE numeric)
 add_test(NAME seir.t COMMAND seir.t)
 
 add_executable(sim.t test2.cpp $<TARGET_OBJECTS:test_main>)
