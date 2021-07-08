@@ -3,6 +3,7 @@ sim_build
 test_build
 cmake-build-debug
 cmake-build-release
+build-release
 .idea
 *.swp
 *.DS_Store
