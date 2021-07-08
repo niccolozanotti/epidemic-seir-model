@@ -40,15 +40,15 @@ Then you can either run the script in the script folder:
 ```shell
 #from the cloned repository directory
 cd scripts
-#open the script of the application you want to build
-./appname.sh
+#run the script
+./quick-build.sh
 ```
 or you can build directly:
 ```shell
 #create and enter a build directory
 mkdir build && cd build
-#prepare to build files
-cmake ..
+#prepare to build files in release mode
+cmake .. -DCMAKE_BUILD_TYPE=Release
 #if you want to build every app
 make
 #if you want to build a specific app
@@ -60,7 +60,7 @@ of available machine cores plus 1:
 
 ```shell
 # for a quad-core machine
-make sim-graphics -j5
+make sim-graphics -j 4
 ```
 
 The available executable applications(CMake targets) are the following:
@@ -204,7 +204,22 @@ TO ADD ALL THE PARTS RELATED TO INPUT
 ## Tests
 The testing strategy adopted for this project was _Unit testing_. To this aim, we made use of the header library
 [doctest][doct]. \
-Testing is enabled in Debug mode
+Testing is enabled in Debug mode in cmake; so if you want to run a test you just need to build and run it,
+either using the script:
+```shell
+#from the epidemic directory, enter the script directory
+cd scripts
+#and run the script
+./testing.sh
+#you can then go to the test_build directory and run the test
+cd ../test_build && ./testname
+```
+Or manually
+```shell
+#from the epidemic directory create and enter a build directory
+mkdir build && cd build
+#prepare to build file in debug mode
+cmake .. -DCMAKE_BUILD_TYPE=Debug
 ```shell
 #build the test
 make testname
@@ -217,10 +232,9 @@ The tests are(TO FILL):
 
 | App name     | function    |
 | ------------ | ----------- |
-| test         | Description |
-| test         | Description |
-| test         | Description |
-| test         | Description | 
+| test1         | Test if `S + I + E + R` remain costant when solving the SEIR system |
+| test2         | Test if both `Simulation::clean_path` and `Simulation::clean_cluster_path` works correctly  |
+| test3         | Check if the generation of a Simulation object works correctly |
 
 
 
