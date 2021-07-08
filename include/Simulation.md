@@ -199,7 +199,7 @@ People and graphs:
 
 The end result is like that:
 
-![Sim-graph]
+![Sim-graph](assets/Images/Sim-graph.PNG)
 
 At the left we have the simulation. At the right the graphs of the 4 statuses of the people.  
 The colored rectangles represent the various clusters, the Blue points represent group of locations, and the colored small squares represent the people that
@@ -221,5 +221,3 @@ achieved through std::random_device. Additionally it implements some random oper
 [randutils_web]:https://gist.github.com/imneme/540829265469e673d045
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
 [seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
-
-[Sim-graph]:../assets/Images/Sim-graph.png
