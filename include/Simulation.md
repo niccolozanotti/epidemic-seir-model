@@ -205,7 +205,6 @@ At the left we have the simulation. At the right the graphs of the 4 statuses of
 The colored rectangles represent the various clusters, the Blue points represent group of locations, and the colored small squares represent the people that
 are moving, all the people that are in their home are not displayed.
 
-
 ### Random
 This class implements the random generation features critical for this project. It  making use of the header-only library
 `randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use

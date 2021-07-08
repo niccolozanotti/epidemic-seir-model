@@ -217,7 +217,19 @@ int main(int argc, char** argv)
 
     //////////////////////////////////////////////  GRAPHICS SIMULATION  ///////////////////////////////////////////////
     using namespace smooth_sim;
-    unsigned Graph_width = 800;   //TODO Determine graph width
+    unsigned Graph_width;
+    if(static_cast<int>(sf::VideoMode::getDesktopMode().width) <= side) //if screen width smaller than sidr, do not plot the graphs
+    {
+        Graph_width = 0;
+    }
+    else if(static_cast<int>(sf::VideoMode::getDesktopMode().width) >= 2*side) //if desktop width is less than half screen width
+    {
+        Graph_width = side;
+    }
+    else
+    {
+        Graph_width = static_cast<int>(sf::VideoMode::getDesktopMode().width) - side;    //Use remaining screen width for the graphs
+    }
     Simulation prova{susceptibles, exposed, infected, recovered, clusters,     locations,
                      side,         alpha,   beta,     gamma,     spread_radius};
     // Simulation prova{23750,500,375,125,10,1000,1000,0.3,0.1,0.05,1};
