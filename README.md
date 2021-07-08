@@ -49,8 +49,8 @@ Then you can either run the script in the script folder:
 ```shell
 #from the cloned repository directory
 cd scripts
-#open the script of the application you want to build
-./appname.sh
+#open the script
+./quick-build.sh
 ```
 Or you can build directly:
 ```shell
@@ -93,8 +93,20 @@ TO ADD ALL THE PARTS RELATED TO INPUT
 --------------------------------------------------------------------------------
 
 ## Tests
-Testing is enabled by default in cmake; so if you want to run a test you just need to build and run it.
+Testing is enabled by default in cmake; so if you want to run a test you just need to build and run it,
+either using the script:
 ```shell
+#from the epidemic directory, enter the script directory
+cd scripts
+#and run the script
+./testing.sh
+#you can then go to the test_build directory and run the test
+cd ../test_build && ./testname
+```
+Or manually
+```shell
+#from the epidemic directory create and enter a build directory
+mkdir build && cd build
 #prepare to build file in debug mode
 cmake .. -DCMAKE_BUILD_TYPE=Debug
 #build the test
