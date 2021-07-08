@@ -1,9 +1,7 @@
 ////// STL //////
-#include <chrono>
-#include <cmath>
 #include <iostream>
 //////  LYRA (CMD LINE PARSER) //////
-#include <Lyra/lyra.hpp>
+#include <lyra/lyra.hpp>
 ////// PROJECT HEADERS //////
 #include "../src/simulation/graphics/display.hpp"
 #include "simulation.hpp"
@@ -15,8 +13,9 @@ int main(int argc,char** argv)
 
     ///////////////////////  Simulation input parameters ///////////////////////
 
-    bool show_help = false;
     bool get_help = false;
+    bool clusters_and_locations {false};
+    bool default_params {true};
     int people {25000};
     int susceptibles {};
     int exposed {};
@@ -31,9 +30,9 @@ int main(int argc,char** argv)
     double def_I {0.02};
     double def_R {0.01};
 
-
-    int clusters_num {5};
-    int side {1000};
+    int locations {};
+    int clusters {};
+    int side {};
     double alpha {0.1};
     double beta {0.2};
     double gamma {0.02};
@@ -44,6 +43,7 @@ int main(int argc,char** argv)
     /* clang-format off */
 
     lyra::cli cli;  //command line input
+
     cli.add_argument(lyra::help(get_help))
             .add_argument(lyra::opt(people, "people")
                           ["-p"]["--people"]
@@ -71,10 +71,30 @@ int main(int argc,char** argv)
                                                         .required()
                                                         .choices([](int value){ return value >= 0;})
                                                         .help("Recovered individuals in the simulation."))) //end group
-            .add_argument(lyra::opt(side, "Side")
-                          ["-sd"]["--side"]
-                                  .choices([](int value){ return value >= 700 && value <= 1500;})
-                                  .help("Side of the simulation area."))
+            .add_argument(lyra::opt(locations, "locations")
+                          ["-l"]["--loc"]
+                                  .choices([](int value){ return value >= 0;})
+                                  .help("How many locations should there be on the map?"))
+            .add_argument(lyra::opt(clusters, "clusters")
+                          ["-c"]["--clust"]
+                                  .choices([](int value){ return value >= 0;})
+                                  .help("How many cluster should the area be divided into?"))
+            .add_argument(lyra::group([&](const lyra::group &) {
+                clusters_and_locations = true;
+            })
+                                  .add_argument(lyra::opt(locations, "locations")
+                                                ["-l"]["--loc"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0;})
+                                                        .help("How many locations should there be on the map?"))
+                                  .add_argument(lyra::opt(clusters, "clusters")
+                                                ["-c"]["--cl"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0;})
+                                                        .help("How many cluster should the area be divided into?")))//end group
+            .add_argument(lyra::group([&](const lyra::group &) {
+                default_params = true;
+            })
             .add_argument(lyra::opt(alpha, "alpha")
                           ["-a"]["--alpha"]
                                   .choices([](double value){ return value >= 0.0 && value <= 1.0;})
@@ -86,7 +106,7 @@ int main(int argc,char** argv)
             .add_argument(lyra::opt(gamma, "gamma")
                           ["-g"]["--gamma"]
                                   .choices([](double value){ return value >= 0.0 && value <= 1.0;})
-                                  .help("Parameter: cumulative probability for a person to recover or die."));
+                                  .help("Parameter: cumulative probability for a person to recover or die."))); //end group
     /* clang-format on */
 
     // Parse the program arguments:
@@ -97,21 +117,41 @@ int main(int argc,char** argv)
     {
         std::cerr << "Error in command line: " << result.errorMessage() << std::endl;
         std::cerr << cli << "\n";
-        return 1;
+        return EXIT_FAILURE;
     }
 
     // Show the help when asked for.
-    if (show_help)
+    if (get_help)
     {
         std::cout << cli << "\n";
         return 0;
     }
 
+    // only clusters have been specified
+    if (!clusters_and_locations && locations == 0 && clusters >0)
+    {
+        locations = clusters * 150;
+    }
+    // only locations have been specified: set
+    else if (!clusters_and_locations && locations > 0 && clusters  == 0)
+    {
+        clusters = locations / 150;
+    }
 
+    else if(!clusters_and_locations && locations == 0 && clusters == 0)
+    {
+        std::cerr << "At least one parameter among 'clusters' and 'locations' must be specified."<<std::endl;
+        return EXIT_FAILURE;
+    }
+
+    std::cout << "Clusters == " <<clusters<<"\t Locations == "<<locations<<std::endl;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "Width and height of your screen "<< std::endl;
+    std::cout << sf::VideoMode::getDesktopMode().width <<std::endl;
+    std::cout << sf::VideoMode::getDesktopMode().height <<std::endl;
     unsigned Sim_side = 1000;
     unsigned Graph_width = 800;
-    Simulation prova{25000, 3, 200, 4, 5, 800, Sim_side, 0.3, 0.02, 0.2, 1, 20};
+    Simulation prova{25000, 3, 200, 4, 1, 800, Sim_side, 0.3, 0.02, 0.2, 1, 20};
     std::vector<Data> Result = {prova.get_data()};
     sf::RenderWindow window;
     Display Window{prova,window,Graph_width};

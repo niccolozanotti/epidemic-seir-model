@@ -2,7 +2,6 @@
 #include <array>
 #include <cassert>
 #include <stdexcept>
-#include <vector>
 
 void error(std::string s)
 {
@@ -23,7 +22,6 @@ SEIR::SEIR(int population, int time, State initial_state, double beta, double al
       alpha{alpha},
       gamma{gamma}
 {
-    is_valid(*this);
 }
 /////////////////////////////////////////////////////////////////
 ///  DEFAULT CONDITIONS : POPULATION: 100000,TIME: 80 DAYS, 1 ///
@@ -53,52 +51,52 @@ SEIR::SEIR()
 /////////////////////////////////////           PRIVATE METHODS           /////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-///////////////// CHECK SEIR PROBLEM VALIDITY /////////////////
-bool SEIR::is_valid(SEIR obj)
-{
-    if (obj.t <= 0)
-    {
-        error("The SEIRulation duration have a non-positive value!");
-        return false;
-    }
-    else if (obj.t < 10)
-    {
-        error("The simulation period is too small for the SEIRulation to be "
-              "accurate!");
-        return false;
-    }
-    if (obj.N <= 0)
-    {
-        error("The population has a non-positive value!");
-        return false;
-    }
-    else if (obj.N < 100)
-    {
-        error("The population sample is too small for the SEIRulation to be "
-              "accurate!");
-        return false;
-    }
-    if (obj.S_0.E == 0 && obj.S_0.I == 0)
-    { // 0 people with, at least, virus in latent phase
-        error("The disease will not spread if nobody has taken the virus in "
-              "the initial state!");
-        return false;
-    }
-    if (obj.beta <= 0.0 || obj.gamma <= 0.0 || obj.alpha <= 0.0)
-    {
-        error("The parameters can't be negative or 0!");
-        return false;
-        // add some more constraints
-    }
-
-    if (obj.S_0.S + obj.S_0.E + obj.S_0.I + obj.S_0.R != obj.N)
-    {
-        error("The sum of susceptibles, latent, infected and removed individuals "
-              "must equal the total population!");
-    }
-
-    return true;
-}
+/////////////////// CHECK SEIR PROBLEM VALIDITY /////////////////
+//bool SEIR::is_valid(SEIR obj)
+//{
+//    if (obj.t <= 0)
+//    {
+//        error("The SEIRulation duration have a non-positive value!");
+//        return false;
+//    }
+//    else if (obj.t < 10)
+//    {
+//        error("The simulation period is too small for the SEIRulation to be "
+//              "accurate!");
+//        return false;
+//    }
+//    if (obj.N <= 0)
+//    {
+//        error("The population has a non-positive value!");
+//        return false;
+//    }
+//    else if (obj.N < 100)
+//    {
+//        error("The population sample is too small for the SEIRulation to be "
+//              "accurate!");
+//        return false;
+//    }
+//    if (obj.S_0.E == 0 && obj.S_0.I == 0)
+//    { // 0 people with, at least, virus in latent phase
+//        error("The disease will not spread if nobody has taken the virus in "
+//              "the initial state!");
+//        return false;
+//    }
+//    if (obj.beta <= 0.0 || obj.gamma <= 0.0 || obj.alpha <= 0.0)
+//    {
+//        error("The parameters can't be negative or 0!");
+//        return false;
+//        // add some more constraints
+//    }
+//
+//    if (obj.S_0.S + obj.S_0.E + obj.S_0.I + obj.S_0.R != obj.N)
+//    {
+//        error("The sum of susceptibles, latent, infected and removed individuals "
+//              "must equal the total population!");
+//    }
+//
+//    return true;
+//}
 ///////////////// DETERMINE NEW STATE WITH EULER METHOD /////////////////
 State SEIR::EulerSolver(const State& current_state)
 {
