@@ -15,10 +15,12 @@ We solved the SEIR ordinary differential equations using both a first-order nume
 with a local error of
 
 ```math
-\frac{dS}{dt} = -\beta \frac{S}{N} I \\[3mm]
-\frac{dI}{dt} = \beta \frac{S}{N} I - \gamma I \\[3mm]
+\frac{dS}{dt} = -\beta \frac{S}{N} I \\[4mm]
+\frac{dE}{dt} = \beta \frac{S}{N} I - \alpha E \\[4mm]
+\frac{dI}{dt} = \alpha E - \gamma I \\[4mm]
 \frac{dR}{dt} = \gamma I
 ```
+
 
 a fourth-order one ([Runge-Kutta][rk4] method).
 The point was t
@@ -29,22 +31,26 @@ and implements a division in Clusters which can change color, changing how peopl
 --------------------------------------------------------------------------------
 ## Dependencies
 - [Lyra][lyra] (submodule)
-- [Doctest][doctest] (submodule)
+- [Doctest][doct] (submodule)
 - [SFML](http://www.sfml-dev.org/) (required)
 - [Root](https://root.cern) (required)
 - [CMake](https://cmake.org/) (required)
 
 --------------------------------------------------------------------------------
 ## Building
-Make sure that all the required dependencies are installed.
+Make sure all the required dependencies are installed on your machine and fully working.
 
-The first step is to clone the repository:
+SISTEMA
+
+First of all, clone the repository :
 ```shell
-#clone the final branch of the repository
-git clone -b final --single-branch https://gitlab.com/Feyn-23/epidemic.git 
+#clone the released branch of the repository
+git clone -b main --single-branch https://gitlab.com/Feyn-23/epidemic.git 
 #enter the repository
 cd epidemic
 ```
+To facilitate the user, building scripts are available inside `scripts` project subdirectory.
+
 Then you can either run the script in the script folder:
 ```shell
 #from the cloned repository directory
@@ -52,7 +58,7 @@ cd scripts
 #open the script of the application you want to build
 ./appname.sh
 ```
-Or you can build directly:
+or you can build directly:
 ```shell
 #create and enter a build directory
 mkdir build && cd build
@@ -63,13 +69,22 @@ make
 #if you want to build a specific app
 make appname
 ```
-The executable targets availabele to build are the following:
+Instead of building files using a single core, one can take advantage of the other available cores on the machine to
+speed up the building process. To do that, it's sufficient to add `-jN` option at build time, N being equal to the number
+of available machine cores plus 1: 
 
-| App name     | Purpose                                                      |
-| ------------ | ------------------------------------------------------------ |
-| seir         | Solve the SEIR differential equation with Euler Method       |
-| sim          | Simulate an epidemic, without graphical output               |
-| sim-graphics | Simulate an pandemic, with graphical output                  |
+```shell
+# for a quad-core machine
+make sim-graphics -j5
+```
+
+The available executable applications(CMake targets) are the following:
+
+| App name     | Purpose                                                       |
+| ------------ | ------------------------------------------------------------  |
+| seir         | Solve the SEIR differential equation using a numerical method |
+| sim          | Simulate an epidemic, without graphical output                |
+| sim-graphics | Simulate an pandemic, with graphical output                   |
 
 ### Notes
 On certain devices, CMake might not be able to detect ROOT installation. If that is the case, the problem can be solved by manually specifying the
@@ -78,11 +93,105 @@ path to your ROOT installation ,setting the CMake Variable ROOT_DIR at build tim
 cmake -B path-to-build-dir -S path-to-source -DROOT_DIR="path-to-ROOT-installation"
 ```
 --------------------------------------------------------------------------------
-## Input
-The applications which are built by this project collect user input through 
-command line arguments. Lyra library
+## User Input
+The applications built by this project collect user input through command line arguments. 
+We chose the command line parser libray [Lyra][lyra] to handle this task.
+The value of an input variable can be setted at execution time by referring to one of its names, that is,
+a `char` following a short dash(`-`) or a `string` following a long dash(`--`). \
+Therefore, the command to pass the value of two generic input variables named respectively `--var1` and `-v`
+is the following:
+```shell
+./appname -var1 value_of_var1 -v value_of_v
+#or
+./appname -v value_of_v -var1 value_of_var1 
+```
+showing also the fact that order is not critical for correct parsing.
 
---------------------------------------------------------------------------------
+Clearly, each application has its own input variables. 
+The following tables show the available input options
+for each application(an empty cell means the variable doesn't have a second name):
+
+### seir
+
+|       Variable       |    First name      |     Second name     |                     Description                                   |
+|----------------------|--------------------|---------------------|-------------------------------------------------------------------|
+|   default_sim        |        `--def`     |      `--default`    | `bool`:usage of default simulation values                         |
+|   numerical_method   |        `-m `       |       `--method`    | `bool`: usage of Euler method(`false`) or RK4 method(`true`)      |
+|   people             |        `-N`        |       `--people`    |  `int`: number of individuals in the simulation                   |
+|   susceptibles       |        `-S`        |                     |  `int`: number of suceptible individuals                          |
+|   exposed            |        `-E`        |                     |  `int`: number of exposed individuals                             |
+|   infected           |        `-I`        |                     |  `int`: number of infected individuals                            |
+|   recovered          |        `-R`        |                     |  `int`: number of recovered individuals                           |
+|   alpha              |        `-a`        |       `--alpha`     |  `double`: lag between infectious contact and symptoms show       |
+|   beta               |        `-b`        |        `--beta`     |  `double`: number of people an infective person infects each day  |
+|   gamma              |        `-g`        |       `--gamma`     |  `double`: cumulative probability for a person to recover or die  |
+|   time               |        `-t`        |        `--time`     |  `int`: duration of the simulation(days)                          |
+
+### sim
+
+|       Variable       |    First name      |     Second name     |                     Description                                   |
+|----------------------|--------------------|---------------------|-------------------------------------------------------------------|
+|   default_sim        |        `--def`     |      `--default`    | `bool`:usage of default simulation values                         |
+|   people             |        `-N`        |       `--people`    |  `int`: number of individuals in the simulation                   |
+|   susceptibles       |        `-S`        |                     |  `int`: number of suceptible individuals                          |
+|   exposed            |        `-E`        |                     |  `int`: number of exposed individuals                             |
+|   infected           |        `-I`        |                     |  `int`: number of infected individuals                            |
+|   recovered          |        `-R`        |                     |  `int`: number of recovered individuals                           |
+|   locations          |        `-l`        |        `--loc`      |  `int`: number of locations plotted on the simulation area        |
+|   clusters           |         `-c`       |     `--clust`      |  `int`: number of clusters of the simulation area                 |
+|   alpha              |        `-a`        |       `--alpha`     |  `double`: lag between infectious contact and symptoms show       |
+|   beta               |        `-b`        |        `--beta`     |  `double`: number of people an infective person infects each day  |
+|   gamma              |        `-g`        |       `--gamma`     |  `double`: cumulative probability for a person to recover or die  |
+|   side               |        `--sd`      |        `--side`     |  `int`: side of the simulation area                               |
+|   time               |        `-t`        |        `--time`     |  `int`: duration of the simulation(days)                          |
+
+### sim-graphics
+
+|       Variable       |    First name      |     Second name     |                     Description                                   |
+|----------------------|--------------------|---------------------|-------------------------------------------------------------------|
+|   default_sim        |        `--def`     |      `--default`    | `bool`:usage of default simulation values                         |
+|   people             |        `-N`        |       `--people`    |  `int`: number of individuals in the simulation                   |
+|   susceptibles       |        `-S`        |                     |  `int`: number of suceptible individuals                          |
+|   exposed            |        `-E`        |                     |  `int`: number of exposed individuals                             |
+|   infected           |        `-I`        |                     |  `int`: number of infected individuals                            |
+|   recovered          |        `-R`        |                     |  `int`: number of recovered individuals                           |
+|   locations          |        `-l`        |        `--loc`      |  `int`: number of locations plotted on the simulation area        |
+|   clusters           |         `-c`       |     `--clust`       |  `int`: number of clusters of the simulation area                 |
+|   alpha              |        `-a`        |       `--alpha`     |  `double`: lag between infectious contact and symptoms show       |
+|   beta               |        `-b`        |        `--beta`     |  `double`: number of people an infective person infects each day  |
+|   gamma              |        `-g`        |       `--gamma`     |  `double`: cumulative probability for a person to recover or die  |
+|   side               |        `--sd`      |        `--side`     |  `int`: side of the simulation area                               |
+
+Of course the user has not to pass all these variables to run the program; there are optionals which can be
+default chosen, and some which have to be specified. 
+The following examples show all the possible combinations of input variables, choosing,when available, the longer name and omitting
+variables values just for the sake of clarity:
+```shell
+#seir 
+exec 
+exec --method --people --alpha --beta --gamma --time
+exec --method -- 
+```
+The standard parameters used to perform the simulation 
+
+Lyra offers a help interface consisting of a summary of all input variables with relative names and descriptions
+which can be accessed simply by specifying `-h` or `--help` at execution time.
+
+
+
+```shell
+./appname --def 1
+#or
+./appname --default 1
+```
+is equivalent to execute the following command
+```shell
+./appname 
+```
+
+### Input validation
+All arguments 
+
 ## Running
 All the built apps will be in the epidemic/apps directory.
 
@@ -93,7 +202,9 @@ TO ADD ALL THE PARTS RELATED TO INPUT
 --------------------------------------------------------------------------------
 
 ## Tests
-Testing is enabled by default in cmake; so if you want to run a test you just need to build and run it.
+The testing strategy adopted for this project was _Unit testing_. To this aim, we made use of the header library
+[doctest][doct]. \
+Testing is enabled in Debug mode
 ```shell
 #build the test
 make testname
@@ -118,7 +229,7 @@ The tests are(TO FILL):
 
 
 [lyra]:https://github.com/bfgroup/Lyra
-[doctest]:https://github.com/onqtam/doctest
+[doct]:https://github.com/onqtam/doctest
 [euler]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
 [rk4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
 [assignment]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md

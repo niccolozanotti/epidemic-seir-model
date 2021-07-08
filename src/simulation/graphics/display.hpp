@@ -9,7 +9,7 @@ namespace smooth_sim{
 
 class Display{
   private:
-    Simulation* sim; //pointer to the simulation ti display
+    Simulation* sim; //pointer to the simulation to display
     sf::RenderWindow &Window; // reference to the window where all will be rendered
     sf::VertexArray Clusters; // vertex array that represent the clusters
     sf::VertexArray Borders; // vertex array that represent the clusters borders

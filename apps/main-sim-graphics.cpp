@@ -21,11 +21,11 @@ int main(int argc, char** argv)
     /* clang-format off */
 
     bool get_help = false;               // evaluates true if there's any lyra-detected input error
-    bool def_sim {false};                //should the simulation be performed with default parameters?
+    bool default_sim {false};                //should the simulation be performed with default parameters?
     bool default_seir {true};            // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
     bool clusters_and_locations {false}; // are both clusters and locations values get specified?
     bool default_params {true};          // should default values for alpha,beta and gamma be used rather than user defined?
-    int people{};
+    int people {};
     static int susceptibles{};
     static int exposed{};
     static int infected{};
@@ -41,11 +41,11 @@ int main(int argc, char** argv)
     lyra::cli cli;  //Lyra object: command line input
 
     cli.add_argument(lyra::help(get_help))
-            .add_argument(lyra::opt(def_sim, "default")
+            .add_argument(lyra::opt(default_sim, "default")
                           ["--def"]["--default"]
                                   .help("Perform the simulation with default chosen values"))
             .add_argument(lyra::opt(people, "people")
-                          ["-p"]["--people"]
+                          ["-N"]["--people"]
                                   .choices([](int value){ return value > 0;})
                                   .help("How many people should there be in the simulation?"))
             .add_argument(lyra::group([&](const lyra::group &) {
@@ -54,22 +54,22 @@ int main(int argc, char** argv)
                                   .add_argument(lyra::opt(susceptibles, "Susceptibles")
                                                 ["-S"]
                                                         .required()
-                                                        .choices([](int value){ return value > 0 && value < 70000;})
+                                                        .choices([](int value){ return value > 0;})
                                                         .help("Susceptible individuals in the simulation."))
                                   .add_argument(lyra::opt(exposed, "Exposed")
                                                 ["-E"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0 && value < susceptibles;})
+                                                        .choices([](int value){ return value >= 0;})
                                                         .help("Exposed individuals in the simulation."))
                                   .add_argument(lyra::opt(infected, "Infected")
                                                 ["-I"]
                                                         .required()
-                                                        .choices([](int value){ return value >=0 && value < susceptibles;})
+                                                        .choices([](int value){ return value >=0;})
                                                         .help("Infected individuals in the simulation."))
                                   .add_argument(lyra::opt(recovered, "Recovered")
                                                 ["-R"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0 && value < 70000;})
+                                                        .choices([](int value){ return value >= 0;})
                                                         .help("Recovered individuals in the simulation."))) //end group
             .add_argument(lyra::opt(locations, "locations")
                           ["-l"]["--loc"]
@@ -88,7 +88,7 @@ int main(int argc, char** argv)
                                                         .choices([](int value){ return value / clusters >= MINIMUM_LOC_CLUST_RATIO; })
                                                         .help("How many locations should there be on the map?"))
                                   .add_argument(lyra::opt(clusters, "clusters")
-                                                ["-c"]["--cl"]
+                                                ["-c"]["--clust"]
                                                         .required()
                                                         .choices([](int value){ return locations / value >= MINIMUM_LOC_CLUST_RATIO; })
                                                         .help("How many cluster should the area be divided into?")))//end group
@@ -133,7 +133,7 @@ int main(int argc, char** argv)
     }
 
     // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
-    if (def_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 ||
+    if (default_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 ||
                     spread_radius != 0))
     {
         std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by "
@@ -145,7 +145,7 @@ int main(int argc, char** argv)
 
     /////////// The user has chosen to use default chosen parameters ///////////
 
-    if (def_sim)
+    if (default_sim)
     {
         people = DEF_PEOPLE;
         susceptibles = people * DEF_S;

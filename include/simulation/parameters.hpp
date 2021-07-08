@@ -44,6 +44,7 @@ int constexpr DEF_SIDE = 1000;
 double constexpr DEF_ALPHA = 0.3;
 double constexpr DEF_BETA = 0.1;
 double constexpr DEF_GAMMA = 0.05;
+double constexpr DEF_DURATION = 300;
 double constexpr DEF_SPREAD_RADIUS = 1.0;
 
 #endif

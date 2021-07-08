@@ -23,7 +23,7 @@ int main(int argc, char** argv)
     ////////////////////////////////////////////////  INPUT COLLECTION  ////////////////////////////////////////////////
 
     bool get_help = false;               // evaluates true if there's any lyra-detected input error
-    bool def_sim {false};                //should the simulation be performed with default parameters?
+    bool default_sim {false};                //should the simulation be performed with default parameters?
     bool default_seir {true};            // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
     bool clusters_and_locations {false}; // are both clusters and locations values get specified?
     bool default_params {true};
@@ -34,20 +34,21 @@ int main(int argc, char** argv)
     static int recovered{};
     static int locations{};
     static int clusters{};
-    int side{};
     double alpha{};
     double beta{};
     double gamma{};
+    int side{};
+    int time{};
     double spread_radius{};
 
     lyra::cli cli;  //Lyra object: command line input
 
     cli.add_argument(lyra::help(get_help))
-            .add_argument(lyra::opt(def_sim, "default")
+            .add_argument(lyra::opt(default_sim, "default")
                           ["--def"]["--default"]
                                   .help("Perform the simulation with default chosen values"))
             .add_argument(lyra::opt(people, "people")
-                          ["-p"]["--people"]
+                          ["-N"]["--people"]
                                   .choices([](int value){ return value > 0;})
                                   .help("How many people should there be in the simulation?"))
             .add_argument(lyra::group([&](const lyra::group &) {
@@ -90,7 +91,7 @@ int main(int argc, char** argv)
                                                         .choices([](int value){ return value / clusters >= MINIMUM_LOC_CLUST_RATIO; })
                                                         .help("How many locations should there be on the map?"))
                                   .add_argument(lyra::opt(clusters, "clusters")
-                                                ["-c"]["--cl"]
+                                                ["-c"]["--clust"]
                                                         .required()
                                                         .choices([](int value){ return locations / value >= MINIMUM_LOC_CLUST_RATIO; })
                                                         .help("How many cluster should the area be divided into?")))//end group
@@ -112,7 +113,11 @@ int main(int argc, char** argv)
             .add_argument(lyra::opt(side, "side")
                           ["--sd"]["--side"]
                                   .choices([](int value){ return value >=locations;})
-                                  .help("How big should the simulation area side be"));
+                                  .help("How big should the simulation area side be"))
+            .add_argument(lyra::opt(time, "time")
+                          ["-t"]["--time"]
+                                  .choices([](int value){ return value > 0;})
+                                  .help("How many days should the simulation last for?"));;
 
     /* clang-format on */
 
@@ -135,7 +140,7 @@ int main(int argc, char** argv)
     }
 
     // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
-    if (def_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 ||
+    if (default_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 ||
                     spread_radius != 0))
     {
         std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by "
@@ -145,7 +150,7 @@ int main(int argc, char** argv)
         return EXIT_FAILURE;
     }
     //////// Perform simulation with default chosen parameters ////////
-    if (def_sim)
+    if (default_sim)
     {
         people = DEF_PEOPLE;
         susceptibles = people * DEF_S;
@@ -158,7 +163,8 @@ int main(int argc, char** argv)
         beta = DEF_BETA;
         gamma = DEF_GAMMA;
         side = DEF_SIDE;
-        spread_radius = 1;
+        time = DEF_DURATION;
+        spread_radius = DEF_SPREAD_RADIUS;
     }
     //////// The user has chosen to set simulation parameters himself ////////
     else

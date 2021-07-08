@@ -41,10 +41,10 @@ class SEIR
 
   public:
     // constructor
-    SEIR(int population, int time, State S0, double alpha, double beta, double gamma);
+    SEIR(int population, int time, State initial_state, double alpha, double beta, double gamma);
 
-    // default constructor
-    SEIR();
+    // the default constructor should not be used
+    SEIR() = delete;
 
   private:
     // returns newly calculated State using Euler method(1th order numerical approximation)

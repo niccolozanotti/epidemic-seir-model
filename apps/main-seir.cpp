@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
     /* clang-format off */
 
     bool get_help = false;               // evaluates true if there's any lyra-detected input error
-    bool def_sim {false};                //should the simulation be performed with default parameters?
+    bool default_sim {false};            //should the simulation be performed with default parameters?
     bool default_seir {true};            // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
     bool default_params {true};          // should default values for alpha,beta and gamma be used rather than user defined?
     bool numerical_method {0};          //method use to solve SEIR ode system(Euler method by default)
@@ -49,14 +49,14 @@ int main(int argc, char* argv[])
     lyra::cli cli;  //Lyra object: command line input
 
     cli.add_argument(lyra::help(get_help))
-            .add_argument(lyra::opt(def_sim, "default")
+            .add_argument(lyra::opt(default_sim, "default")
                           ["--def"]["--default"]
                                   .help("Perform the simulation with default chosen values"))
             .add_argument(lyra::opt(numerical_method, "numerical method")
                           ["-m"]["--method"]
                                   .help("Numerical method used to solve SEIR odes: \n'0'(false)-->Euler Method\n'1'(true)-->Runge Kutta Method\n"))
             .add_argument(lyra::opt(people, "people")
-                          ["-p"]["--people"]
+                          ["-N"]["--people"]
                                   .choices([](int value){ return value > 0;})
                                   .help("How many people should there be in the simulation?"))
             .add_argument(lyra::group([&](const lyra::group &) {
@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
     }
 
     // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
-    if (def_sim && (people != 0 || !default_seir || !default_params || numerical_method != 0 || time != 0))
+    if (default_sim && (people != 0 || !default_seir || !default_params || numerical_method != 0 || time != 0))
     {
         std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by "
                      "the user\n";
@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
 
     /////////// The user has chosen to use default chosen parameters ///////////
 
-    if (def_sim)
+    if (default_sim)
     {
         people = DEF_PEOPLE;
         susceptibles = people * DEF_S;

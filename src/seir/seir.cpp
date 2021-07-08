@@ -140,7 +140,7 @@ void SEIR::evolve(std::vector<State>& states, bool method)
     ///////// Runge Kutta method to solve SEIR equations /////////
     if (method == 1)
     {
-        for (int i = 0; i < t; ++i)
+        for (int time = 0; time < t; time += TIME_STEP)
         {
             new_state = RungeKuttaSolver(current_state);
             states.push_back(new_state);
