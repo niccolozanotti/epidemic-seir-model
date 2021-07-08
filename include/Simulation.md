@@ -27,7 +27,7 @@ it's an enum class composed of 4 possible values:
 4. `Recovered` It has either recovered or died from the disease, it will not be reinfected.
 
 ### Person
-The Person class represent, as the name suggest, the person in the simulation, it is composed of 5 private members:
+The Person class represents, as the name suggests, the person in the simulation, it is composed of 5 private members:
 1. `position` that represent the person coordinate
 2. `current_status` that represent the current Status of the person
 3. `next_status` that represent the status that the person will have in the next step
@@ -197,6 +197,15 @@ People and graphs:
 | ![I_color](https://via.placeholder.com/25/5A006E/000000?text=+)    | When *Person::Status* is `Status::I`   |
 | ![R_color](https://via.placeholder.com/25/7D7D7D/000000?text=+)    | When *Person::Status* is `Status::R`   |
 
+The end result is like that:
+
+![Sim-graph]
+
+At the left we have the simulation. At the right the graphs of the 4 statuses of the people.  
+The colored rectangles represent the various clusters, the Blue points represent group of locations, and the colored small squares represent the people that
+are moving, all the people that are in their home are not displayed.
+
+
 ### Random
 This class implements the random generation features critical for this project. It  making use of the header-only library
 `randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use
@@ -213,3 +222,4 @@ achieved through std::random_device. Additionally it implements some random oper
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
 [seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
 
+[Sim-graph]:../assets/Images/Sim-graph.png
