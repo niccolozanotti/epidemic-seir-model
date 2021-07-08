@@ -188,14 +188,14 @@ Clusters:
 | ![yellow] | When *Cluster::zone* is `Zone::Yellow` |
 | ![red]    | When *Cluster::zone* is `Zone::Red`    |
 
-People:
+People and graphs:
 
 | Color     | meaning                                |
 | --------- | -------------------------------------- |
-| ![green]  | When *Person::Status* is `Status::S`   |
-| ![yellow] | When *Person::Status* is `Status::E`   |
-| ![red]    | When *Person::Status* is `Status::I`   |
-| ![red]    | When *Person::Status* is `Status::R`   |
+| ![S_color]  | When *Person::Status* is `Status::S`   |
+| ![E_color] | When *Person::Status* is `Status::E`   |
+| ![I_color]    | When *Person::Status* is `Status::I`   |
+| ![R_color]    | When *Person::Status* is `Status::R`   |
 
 ### Random
 This class implements the random generation features critical for this project. It  making use of the header-only library
@@ -213,6 +213,10 @@ achieved through std::random_device. Additionally it implements some random oper
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
 [seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
 
-[green]: asset/
-[yellow]: asset/
-[red]: asset/
+[green]: (https://via.placeholder.com/15/0ADC00)
+[yellow]: (https://via.placeholder.com/15/EBF216)
+[red]: (https://via.placeholder.com/15/F04646)
+[S_color]: (https://via.placeholder.com/15/FFFFFF)
+[E_color]: (https://via.placeholder.com/15/006E6E)
+[I_color]: (https://via.placeholder.com/15/5A006E)
+[R_color]: (https://via.placeholder.com/15/7D7D7D)
