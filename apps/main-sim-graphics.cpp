@@ -2,6 +2,13 @@
 #include <iostream>
 //////  LYRA (CMD LINE PARSER) //////
 #include <lyra/lyra.hpp>
+//////  ROOT HEADERS  //////
+#include "TApplication.h"
+#include "TCanvas.h"
+#include "TF1.h"
+#include "TGraph.h"
+#include "TMultiGraph.h"
+#include "TRootCanvas.h"
 ////// PROJECT HEADERS //////
 #include "../src/simulation/graphics/display.hpp"
 #include "simulation.hpp"
@@ -168,8 +175,10 @@ int main(int argc,char** argv)
     std::cout << sf::VideoMode::getDesktopMode().height <<std::endl;
     unsigned Graph_width = 800;
     Simulation prova {susceptibles,exposed,infected,recovered,clusters,locations,side,alpha,beta,gamma,spread_radius};
+    //Simulation prova{23750,500,375,125,10,1000,1000,0.3,0.1,0.05,1};
     std::vector<Data> Result = {prova.get_data()};
     sf::RenderWindow window;
+    std::cout << "I'm here";
     Display Window{prova,window,Graph_width};
     Window.Draw();
     window.display();
@@ -201,4 +210,48 @@ int main(int argc,char** argv)
         Window.Draw();
         window.display();
     }
+
+    // ROOT CODE
+
+   /* TApplication app("app", &argc, argv);
+
+    auto c0 = new TCanvas("c0", "Evoluzione");
+    auto mg = new TMultiGraph();
+    auto gS = new TGraph();
+    auto gE = new TGraph();
+    auto gI = new TGraph();
+    auto gR = new TGraph();
+    gS->SetLineColor(kBlue);
+    gE->SetLineColor(kOrange);
+    gI->SetLineColor(kGreen);
+    gR->SetLineColor(kRed);
+    mg->SetTitle("Evolution; steps; number of people");
+
+    int t2 = 0;
+    for (auto& a : Result)
+    {
+        gS->SetPoint(t2, t2, a.S);
+        gE->SetPoint(t2, t2, a.E);
+        gI->SetPoint(t2, t2, a.I);
+        gR->SetPoint(t2, t2, a.R);
+        t2++;
+    }
+
+    mg->Add(gS);
+    gS->SetTitle("S");
+    mg->Add(gE);
+    gE->SetTitle("E");
+    mg->Add(gI);
+    gI->SetTitle("I");
+    mg->Add(gR);
+    gR->SetTitle("R");
+
+    mg->Draw("AL");
+    c0->BuildLegend();
+
+    c0->Modified();
+    c0->Update();
+    TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
+    rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
+    app.Run();*/
 }

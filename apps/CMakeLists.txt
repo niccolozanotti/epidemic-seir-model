@@ -50,6 +50,7 @@ target_link_libraries(sim-graphics PRIVATE  graphics
                                             location
                                             position
                                             random)
+target_link_libraries(sim-graphics PUBLIC ${ROOT_LIBRARIES} ${ROOT_EXE_LINKER_FLAGS})
 target_link_libraries(sim-graphics PRIVATE lyra)
 target_link_libraries(sim-graphics PRIVATE sfml-graphics)
 target_include_directories(sim-graphics PUBLIC "${PROJECT_BINARY_DIR}"

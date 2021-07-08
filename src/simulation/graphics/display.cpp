@@ -151,21 +151,25 @@ sf::VertexArray Display::population()
 ///////////    COLOR THE CLUSTERS    //////////
 void Display::Color_clusters()
 {
+    sf::Color green = sf::Color(10,220,0);
+    sf::Color yellow = sf::Color(235,242,22);
+    sf::Color red = sf::Color(240,70,70);
+
     for (unsigned i = 0; i < sim->world().clusters().size(); ++i)
     {
         auto& cl = sim->world().clusters()[i];
         sf::Color color;
         if (cl.get_zone() == Zone::Green)
         {
-            color = sf::Color::Green;
+            color = green;
         }
         else if (cl.get_zone() == Zone::Yellow)
         {
-            color = sf::Color::Yellow;
+            color = yellow;
         }
         else
         {
-            color = sf::Color::Red;
+            color = red;
         }
         Clusters[4 * i].color = color;
         Clusters[4 * i + 1].color = color;

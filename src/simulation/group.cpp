@@ -1,4 +1,5 @@
 #include "group.hpp"
+#include <iostream>
 
 namespace smooth_sim
 {
