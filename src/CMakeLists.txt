@@ -18,6 +18,10 @@ set(HEADER_LIST_SIM    "${epidemic_SOURCE_DIR}/include/simulation/random.hpp"
 
 add_subdirectory(simulation)
 
+set(HEADER_LIST_GRAPH    "${epidemic_SOURCE_DIR}/include/simulation/simulation.hpp")
+
+add_subdirectory(simulation/graphics)
+
 
 
 

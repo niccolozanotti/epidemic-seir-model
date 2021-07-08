@@ -63,12 +63,11 @@ make
 #if you want to build a specific app
 make appname
 ```
-The possible apps to build are:
+The executable targets availabele to build are the following:
 
-| App name     | function                                                     |
+| App name     | Purpose                                                      |
 | ------------ | ------------------------------------------------------------ |
-| seir1        | Solve the SEIR differential equation with Euler Method       |
-| seir2        | Solve the SEIR differential equation with Runge-Kutta Method |
+| seir         | Solve the SEIR differential equation with Euler Method       |
 | sim          | Simulate an epidemic, without graphical output               |
 | sim-graphics | Simulate an pandemic, with graphical output                  |
 
@@ -78,6 +77,9 @@ path to your ROOT installation ,setting the CMake Variable ROOT_DIR at build tim
 ```shell
 cmake -B path-to-build-dir -S path-to-source -DROOT_DIR="path-to-ROOT-installation"
 ```
+--------------------------------------------------------------------------------
+## Input
+The applications 
 
 --------------------------------------------------------------------------------
 ## Running
