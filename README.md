@@ -211,11 +211,11 @@ They are:
 | ------------ | ------------------|------------------  |
 | people = [S, E, I, R] | 25000 = [23750,750,375,125] | We suggest to not go too high with the number of people as it will slow the simulation a lot, another suggestion is to start with a good number of infected, as a too little number won't effectively spread the virus |
 | clusters          | 10                | We suggest to have at least 5 clusters and maximum 20 of them, but other values should still give acceptable results | 
-| locations | 1000 | We suggests at least 50 locations for cluster and not more than 300 per clusters, other values are possible but will probably give pointless results | |
+| locations | 1500 | We suggests at least 50 locations for cluster and not more than 300 per clusters, other values are possible but will probably give pointless results | |
 | Side | 1000 | We suggest the side to be from 500 to 2000, as value too small are too cramped, and values too high need a careful and very difficult choice of parameters  |
 | alpha | 0.05 | We suggest a similar value to this parameter, as a too high value ( > 0.2) will make this parameter pointless, while a value too low will make the simulation too unnecessary long |
-| beta | 0.05 | We suggest a similar value to this parameter, a too high( > 0.15) values will make the epidemic very fast, while a too low will make it not spread |
-|gamma | 0.01 | We suggest a similar value to this parameter, a too high( > 0.15) values will make the epidemic end very fast, while a too low values will make it too long |
+| beta | 0.04 | We suggest a similar value to this parameter, a too high( > 0.15) values will make the epidemic very fast, while a too low will make it not spread |
+|gamma | 0.015 | We suggest a similar value to this parameter, a too high( > 0.15) values will make the epidemic end very fast, while a too low values will make it too long |
 
 The three last parameter are the most sensible, a slight change to one parameter will skew the results a lot
 

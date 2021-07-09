@@ -19,8 +19,8 @@ double constexpr YELLOW_PATH_MEAN = 2;
 double constexpr YELLOW_PATH_STDDEV = 0.5;
 double constexpr RED_PATH_MEAN = 0;
 double constexpr RED_PATH_STDDEV = 0.2;
-double constexpr YELLOW_ZONE_CONDITION = 0.03;
-double constexpr RED_ZONE_CONDITION = 0.10;
+double constexpr YELLOW_ZONE_CONDITION = 0.04;
+double constexpr RED_ZONE_CONDITION = 0.12;
 double constexpr WHITE_ZONE_LATP_ALPHA = 5;
 double constexpr YELLOW_ZONE_LATP_ALPHA = 15;
 double constexpr RED_ZONE_LATP_ALPHA = 30;
@@ -30,20 +30,19 @@ double constexpr MEAN_SPEED = 3.5;
 double constexpr SPEED_STDDEV = 1.0;
 double constexpr MAX_PAUSE = 15.0;
 double constexpr MIN_PAUSE = 5.0;
-double constexpr MINIMUM_LOC_CLUST_RATIO = 10.0;
 double constexpr SPREAD_RADIUS = 1.0;
 ////////////////////////////  DEFAULT SIMULATION PARAMETERS ////////////////////////////
 int constexpr DEF_PEOPLE = 25000;
 int constexpr DEF_CLUSTERS = 10;
-int constexpr DEF_LOCATIONS = 1000;
+int constexpr DEF_LOCATIONS = 1500;
 double constexpr DEF_S = 0.95;
 double constexpr DEF_E = 0.03;
 double constexpr DEF_I = 0.015;
 double constexpr DEF_R = 0.005;
 int constexpr DEF_SIDE = 1000;
-double constexpr DEF_ALPHA = 0.3;
-double constexpr DEF_BETA = 0.1;
-double constexpr DEF_GAMMA = 0.05;
-double constexpr DEF_DURATION = 300;
+double constexpr DEF_ALPHA = 0.05;
+double constexpr DEF_BETA = 0.04;
+double constexpr DEF_GAMMA = 0.015;
+double constexpr DEF_DURATION = 125;
 
 #endif
