@@ -60,8 +60,9 @@ k_3 =  f \Bigg(S+\frac{h}{2}k ,E+\frac{h}{2}k_2 ,I+\frac{h}{2}k_2 ,R+\frac{h}{2}
 k_4 =  f \Big(S+h ,E+h ,I+h ,R+h \Big) \\[3mm]
 ```
 $`k_i`$ being the $`i`$-th order approximation term.
-### Notes
+In our program this method is implemented by `RungeKuttaSolver(const State&)` method of `SEIR` class.
 
+### Notes
 In the program we opted for floating point number type for `S`,`E`,`I`,`R` variables. This can seem counter-intuitive as they 
 represent numbers of people and are naturally represented by unsigned integer values. The reasons for that are two
 - By casting to int the values obtained from ODEs discretization we would have, in many cases, to resize variable values since 
