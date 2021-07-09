@@ -1,6 +1,0 @@
-Questo progetto ha una repository pubblica associata su GitLab all'indirizzo https://gitlab.com/Feyn-23/epidemic .
-Si consiglia di clonare la repository per una migliore esperienza, dal momento che la relazione è stata sviluppata 
-attraverso più file MarkDown, il cui rendering su GitLab è ottimale(avendo KaKaTeX di default, ad esempio).
-
-Filippo Pretolani
-Niccolò Zanotti
