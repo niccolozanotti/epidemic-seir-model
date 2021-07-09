@@ -272,7 +272,6 @@ sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved
 which guarantees high entropy seeding which sometimes may not be
 achieved through std::random_device. Additionally it implements some random operations useful for our Simulation.
 
-
 [1]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
 [2]:https://en.wikipedia.org/wiki/Random_waypoint_model
 [3]:https://www.researchgate.net/publication/224500337_SLAW_A_mobility_model_for_human_walks
