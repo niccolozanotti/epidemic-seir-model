@@ -10,7 +10,7 @@ namespace smooth_sim
 /////////////////////////////////////////////////////
 Random::Random()
 {
-    mt19937_rng default_engine; // default seed engine with 256 bits of entropy (See
+    mt19937_rng default_engine; // Default seed engine with 256 bits of entropy (See
                                 // https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html)
     eng = default_engine;
 }
@@ -58,8 +58,10 @@ int Random::rand_stay()
     double t4{};
     double pause_time{};
 
-    double u = uniform(0, 1); // number in range [0,1)
+    // Number in range [0,1)
+    double u = uniform(0, 1);
 
+    // Apply the power rule of SMOOTH paper
     t1 = (u * pow(MAX_PAUSE, PAUSE_EXPONENT)) - (u * pow(MIN_PAUSE, PAUSE_EXPONENT)) - pow(MAX_PAUSE, PAUSE_EXPONENT);
     t2 = pow(MAX_PAUSE, PAUSE_EXPONENT) * pow(MIN_PAUSE, PAUSE_EXPONENT);
     t3 = -(t1 / t2);
@@ -77,7 +79,7 @@ double Random::rand_radius()
 {
     // Generate the random radius
     double radius = gauss(LOCATION_RADIUS_MEAN, LOCATION_RADIUS_DEV);
-    //Check if it is bigger than the minimum radius
+    // Check if it is bigger than the minimum radius
     if (radius < MINIMUM_LOCATION_RADIUS)
     {
         radius = MINIMUM_LOCATION_RADIUS;

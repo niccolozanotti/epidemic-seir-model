@@ -21,33 +21,31 @@ class Random
   public:
     // Default construct a 256-bit seeded engine
     Random();
-    //    mt19937_rng engine() const { return eng; } // return the engine to perform other actions
-
-    // returns a double uniformly in [lower,upper) range
+    // Returns a double uniformly in [lower,upper) range
     double uniform(double lower, double upper);
 
-    // extract an int uniformly in [lower,upper] range
+    // Extract an int uniformly in [lower,upper] range
     int int_uniform(int lower, int upper);
 
-    // returns a double extracted from a normal distribution
+    // Returns a double extracted from a normal distribution
     double gauss(double mean, double stddev);
 
-    // returns a int gotten from rounding the double extracted from the normal distribution
+    // Returns a int gotten from rounding the double extracted from the normal distribution
     int rounded_gauss(double mean, double stddev);
 
-    // returns an int in the range [0,weights.size()-1] based on the input weights vector
+    // Returns an int in the range [0,weights.size()-1] based on the input weights vector
     int discrete(std::vector<double> weights);
 
-    // returns true based on an input probability(uniform)(used to determine if an event has to happen or not)
+    // Returns true based on an input probability(uniform)(used to determine if an event has to happen or not)
     bool try_event(double prob);
 
-    // returns a stay(measured in steps of the simulation) extracted from the chosen TPL(Truncated Power Law)
+    // Returns a stay(measured in steps of the simulation) extracted from the chosen TPL(Truncated Power Law)
     int rand_stay();
 
-    // returns a uniformly generated random speed(then assigned to a person)
+    // Returns a uniformly generated random speed(then assigned to a person)
     double rand_speed();
 
-    // returns a random radius according to the chosen parameters
+    // Returns a random radius according to the chosen parameters
     double rand_radius();
 };
 
