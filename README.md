@@ -202,15 +202,12 @@ Regarding *sim* and *sim-graphics* apps we defined some constraints:
 
 ### Default values
 `seir` default parameters:
-| Parameters    | Default value   |  Suggestions          |
-| ------------ | ------------------|------------------  |
-| people = [S, E, I, R] | 25000 = [23750,750,375,125] | We suggest not going too high with the number of people as it will slow the simulation a lot; another suggestion would be to start with a good number of infected, since an excessively small number won't effectively spread the virus |
-| clusters          | 10                | We suggest to have at least 5 clusters and maximum 20 of them, but other values should still give acceptable results | 
-| locations | 1500 | We suggests at least 50 locations for cluster and not more than 300 per clusters, other values are possible but will probably give pointless results | |
-| Side | 1000 | We suggest the side to be from 500 to 2000, as value too small are too cramped, and values too high need a careful and very difficult choice of parameters  |
-| alpha | 0.05 | We suggest a similar value to this parameter, since a too high value ( > 0.2) will make this parameter pointless, while a value too low will make the simulation too unnecessary long |
-| beta | 0.04 | We suggest a similar value to this parameter, since a high value( > 0.15) will make the epidemic very fast, while a too low will make it not spread |
-|gamma | 0.015 | We suggest a similar value to this parameter, since a too high( > 0.15) value will make the epidemic end very fast, while a too low values will make it too long |
+| Parameters    | Default value   |
+| ------------ | ------------------|
+| people = [S, E, I, R] | 25000 = [990000,3000,5000,2000] |
+| alpha | 0.035 |
+| beta | 0.15 |
+| gamma | 0.015 |
 
 `sim` and `sim-graphics` default parameters:
 
