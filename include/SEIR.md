@@ -13,10 +13,10 @@ the system of equations to solve is the following:
 with the following meaning:
 |   Symbol     |             Meaning                                                                                    |
 | ------------ | -------------------------------------------------------------------------------------------------------|
-| S            | Susceptibles individuals: individuals who can be infected                                              |
-| E            | Exposed individuals: individuals who had an infectious contact and waiting for the symptoms to show    |
-| I            | Infectious individuals spreading the disease                                                           |
-| R            | Individuals no more susceptible to the disease either because they recovered or they died              |
+| S            | Susceptibles individuals: who can be infected                                              |
+| E            | Exposed individuals: who had an infectious contact and waiting for the symptoms to show    |
+| I            | Infectious individuals: who can spread the disease                                                           |
+| R            | Recovered individuals: who are no more susceptible to the disease either because they recovered or they died              |
 
 |   Parameter  |             Meaning                                                            |
 | ------------ | -------------------------------------------------------------------------------|
@@ -65,7 +65,7 @@ In our program this method is implemented by `RungeKuttaSolver(const State&)` me
 
 ## Final result
 
-The output of the default program(see [input](../README.md/#user-input))
+The output of the default program(see [input](../README.md/#default-values))
 ![Sim-graph](assets/Images/default-seir.png)
 
 

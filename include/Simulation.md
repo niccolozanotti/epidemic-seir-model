@@ -90,15 +90,10 @@ because of the proven statistical validity of their results:
 where $`u`$ is uniformly distributed and the values of $`p_{MIN},p_{MAX}`$, and the Lèvy exponent($`\beta`$) are 
 among [fixed parameters](simulation/parameters.hpp) of the simulation. 
 
-## Epidemic spread 
-
-The epidemic model is the same to the one we dealt with in the first part: the SEIR model. Thus the parameters
-characterizing the spread of the epidemic are the same.
-
 ## Implementation details
 
 The used programming language is C++ with the language standard being `c++17`. Each one of the entities present
-int this simulation is represented by a Class. What follows is a quick overview of the implemented Classes
+in this simulation is represented by a Class. What follows is a quick overview of the implemented Classes
 (comments along with code will help the user understand other non mentioned details).
 
 ### Position
@@ -113,9 +108,9 @@ a `Position` to be nearer to a specific target(called by [Moblity_model][#mobili
 This class represents a place on the map which corresponds to a person targert. It's where the virus usually
 spreads more.
 The class owns 3 private members:
-1. `position` an object of the Position class which represent the Location center position in the simulated world
-2. `radius` a double type member which represent the size of the location
-3. `cluster_index` Index of the cluster where the location is located(See Cluster)
+1. `position` an object of the Position class which represent the Location center position in the simulated world.
+2. `radius` a double type member which represent the size of the location.
+3. `cluster_index` Index of the cluster where the location is located(See Cluster).
 
 ### Status
 
@@ -130,24 +125,24 @@ Enumeration defining the 4 possible health state characterizing a `Person`:
 
 The Person class represents, as the name suggests, the person in the simulation. \
 It owns 5 data members:
-1. `position` that represent the person coordinate
-2. `status` that represent the current Status of the person
-3. `next_status` that represent the status that the person will have in the next step
+1. `position` that represent the person coordinates.
+2. `status` that represent the current Status of the person.
+3. `next_status` that represent the status that the person will have in the next step.
 4. `home` an object of the Location class, represent the person's home.
-5. `label` it represent the index of the cluster in which the person's home is located
+5. `label` it represent the index of the cluster in which the person's home is located.
 
 ### Mobility Model
 
 This class is used to implement people movement in the simulation. \
-It owns 3 data members:
-1. `person` an object of the Person class which represent the person that is going to be moved
+It owns 7 data members:
+1. `person` an object of the Person class which represent the person that is going to be moved.
 2. `Path`   a vector of pointers to Location, containing the locations `person` is going to
-    visit before returning home
-3. `target_location` the current location the person is moving to
-4. `stay` the number of steps the person will stay at target_location
-5. `home_probability` the probability that the person will remain home
-6. `at_home` a boolean variable telling whether the person is at home
-7. `going_home` a boolean variable telling whether `person` is on its way to home 
+    visit before returning home.
+3. `target_location` the current location the person is moving to.
+4. `stay` the number of steps the person will stay at target_location.
+5. `home_probability` the probability that the person will remain home.
+6. `at_home` a boolean variable telling whether the person is at home.
+7. `going_home` a boolean variable telling whether `person` is on its way to home .
 
 Its main methods:
 * `move()` : selects its corresponding person position and calls `Position::move_toward()` moving the person closer to
@@ -159,8 +154,8 @@ Its main methods:
 
 The Rectangle class represent a rectangle on the simulation area. \
 It owns 2 data members:
-1. `blh_corner` the bottom left-hand corner of the rectangle
-2. `trh_corner` the top right-hand corner of the rectangle
+1. `blh_corner` the bottom left-hand corner of the rectangle.
+2. `trh_corner` the top right-hand corner of the rectangle.
 
 Its main methods:
 * `split()`      splits a `Rectangle` in 2 `Rectangle`s of different sizes.
@@ -181,15 +176,15 @@ based on the number of infected individuals in a specific cluster. \
 There are 3 possibilities:
 1. `Green`: 
 - people can go to every other green cluster; 
-- bigger number of location to visit per person
+- bigger number of location to visit per person;
 - small LATP parameter(the person has a 50% chance to visit a waypoint from another `Green` cluster).
 2. `Yellow`:
 - people can only move inside their cluster;
-- smaller number of locations to visit per person
+- smaller number of locations to visit per person;
 - high LATP parameter(the person is likely to visit a nearby location).
 3. `Red`:
 - people can only move inside their cluster;
-- really small number of locations to visit per person
+- really small number of locations to visit per person;
 - really high LATP parameter(the person only visit a nearby location).
 
 ### Cluster
@@ -206,7 +201,7 @@ It owns 7 data members:
 
 The main method:
 * `generate_cluster_path(int, std::vector<Location*>&)` generate a path of n locations selected them from the cluster
-  and put them in the referenced vector
+  and put them in the referenced vector.
 
 ### World
 
@@ -215,7 +210,7 @@ It owns 3 data members:
 1. `Area`       an object of the Rectangle class, that represent the physical area of the world.
 2. `Clusters`   a vector of Cluster objects in which the world is divided into. \
 3. `wrld_engine` the Random engine used for random number generation inside this class.
-4. `side`        the side of the simulation area
+4. `side`        the side of the simulation area.
 
 The main method:
 * `generate_path(int, vector<double>, vector<Location*>&)` generates a path of n random
@@ -227,10 +222,10 @@ This is the main class of the simulation handling the evolution of the epidemic.
 It owns 7 data members:
 1. `sim_engine` an object of the Random class, used to generate random numbers.
 2. `wrld` an object of the World class, it represent the world where the epidemic is simulated.
-3. `alpha` governs the lag between infectious contact and showing symptoms
-4. `beta` number of people an infective person infects each day
-5. `gamma` probability to recover or die (accounts for two parameters)
-6. `spread_radius` maximum distance for two people to be considered close
+3. `alpha` governs the lag between infectious contact and showing symptoms.
+4. `beta` number of people an infective person infects each day.
+5. `gamma` probability to recover or die (accounts for two parameters).
+6. `spread_radius` maximum distance for two people to be considered close.
 
 The main methods:
 * `move()`     move all the `Person` objects in wrld.
@@ -265,12 +260,12 @@ cluster waypoints.
 For every `Person` object in the cluster the following checks are performed:
 
 * In case they are home checks if they are about to leave it based on `home_probability`; if they do,
-  fills the path vector in the appropriate way
+  fills the path vector in the appropriate way.
 * In case they are not at home:
     + In case it has arrived at target location:
-        - In case `stay` is higher than 0 than it remain at the target location
-        - In case `stay` is 0 then it selects a new target location from the path with `mobility_model::next_location()`
-    + In case it has not yet arrived at the target location it moves closer to it with `mobility_model::move()`
+        - In case `stay` is higher than 0 than it remain at the target location.
+        - In case `stay` is 0 then it selects a new target location from the path with `mobility_model::next_location()`.
+    + In case it has not yet arrived at the target location it moves closer to it with `mobility_model::move()`.
 
 When the path is empty the person is recalled home.
 
@@ -280,7 +275,7 @@ The spread function performs the following checks for every *Exposed* or *Infect
 
 * In case the person is *Exposed* checks if it should become *Infected* using `alpha` parameter value.
 * In case the person is *Infected* person:
-    * It checks the color of the cluster in which the person reside
+    * It checks the color of the cluster in which the person reside.
         * In case it is *Green* it checks all person to see which are *Susceptible*, inside the spread radius and not
           at home, to see if they become *Exposed* using `beta` parameter.
         * In case it is *Yellow* or *Red* it only checks all people in the same cluster of the person.
@@ -346,7 +341,7 @@ People and graphs:
 
 ## Final result
 
-Eventually, the final result( showing `sim-graphics` output) is the following:
+Eventually, the final result( showing `sim-graphics` output) with [default values](../README.md/#default-values) is the following):
 
 ![Sim-graph](assets/Images/Sim-graph.PNG)
 

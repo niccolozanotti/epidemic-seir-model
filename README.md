@@ -8,7 +8,7 @@ The project is made up of 2 main parts:
 
 1. Using the known SEIR model to determine the spread of an epidemic, given initial conditions
 
-2. Simulation of an epidemic, given simulation parameters
+2. Simulating the evolution of an epidemic, given simulation parameters
 
 In the first part, given critical parameters, the evolution of the various states of the epidemic can be obtained
 through two different numerical methods to solve differential equations: [Euler][1] method and [Runge-Kutta 4-th
@@ -16,7 +16,7 @@ order][4] method. To know more about this part see [here](include/SEIR.md).
 
 Regarding the second part, namely, the actual simulation, we looked for a both realistic and reasonably complex 
 statistical model to build our simulation on. We ,thus, largely based our work on [SMOOTH: A simple way to model human
-mobility][2] paper, which we thought to contain the desired approach. 
+mobility][2] paper, which we thought would contain the desired approach. 
 To get a better grasp on how the simulation works see [here](include/Simulation.md).
 
 --------------------------------------------------------------------------------
@@ -78,6 +78,16 @@ The available executable applications(CMake targets) are the following:
 At the end of every application run, a Root Canvas with the graphs will open
 
 ### Notes
+`Lyra` and `doctest` library are linked to this project through `git submodules` tool. \
+CMake should be able to initialize the submodules and set recursive update at the first build of the project, thanks to a module 
+located in the base [CMakeLists.txt](CMakeLists.txt), avoiding the user having to execute
+```shell
+ git submodule update --init --recursive
+```
+Anyway, if having troubles with properly initializing this project submodules, have a look at [this][submod] website, addressing
+possible problems.
+
+
 On certain devices, CMake might not be able to detect ROOT installation. If that is the case, the problem can be solved by manually specifying the
 path to your ROOT installation, setting the CMake Variable ROOT_DIR at build time:
 ```shell
@@ -201,7 +211,15 @@ Regarding *sim* and *sim-graphics* apps we defined some constraints:
 - The total population has to be higher than the total number of locations;
 
 ### Default values
-For sim and sim-graphics we chose default values to achieve the result of a realistic simulation:
+`seir` default parameters:
+| Parameters    | Default value   |
+| ------------ | ------------------|
+| people = [S, E, I, R] | 25000 = [990000,3000,5000,2000] |
+| alpha | 0.035 |
+| beta | 0.15 |
+| gamma | 0.015 |
+
+`sim` and `sim-graphics` default parameters:
 
 | Parameters    | Default value   |  Suggestions          |
 | ------------ | ------------------|------------------  |
@@ -281,11 +299,25 @@ correctly.
   of the virus where working as expected.
 
 --------------------------------------------------------------------------------
+
+## Code formatting
+
+This repository contains a [.clang-format](.clang-format) file with the chosen formatting style. \
+Thanks to an imported [CMake Module](cmake/ClangFormat.cmake), it is possible to format all the code simply by 
+executing the following command
+```shell
+#the build files have already been generated
+make clangformat    
+```
+
+
+--------------------------------------------------------------------------------
 ## Additional Notes
 
 It's possible to change other values of the simulation modifying them in `parameters.hpp` [file](include/simulation/parameters.hpp). \
 These values are tied to how we structured the simulation, so we suggest to change the values only if
 properly understanding where and how those values are used. 
+
 
 [1]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
 [2]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
@@ -295,7 +327,7 @@ properly understanding where and how those values are used.
 [lyra]:https://github.com/bfgroup/Lyra
 [doct]:https://github.com/onqtam/doctest
 
-
+[submod]:https://git-scm.com/book/en/v2/Git-Tools-Submodules
 [test]:#testing-during-development
 [inp-val]:#input-validation
 [input]:#user-input
