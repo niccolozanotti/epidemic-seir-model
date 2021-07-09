@@ -52,6 +52,7 @@ Clusters and with locations from a specific cluster. \
 When a person has no more targets availables it is made come back home.
 
 ### Least-Action Trip Planning
+
 The way a node of the network(_i.e_ a person) chooses a target waypoint on the map is governed by the **Least-Action 
 Trip Planning** algorithm, a simple model, trying to mock real human behaviour, consisting of the following steps: 
 
@@ -117,6 +118,7 @@ The class owns 3 private members:
 3. `cluster_index` Index of the cluster where the location is located(See Cluster)
 
 ### Status
+
 Enumeration defining the 4 possible health state characterizing a `Person`:
 1. `Susceptible` the individual can contract the disease if in contact with an infected individual.
 2. `Exposed`     the individual has the disease but cannot spread the disease to other people.
@@ -125,6 +127,7 @@ Enumeration defining the 4 possible health state characterizing a `Person`:
                  individuals) and thus can no longer infect other people.
 
 ### Person
+
 The Person class represents, as the name suggests, the person in the simulation. \
 It owns 5 data members:
 1. `position` that represent the person coordinate
@@ -134,6 +137,7 @@ It owns 5 data members:
 5. `label` it represent the index of the cluster in which the person's home is located
 
 ### Mobility Model
+
 This class is used to implement people movement in the simulation. \
 It owns 3 data members:
 1. `person` an object of the Person class which represent the person that is going to be moved
@@ -152,6 +156,7 @@ Its main methods:
   vector.
 
 ### Rectangle
+
 The Rectangle class represent a rectangle on the simulation area. \
 It owns 2 data members:
 1. `blh_corner` the bottom left-hand corner of the rectangle
@@ -162,6 +167,7 @@ Its main methods:
 * `sivide(int n)` divides a `Rectangle` in `n` `Rectangle`s using `split()`.
 
 ### Group
+
 The Group class represents a group of `Location` objects generated one close to another(see [World generation][gen])
 It owns 3 data members:
 1. `Locations` a vector of Location object.
@@ -169,6 +175,7 @@ It owns 3 data members:
 3. `grp_engine` an object of the Random class, used to generate random numbers.
 
 ### Zone
+
 Enumeration defining `Cluster`s possible zone color(changed through `update_zones()` [method][sim]) 
 based on the number of infected individuals in a specific cluster. \
 There are 3 possibilities:
@@ -186,6 +193,7 @@ There are 3 possibilities:
 - really high LATP parameter(the person only visit a nearby location).
 
 ### Cluster
+
 The Cluster class represents the various regions the world is divided into. \
 It owns 7 data members:
 1. `People`     vector of Mobility_Model objects, consisting of the population residing in the cluster.
@@ -201,6 +209,7 @@ The main method:
   and put them in the referenced vector
 
 ### World
+
 The World class represents all the entities of the simulation. \
 It owns 3 data members:
 1. `Area`       an object of the Rectangle class, that represent the physical area of the world.
@@ -211,7 +220,9 @@ It owns 3 data members:
 The main method:
 * `generate_path(int, vector<double>, vector<Location*>&)` generates a path of n random
   locations selected from the clusters, based on the weights vector.
+  
 ### Simulation
+
 This is the main class of the simulation handling the evolution of the epidemic.
 It owns 7 data members:
 1. `sim_engine` an object of the Random class, used to generate random numbers.
@@ -276,27 +287,30 @@ The spread function performs the following checks for every *Exposed* or *Infect
     * It checks if it becomes *Recovered*  using `gamma` parameter.
     
 ### Display
-The display class handles the graphical part of the simulation using [SFML][sfml] objects
-The class has 13 private members:
-1. `sim` Pointer to the Simulation object that will be displayed.
-2. `Window` a reference to the window in which everything will be displayed.
-3. `Cluster` a Vertex Array of *sf::Quads* primitive to draw the Clusters.
-4. `Borders` a Vertex Array of *sf::Lines* primitive to draw the Clusters Borders.
-5. `Locations` a Vertex Array of *sf::Triangles* primitive to draw octagon that represents the various locations
-and their radius.
-6. `Graph_width` The width of the Graph.
-7. `coeff` a coefficient to adapt the values of S to the Height of the windows so that the plotted graphs use
-the entire window.
-8. `dx` the increment used to plot the graphs.
-9. `offset` offset needed to draw the graphs, it ha the same value of the world side in sim.
-10. `Susceptible` a Vertex Array of *sf::LineStrip* primitive to plot the graph of susceptible people.
-11. `Exposed` a Vertex Array of *sf::LineStrip* primitive to plot the graph of exposed people.
-12. `Infected` a Vertex Array of *sf::LineStrip* primitive to plot the graph of infected people.
-13. `Recovered` a Vertex Array of *sf::LineStrip* primitive to plot the graph of recovered people.
 
-It's functions are:
-* `Color_clusters()` which checks the cluster color and color the vertexes of the cluster to color
-  it when it is drawn;
+The display class handles the graphical part of the simulation using [SFML][sfml] objects
+It owns 14 data members:
+1. `sim` Pointer to the Simulation object that will be displayed.
+2. `Ratio` It's the ratio between the wanted window_height and the world side, used to adapat the
+   simulation's coordinates to the window coordinates, so that everything is displayed correctly.
+3. `Window` a reference to the window in which everything will be displayed.
+4. `Cluster` a Vertex Array of *sf::Quads* primitive to draw the Clusters.
+5. `Borders` a Vertex Array of *sf::Lines* primitive to draw the Clusters Borders.
+6. `Locations` a Vertex Array of *sf::Triangles* primitive to draw octagon that represents the various locations
+and their radius.
+7. `Graph_width` The width of the Graph.
+8. `coeff` a coefficient to adapt the values of S to the Height of the windows so that the plotted graphs use
+the entire window.
+9. `dx` the increment used to plot the graphs.
+10. `offset` offset needed to draw the graphs, it has the same value of the world side in sim.
+11. `Susceptible` a Vertex Array of *sf::LineStrip* primitive to plot the graph of susceptible people.
+12. `Exposed` a Vertex Array of *sf::LineStrip* primitive to plot the graph of exposed people.
+13. `Infected` a Vertex Array of *sf::LineStrip* primitive to plot the graph of infected people.
+14. `Recovered` a Vertex Array of *sf::LineStrip* primitive to plot the graph of recovered people.
+
+The main methods are:
+* `Color_clusters()` which checks the clusters color and color the vertexes of the clusters to color
+  them when they are drawn;
 * `population()` which checks every person and create a Vertex Array of *sf::Quads* primitive to draw every
 person.
 * `update_graphs()` add the next point to all graphs.
@@ -330,6 +344,7 @@ The colored rectangles represent the various clusters, the Blue points represent
 are moving, all the people that are in their home are not displayed.
 
 ### Random
+
 This class implements the random generation features critical for this project. It  making use of the header-only library
 `randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use
 class. The main purpose of our use of it in our random implementation is the high quality seeding given by the use of multiple
