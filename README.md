@@ -8,7 +8,7 @@ The project is made up of 2 main parts:
 
 1. Using the known SEIR model to determine the spread of an epidemic, given initial conditions
 
-2. Simulation of an epidemic, given simulation parameters
+2. Simulating the evolution of an epidemic, given simulation parameters
 
 In the first part, given critical parameters, the evolution of the various states of the epidemic can be obtained
 through two different numerical methods to solve differential equations: [Euler][1] method and [Runge-Kutta 4-th
@@ -16,7 +16,7 @@ order][4] method. To know more about this part see [here](include/SEIR.md).
 
 Regarding the second part, namely, the actual simulation, we looked for a both realistic and reasonably complex 
 statistical model to build our simulation on. We ,thus, largely based our work on [SMOOTH: A simple way to model human
-mobility][2] paper, which we thought to contain the desired approach. 
+mobility][2] paper, which we thought would contain the desired approach. 
 To get a better grasp on how the simulation works see [here](include/Simulation.md).
 
 --------------------------------------------------------------------------------
