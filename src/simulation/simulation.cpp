@@ -33,7 +33,7 @@ void Simulation::move_white(Cluster& cluster, std::vector<double>& weights_v)
                 if (!sim_engine.try_event(p.home_prob())) // determine if person leaves home
                 {
                     p.set_is_at_home(false); // set the person as not at home
-                    wrld.generate_path(sim_engine.rounded_gauss(WHITE_PATH_MEAN, WHITE_PATH_STDDEV) + 1, weights_v,
+                    wrld.generate_path(sim_engine.rounded_gauss(GREEN_PATH_MEAN, GREEN_PATH_STDDEV) + 1, weights_v,
                                        p.path(), sim_engine);
                 }
             }
@@ -179,10 +179,6 @@ void Simulation::update_people_status()
 
 ///////////////// MOVE WHITE /////////////////
 World& Simulation::world()
-{
-    return wrld;
-}
-World Simulation::get_world() const
 {
     return wrld;
 }

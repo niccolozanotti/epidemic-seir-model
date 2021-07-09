@@ -34,6 +34,7 @@ World::World(int side_length, int number_of_clusters, int number_of_locations, i
 
     fill_with_S_individuals(number_of_clusters, S, susceptibles);
     fill_with_E_I_R_individuals(number_of_clusters, E, I, R, exposed, infected, recovered);
+
     ///////// Clusters construction /////////
 
     Clusters.reserve(number_of_clusters);

@@ -54,7 +54,7 @@ void Position::move_toward(Position target, double speed, Random& engine)
     double delta_angle = engine.uniform(-1.0 * MAXIMUM_ANGLE_VARIATION, MAXIMUM_ANGLE_VARIATION);
     while (distance_to(target) < speed)
     {
-        speed = engine.uniform(0, 2);
+        speed = engine.rand_speed();
     }
     double v_x = speed * std::cos(angle + delta_angle); // x component of velocity vector
     double v_y = speed * std::sin(angle + delta_angle); // y component of velocity vector

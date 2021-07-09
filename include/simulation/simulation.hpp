@@ -49,11 +49,9 @@ class Simulation
     void update_people_status();
 
   public:
-    // returns a reference to the current world
-    World& world();
 
-    // return current world state
-    World get_world() const;
+    // returns a reference to the current world state
+    World& world();
 
     // get the summary data from i-nth cluster
     Data get_Cluster_data(int i);
