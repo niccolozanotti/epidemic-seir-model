@@ -199,11 +199,20 @@ World constraints:
 CONTINUA
 
 ## Running
-All the built apps will be in the epidemic/apps directory.
+If you are on WSL make sure the Xserver is running as it is required for every application.  
+All the built apps will be in the *epidemic/{BUILD_DIRECTORY}/apps* directory.
+Where the *{BUILD_DIRECTORY}* is *sim_build* in case you used the script 
+```shell
+#from the epidemic directory enter the apps directory
+cd {BUILD_DIRECTORY}/apps
+#run the application you want to run
+./appname -parameters
+````
+Where the parameters are the one seen in [User Input][input].
 
-If you are on WSL make sure the Xserver is running as it is required for every application
+### Output
 
-TO ADD ALL THE PARTS RELATED TO INPUT
+Every app will output the resulting data in "*appname.txt*" and the graphics in a root file "*appname.root*".
 
 --------------------------------------------------------------------------------
 
@@ -267,5 +276,6 @@ correctly.
 
 [test]:#testing-during-development
 [inp-val]:#input-validation
+[input]:#user-input
 
 
