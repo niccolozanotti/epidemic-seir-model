@@ -22,7 +22,7 @@ TEST_CASE("Path cleaning test")
                 Test.clean_path(person); //To make public for testing
             }
             else{
-                Test.clean_cluster_path(person); //TODO add this function from the other branch
+                Test.clean_cluster_path(person);
             }
         }
     }

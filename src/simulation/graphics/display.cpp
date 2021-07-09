@@ -4,8 +4,8 @@ using namespace smooth_sim;
 
 Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Window_height)
     : sim{&simulation},
-      Window{window},
       Ratio{static_cast<double>(Window_height)/static_cast<double>(simulation.world().get_side())},
+      Window{window},
       Graph_width{4 * simulation.world().get_side()/5}
 {
     // fill cluster VertexArray and borders VertexArray

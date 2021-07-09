@@ -77,7 +77,7 @@ class Cluster
     std::vector<Group>& groups();
 
     // returns a reference to the cluster rectangular area(used when graphically representing cluster)
-    Rectangle& area(); // TODO condider making a getter of area rather than a reference
+    Rectangle& area();
 
     // sets cluster zone
     void set_zone(Zone cluster_zone);

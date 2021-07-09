@@ -258,7 +258,7 @@ void Simulation::update_zones()
             for (auto& person : wrld.Clusters[i].people())
             { // clean the path and check target location validity
                 clean_cluster_path(person);
-                if (person.get_target_location()->get_label() != i)
+                if (person.get_target_location()->get_label() != static_cast<int>(i))
                 { // if target location is not valid, select next location
                     person.next_location(LATP, sim_engine);
                 }
@@ -271,7 +271,7 @@ void Simulation::update_zones()
             for (auto& person : wrld.Clusters[i].people())
             { // clean the path and check target location validity
                 clean_cluster_path(person);
-                if (person.get_target_location()->get_label() != i)
+                if (person.get_target_location()->get_label() != static_cast<int>(i))
                 { // if target location is not valid, select next location
                     person.next_location(LATP, sim_engine);
                 }

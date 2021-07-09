@@ -45,7 +45,7 @@ class Mobility_model
     double home_prob() const;
 
     // returns the index of the cluster in which the pointed person reside
-    int get_label() const; // TODO maybe unused
+    int get_label() const;
 
     // set the person status as at_home/not at_home
     void set_is_at_home(bool is_at_home);
