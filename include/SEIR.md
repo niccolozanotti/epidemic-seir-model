@@ -1,7 +1,8 @@
 # SEIR Implementation
 
-We took from section _2.2_ of [this][article] paper the system of ODEs to solve in order to get the evolution of a generic epidemic. \
-So, with a suitable variable remampping based on our project request, and neglecting death rate(considered in the paper)
+We took from section _2.2_ of [this][1] paper the system of ODEs to solve in order to get the evolution of a generic epidemic
+using SEIR model. \
+With a suitable variable remapping based on our project [assignment][2], and neglecting death rate(considered in the paper)
 the system of equations to solve is the following:
 ```math
 \frac{dS}{dt} = -\beta \frac{S}{N} I \\[4mm]
@@ -17,27 +18,32 @@ with the following meaning:
 | I            | Infectious individuals spreading the disease                                                           |
 | R            | Individuals no more susceptible to the disease either because they recovered or they died              |
 
+|   Parameter  |             Meaning                                                            |
+| ------------ | -------------------------------------------------------------------------------|
+|  $`\alpha`$  |     governs the lag between infectious contact and showing symptoms            |
+|  $`\beta`$   |  number of people an infective person infects each day                         |
+|  $`\gamma`$  |  probability to recover or die (accounts for two parameters)                   |
+
 We offer two different methods to determine the epidemic evolution:
 
 ## Euler Method
 Euler Method is a 1th-order numerical method used to solve a differential equation by fixing an increment. \
-In our case the variable on which our functions depend is time. We thus take as increment $`\Delta T = 1`$, which corresponds to one day(t being measured in days). \
-What we obtain is the following:
+In our case the variable on which our functions depend is time. Sticking to the assignment, we take as increment $`\Delta T = 1`$, with $`T`$ being measured in days. \
+What we obtain is the following discretization:
 ```math
 S_{i+1} = S_i - \beta \frac{S_i}{N} I_i \\[3mm]
 E_{i+1} = E_i + \beta \frac{S_i}{N} I_i - \alpha E_i \\[3mm]
 I_{i+1} = I_i + \alpha E_i - \gamma I_i \\[3mm]
 R_{i+1} = R_i + \gamma I_i \\
 ```
-from which is easy to evaluate the system of equations.
-Since Euler Method is a first order Method, supposing to exactly know the real values of S,E,I,R it's possible to evauluate
+Since Euler Method is a first order Method, supposing to exactly know the real values of S,E,I,R, it's possible to evaluate
 the local truncation error(error commited for every step of the discretization), which corresponds to $`O(h^3)`$, 
 $`h`$ being the fixed step size.
 For small values of the step the local error is proportional to $`h^2`$.
 In our program this method is implemented by `EulerSolver(const State&)` method of `SEIR` class.
 ## Runge-Kutta Method
 The other supplied method is Runge Kutta Method, in particular 4th-order one, which guarantees a better approximation than Euler
-Method with a local truncation error of $`O(h^5)`$ which means that by halving the step the result is an error reduction of
+Method, with a local truncation error of $`O(h^5)`$ which means that by halving the step the result is an error reduction of
 $`2^5`$.
 The recurrence formula for RK-4 Method applied to SEIR model becomes the following:
 ```math
@@ -60,9 +66,10 @@ In the program we opted for floating point number type for `S`,`E`,`I`,`R` varia
 represent numbers of people and are naturally represented by unsigned integer values. The reasons for that are two
 - By casting to int the values obtained from ODEs discretization we would have, in many cases, to resize variable values since 
 what could happen is $`S + E + I + R \neq cost`$
-- By keeping floating point variables, it's easier to grasp changes between one state and other, especially if they are small 
+- By keeping floating point variables, it's easier to grasp changes between one state and another, especially if they are small 
 
 
 
+[1]:https://iris.polito.it/retrieve/handle/11583/2835949/375491
+[2]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
 
-[article]:https://iris.polito.it/retrieve/handle/11583/2835949/375491
