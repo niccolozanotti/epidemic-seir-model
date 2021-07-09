@@ -1,16 +1,16 @@
 ////// STL //////
-#include <iostream>
 #include <fstream>
+#include <iostream>
 //////  LYRA (CMD LINE PARSER) //////
 #include <lyra/lyra.hpp>
 //////  ROOT HEADERS  //////
 #include "TApplication.h"
 #include "TCanvas.h"
 #include "TF1.h"
+#include "TFile.h"
 #include "TGraph.h"
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
-#include "TFile.h"
 ////// PROJECT HEADERS //////
 #include "../src/simulation/graphics/display.hpp"
 #include "simulation.hpp"
@@ -134,7 +134,8 @@ int main(int argc, char** argv)
     }
 
     // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
-    if (default_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 ))
+    if (default_sim &&
+        (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0))
     {
         std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by "
                      "the user\n";
@@ -192,19 +193,22 @@ int main(int argc, char** argv)
         // only clusters have been specified leaving locations out
         if (!clusters_and_locations && locations == 0 && clusters > 0) { locations = clusters * 150; }
         // only locations have been specified leaving clusters out
-        else if (!clusters_and_locations && locations > 0 && clusters == 0){ clusters = locations / 150 + 1; }
+        else if (!clusters_and_locations && locations > 0 && clusters == 0)
+        {
+            clusters = locations / 150 + 1;
+        }
         // Not accepted values
         if (susceptibles + exposed + infected + recovered < locations)
         {
             std::cerr << "The total population has to be higher tha the number of locations." << std::endl;
             return EXIT_FAILURE;
         }
-        if (susceptibles + exposed + infected + recovered < 100*clusters)
+        if (susceptibles + exposed + infected + recovered < 100 * clusters)
         {
             std::cerr << "The total population has to be at least 100 times the number of clusters." << std::endl;
             return EXIT_FAILURE;
         }
-        if(clusters*10 > locations)
+        if (clusters * 10 > locations)
         {
             std::cerr << "the minimum number of locations per cluster has to be 10." << std::endl;
             return EXIT_FAILURE;
@@ -216,7 +220,6 @@ int main(int argc, char** argv)
             beta = DEF_BETA;
             gamma = DEF_GAMMA;
         }
-
     }
     // Output the simulation parameters
     std::cout << "Clusters == " << clusters << "\t Locations == " << locations << std::endl;
@@ -228,16 +231,16 @@ int main(int argc, char** argv)
     //////////////////////////////////////////////  GRAPHICS SIMULATION  ///////////////////////////////////////////////
     using namespace smooth_sim;
     // Make sure the windows height is 4/5 of the user's monitor height
-    unsigned Window_height = 4*sf::VideoMode::getDesktopMode().height/5;
+    unsigned Window_height = 4 * sf::VideoMode::getDesktopMode().height / 5;
     // Initialize the simulation
     Simulation sim{susceptibles, exposed, infected, recovered, clusters,     locations,
-                     side,         alpha,   beta,     gamma,     SPREAD_RADIUS};
+                   side,         alpha,   beta,     gamma,     SPREAD_RADIUS};
     // Initialize Result vector
     std::vector<Data> Result = {sim.get_data()};
     // Initialize window where everything will be displayed
     sf::RenderWindow window;
     // Initialize Display object using the previously initialized window
-    Display Window{sim,window,Window_height};
+    Display Window{sim, window, Window_height};
     // Draw and display the initial frame
     Window.Draw();
     window.display();

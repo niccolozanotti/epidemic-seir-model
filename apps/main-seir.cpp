@@ -8,13 +8,13 @@
 #include "TApplication.h"
 #include "TCanvas.h"
 #include "TF1.h"
+#include "TFile.h"
 #include "TGraph.h"
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
-#include "TFile.h"
 ////// PROJECT HEADERS //////
-#include "seir.hpp"
 #include "parameters.hpp"
+#include "seir.hpp"
 
 int main(int argc, char* argv[])
 {
@@ -139,7 +139,7 @@ int main(int argc, char* argv[])
         time = DEF_SEIR_DURATION;
     }
 
-        /////////// The user has chosen to set simulation parameters himself ///////////
+    /////////// The user has chosen to set simulation parameters himself ///////////
 
     else
     {
@@ -166,18 +166,19 @@ int main(int argc, char* argv[])
             beta = DEF_SEIR_BETA;
             gamma = DEF_SEIR_GAMMA;
         }
-        if (time == 0 ) { time = DEF_SEIR_DURATION; }
+        if (time == 0) { time = DEF_SEIR_DURATION; }
     }
 
-    //Temporary checking for correct variables assignment
+    // Temporary checking for correct variables assignment
     std::cout << "People == " << people << std::endl;
-    std::cout << "S == " << susceptibles << "\nE == " << exposed << "\nI == " << infected << "\nR == " << recovered<<"\n";
+    std::cout << "S == " << susceptibles << "\nE == " << exposed << "\nI == " << infected << "\nR == " << recovered
+              << "\n";
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     using namespace seir;
 
-    State initial_state {(double)susceptibles,(double)exposed,(double)infected,(double)recovered};
-    SEIR simulation{people,time,initial_state,alpha,beta,gamma};
+    State initial_state{(double)susceptibles, (double)exposed, (double)infected, (double)recovered};
+    SEIR simulation{people, time, initial_state, alpha, beta, gamma};
 
     // Vector containing all the states over the simulation time
     std::vector<State> states{};
@@ -214,7 +215,7 @@ int main(int argc, char* argv[])
     int day = 0;
     for (auto& a : states)
     {
-        out << "Day = "<< day << " S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
+        out << "Day = " << day << " S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
         ++day;
     }
 

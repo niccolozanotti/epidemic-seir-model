@@ -80,10 +80,7 @@ double Random::rand_radius()
     // Generate the random radius
     double radius = gauss(LOCATION_RADIUS_MEAN, LOCATION_RADIUS_DEV);
     // Check if it is bigger than the minimum radius
-    if (radius < MINIMUM_LOCATION_RADIUS)
-    {
-        radius = MINIMUM_LOCATION_RADIUS;
-    }
+    if (radius < MINIMUM_LOCATION_RADIUS) { radius = MINIMUM_LOCATION_RADIUS; }
     return radius;
 }
 

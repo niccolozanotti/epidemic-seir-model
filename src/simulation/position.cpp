@@ -57,7 +57,7 @@ void Position::move_toward(Position target, double speed, Random& engine)
     if (distance_to(target) < speed)
     {
         // Generate uniformly valid speed
-        speed = engine.uniform(distance_to(target)/2, distance_to(target));
+        speed = engine.uniform(distance_to(target) / 2, distance_to(target));
     }
     // x component of velocity vector
     double v_x = speed * std::cos(angle + delta_angle);

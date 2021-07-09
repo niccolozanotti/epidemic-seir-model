@@ -8,8 +8,8 @@ namespace smooth_sim
 class Group
 {
   private:
-    std::vector<Location> Locations;  // Vector of locations
-    Position centre;  // Centre of the Group
+    std::vector<Location> Locations; // Vector of locations
+    Position centre;                 // Centre of the Group
     Random grp_engine;
 
   public:
@@ -36,4 +36,3 @@ class Group
 } // namespace smooth_sim
 
 #endif
-

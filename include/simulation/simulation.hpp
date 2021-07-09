@@ -51,7 +51,6 @@ class Simulation
     void update_people_status();
 
   public:
-
     // Returns a reference to the current world state
     World& world();
 

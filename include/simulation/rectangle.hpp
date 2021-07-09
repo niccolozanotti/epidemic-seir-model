@@ -9,8 +9,8 @@ namespace smooth_sim
 class Rectangle
 {
   private:
-    Position blh_corner;    // Bottom-left hand corner
-    Position trh_corner;    // Top-right hand corner
+    Position blh_corner; // Bottom-left hand corner
+    Position trh_corner; // Top-right hand corner
 
   public:
     // Constructor

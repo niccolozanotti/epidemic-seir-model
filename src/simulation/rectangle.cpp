@@ -38,8 +38,7 @@ std::vector<Rectangle> Rectangle::split(Random& engine)
     std::vector<Rectangle> result;
     result.clear();
     // Select the random side to divide, if 0 select the x-axis side, if 1 select the y-axis side
-    int selected_side = engine.int_uniform(
-        0, 1);
+    int selected_side = engine.int_uniform(0, 1);
     // Make sure that rectangle that have a side at least three times the other have the longest_side as the selected
     if ((trh_corner.get_x() - blh_corner.get_x()) <= 2 * (trh_corner.get_y() - blh_corner.get_y()))
     {
@@ -89,8 +88,7 @@ std::vector<Rectangle> Rectangle::split(Random& engine)
 std::vector<Rectangle> Rectangle::divide(int areas_to_divide, Random& engine)
 {
     // Construct result vector with the object as the only member
-    std::vector<Rectangle> result = {
-        {blh_corner, trh_corner}};
+    std::vector<Rectangle> result = {{blh_corner, trh_corner}};
     if (areas_to_divide == 1)
     {
         // Return the object rectangle in a vector

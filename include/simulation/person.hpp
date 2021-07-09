@@ -16,11 +16,11 @@ enum class Status
 class Person
 {
   private:
-    Status status;  // Person current status
-    Status new_status;  //Person new_status
-    Position pos;  // Person current position
-    Location home; // Home location
-    int cluster_index;  // Index of the cluster where the person reside
+    Status status;     // Person current status
+    Status new_status; // Person new_status
+    Position pos;      // Person current position
+    Location home;     // Home location
+    int cluster_index; // Index of the cluster where the person reside
 
   public:
     // Constructor

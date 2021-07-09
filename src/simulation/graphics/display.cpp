@@ -4,9 +4,9 @@ using namespace smooth_sim;
 
 Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Window_height)
     : sim{&simulation},
-      Ratio{static_cast<double>(Window_height)/static_cast<double>(simulation.world().get_side())},
+      Ratio{static_cast<double>(Window_height) / static_cast<double>(simulation.world().get_side())},
       Window{window},
-      Graph_width{4 * simulation.world().get_side()/5}
+      Graph_width{4 * simulation.world().get_side() / 5}
 {
     // Fill cluster VertexArray and borders VertexArray
     Clusters.setPrimitiveType(sf::Quads);
@@ -75,8 +75,9 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Wind
         }
     }
     // Window.close();
-    Window.create(sf::VideoMode((simulation.world().get_side() + Graph_width) * Ratio, simulation.world().get_side() * Ratio),
-                  "Simulation");
+    Window.create(
+        sf::VideoMode((simulation.world().get_side() + Graph_width) * Ratio, simulation.world().get_side() * Ratio),
+        "Simulation");
 
     // Set primitive type for the graphs
     Susceptible.setPrimitiveType(sf::LineStrip);
@@ -90,14 +91,14 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Wind
     // Set first point for every graphs
     Data data = simulation.get_data();
     // Define Status colors
-    sf::Color S_color = sf::Color(255,255,255);
-    sf::Color E_color = sf::Color(0,110,110);
-    sf::Color I_color = sf::Color(90,0,110);
-    sf::Color R_color = sf::Color(125,125,125);
-    Susceptible.append(sf::Vertex(sf::Vector2f(offset * Ratio,(offset - coeff*data.S) * Ratio),S_color));
-    Exposed.append(sf::Vertex(sf::Vector2f(offset * Ratio,(offset - coeff*data.E) * Ratio),E_color));
-    Infected.append(sf::Vertex(sf::Vector2f(offset * Ratio,(offset - coeff*data.I) * Ratio),I_color));
-    Recovered.append(sf::Vertex(sf::Vector2f(offset * Ratio,(offset - coeff*data.R) * Ratio),R_color));
+    sf::Color S_color = sf::Color(255, 255, 255);
+    sf::Color E_color = sf::Color(0, 110, 110);
+    sf::Color I_color = sf::Color(90, 0, 110);
+    sf::Color R_color = sf::Color(125, 125, 125);
+    Susceptible.append(sf::Vertex(sf::Vector2f(offset * Ratio, (offset - coeff * data.S) * Ratio), S_color));
+    Exposed.append(sf::Vertex(sf::Vector2f(offset * Ratio, (offset - coeff * data.E) * Ratio), E_color));
+    Infected.append(sf::Vertex(sf::Vector2f(offset * Ratio, (offset - coeff * data.I) * Ratio), I_color));
+    Recovered.append(sf::Vertex(sf::Vector2f(offset * Ratio, (offset - coeff * data.R) * Ratio), R_color));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,10 +109,10 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Wind
 sf::VertexArray Display::population()
 {
     // Define Status colors
-    sf::Color S_color = sf::Color(255,255,255);
-    sf::Color E_color = sf::Color(0,110,110);
-    sf::Color I_color = sf::Color(90,0,110);
-    sf::Color R_color = sf::Color(125,125,125);
+    sf::Color S_color = sf::Color(255, 255, 255);
+    sf::Color E_color = sf::Color(0, 110, 110);
+    sf::Color I_color = sf::Color(90, 0, 110);
+    sf::Color R_color = sf::Color(125, 125, 125);
 
     sf::VertexArray people(sf::Quads, sim->world().people_num() * 4);
     double x_0, y_0;
@@ -200,10 +201,10 @@ void Display::Color_clusters()
 void Display::update_graphs()
 {
     // Define Status colors
-    sf::Color S_color = sf::Color(255,255,255);
-    sf::Color E_color = sf::Color(0,110,110);
-    sf::Color I_color = sf::Color(90,0,110);
-    sf::Color R_color = sf::Color(125,125,125);
+    sf::Color S_color = sf::Color(255, 255, 255);
+    sf::Color E_color = sf::Color(0, 110, 110);
+    sf::Color I_color = sf::Color(90, 0, 110);
+    sf::Color R_color = sf::Color(125, 125, 125);
     // Get simulation data
     Data data = sim->get_data();
     unsigned vertex_count = Susceptible.getVertexCount();
@@ -217,7 +218,7 @@ void Display::update_graphs()
         // Adapt the x axis
         for (unsigned i = 1; i < vertex_count; ++i)
         {
-            Susceptible[i].position.x =  Sim_side * Ratio * (1 - k) + k * Susceptible[i].position.x;
+            Susceptible[i].position.x = Sim_side * Ratio * (1 - k) + k * Susceptible[i].position.x;
             Exposed[i].position.x = Susceptible[i].position.x;
             Infected[i].position.x = Susceptible[i].position.x;
             Recovered[i].position.x = Susceptible[i].position.x;
@@ -228,10 +229,10 @@ void Display::update_graphs()
 
     // Append new points to the graph
     float previous_x = Susceptible[vertex_count - 1].position.x;
-    Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset- coeff*data.S) * Ratio),S_color));
-    Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff*data.E) * Ratio),E_color));
-    Infected.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff*data.I) * Ratio),I_color));
-    Recovered.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff*data.R) * Ratio),R_color));
+    Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff * data.S) * Ratio), S_color));
+    Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff * data.E) * Ratio), E_color));
+    Infected.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff * data.I) * Ratio), I_color));
+    Recovered.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff * data.R) * Ratio), R_color));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

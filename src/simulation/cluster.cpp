@@ -73,15 +73,9 @@ void Cluster::generate_groups(int locations_num)
     int number_of_groups = cl_engine.rounded_gauss(locations_num * MEAN_GROUP_SIZE, locations_num * GROUP_SIZE_STDDEV);
 
     // Make sure there is at least one group
-    if (number_of_groups <= 0)
-    {
-        number_of_groups = 1;
-    }
+    if (number_of_groups <= 0) { number_of_groups = 1; }
     // Make sure the number of Locations is >= than the number og groups
-    if (number_of_groups > locations_num)
-    {
-        number_of_groups = locations_num;
-    }
+    if (number_of_groups > locations_num) { number_of_groups = locations_num; }
 
     assert(locations_num >= number_of_groups && number_of_groups >= 1);
     // Create a Vector which will have the partition of locations in group,with every group having at least one location
@@ -133,8 +127,7 @@ Position Cluster::gen_group_center(int num_of_loc)
     {
         end_loop = true;
         // Generate random center position
-        new_center =
-            rand_pos(Area.get_blh_corner(), Area.get_trh_corner(), cl_engine);
+        new_center = rand_pos(Area.get_blh_corner(), Area.get_trh_corner(), cl_engine);
         // Check if this center is far enough from other groups center, if not generate a new one
         for (auto& a : Groups)
         {
