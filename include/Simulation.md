@@ -3,6 +3,21 @@
 
 ## World generation
 
+To generate the world we adapted the concepts of the [SMOOTH paper][1] of Clusters, and Groups to be used 
+in an epidemic simulation.  
+
+We decided to divide the world in Clusters, represented by rectangles, so that we have division from a cluster
+to the others. Every cluster has in fact his number of Groups and his number of people that reside here.
+We choose to use rectangles because it's very easy to divide it in various separate parts, and it's easy
+to stop people from interacting with closed clusters.
+
+Initially we generate the world by dividing it in various rectangle, to which we randomly distributes people
+and locations. We then generate every cluster.  
+For every cluster we start by generating people and their home (some people will share the same home).
+We then determine the number of Groups based on the number of locations in the clusters, and we distribute group centers
+over the Rectangle Area. We determine the number of location in every group, and then we generate them.  
+For every Group we generate the locations around their center, so that every location is at least
+$`TRANSMISSION_RANGE / 10`$ close to another.
 
 ## People mobility
 
