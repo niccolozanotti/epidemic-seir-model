@@ -265,7 +265,7 @@ int main(int argc, char** argv)
     for (auto& a : Result)
     {
         out << "Step = " << step << " S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
-        ++step:
+        ++step;
     }
 
 
