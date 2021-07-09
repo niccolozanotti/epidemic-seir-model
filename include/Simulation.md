@@ -131,7 +131,7 @@ Enumeration defining the 4 possible health state characterizing a `Person`:
 The Person class represents, as the name suggests, the person in the simulation. \
 It owns 5 data members:
 1. `position` that represent the person coordinate
-2. `current_status` that represent the current Status of the person
+2. `status` that represent the current Status of the person
 3. `next_status` that represent the status that the person will have in the next step
 4. `home` an object of the Location class, represent the person's home.
 5. `label` it represent the index of the cluster in which the person's home is located

@@ -16,47 +16,44 @@ enum class Status
 class Person
 {
   private:
-    Status status;
-    Status new_status;
-    Position pos;
-    Location home;
-    int cluster_index;
+    Status status;  // Person current status
+    Status new_status;  //Person new_status
+    Position pos;  // Person current position
+    Location home; // Home location
+    int cluster_index;  // Index of the cluster where the person reside
 
   public:
-    // constructor
+    // Constructor
     Person(Status current_status, Position pos, Status new_condition, Location home, int cluster_index);
 
-    // revent the compiler from generating the default constructor since no use of it should be made
+    // Prevent the compiler from generating the default constructor since it is not used
     Person() = delete;
 
     // Return person current status
     Status get_current_status() const;
 
-    // Return person new Status
-    Status get_new_status() const;
-
-    // returns person position
+    // Returns person position
     Position get_position() const;
 
     // Function that tell if person is in radius of pointed location
     bool at_location(Location* loc) const;
 
-    // Return person label
+    // Return person's cluster_index
     int get_label() const;
 
-    // returns a  reference to person position
+    // Returns a reference to person position
     Position& position();
 
-    // returns a pointer to person home location
+    // Returns a pointer to person home location
     Location* get_home();
 
-    // Set person current status
+    // Set person status
     void set_current_status(Status current_person_status);
 
     // Set person new Status
     void set_new_status(Status new_person_status);
 
-    // Function that assign nex_condition to condition, to be called at the end of the step(or cycle)
+    // Function that assign new_status to status, to be called at the end of every spread
     void update_status();
 };
 
