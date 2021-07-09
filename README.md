@@ -299,11 +299,25 @@ correctly.
   of the virus where working as expected.
 
 --------------------------------------------------------------------------------
+
+## Code formatting
+
+This repository contains a [.clang-format](.clang-format) file with the chosen formatting style. \
+Thanks to an imported [CMake Module](cmake/ClangFormat.cmake), it is possible to format all the code simply by 
+executing the following command
+```shell
+#the build files have already been generated
+make clangformat    
+```
+
+
+--------------------------------------------------------------------------------
 ## Additional Notes
 
 It's possible to change other values of the simulation modifying them in `parameters.hpp` [file](include/simulation/parameters.hpp). \
 These values are tied to how we structured the simulation, so we suggest to change the values only if
 properly understanding where and how those values are used. 
+
 
 [1]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
 [2]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
