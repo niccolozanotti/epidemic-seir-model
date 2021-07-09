@@ -78,6 +78,16 @@ The available executable applications(CMake targets) are the following:
 At the end of every application run, a Root Canvas with the graphs will open
 
 ### Notes
+`Lyra` and `doctest` library are linked to this project through `git submodules` tool. \
+CMake should be able to initialize the submodules and set recursive update at the first build of the project, thanks to a module 
+located in the base [CMakeLists.txt](CMakeLists.txt), avoiding the user having to execute
+```shell
+ git submodule update --init --recursive
+```
+Anyway, if having troubles with properly initializing this project submodules, have a look at [this][submod] website, addressing
+possible problems.
+
+
 On certain devices, CMake might not be able to detect ROOT installation. If that is the case, the problem can be solved by manually specifying the
 path to your ROOT installation, setting the CMake Variable ROOT_DIR at build time:
 ```shell
@@ -303,7 +313,7 @@ properly understanding where and how those values are used.
 [lyra]:https://github.com/bfgroup/Lyra
 [doct]:https://github.com/onqtam/doctest
 
-
+[submod]:https://git-scm.com/book/en/v2/Git-Tools-Submodules
 [test]:#testing-during-development
 [inp-val]:#input-validation
 [input]:#user-input
