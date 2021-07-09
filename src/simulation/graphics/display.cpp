@@ -8,14 +8,14 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Wind
       Window{window},
       Graph_width{4 * simulation.world().get_side()/5}
 {
-    // fill cluster VertexArray and borders VertexArray
+    // Fill cluster VertexArray and borders VertexArray
     Clusters.setPrimitiveType(sf::Quads);
     Borders.setPrimitiveType(sf::Lines);
     std::array<float, 4> X{}, Y{};
     for (unsigned i = 0; i < simulation.world().size(); ++i)
     {
         auto& cl_a = sim->world().clusters()[i].area();
-        // Cordinates of the Cluster's corners
+        // Coordinates of the Cluster's corners
         X[0] = cl_a.get_blh_corner().get_x() * Ratio;
         Y[0] = cl_a.get_blh_corner().get_y() * Ratio;
         X[1] = cl_a.get_blh_corner().get_x() * Ratio;
@@ -83,12 +83,13 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Wind
     Exposed.setPrimitiveType(sf::LineStrip);
     Infected.setPrimitiveType(sf::LineStrip);
     Recovered.setPrimitiveType(sf::LineStrip);
-    // set the starting value of dx and coeff
+    // Set the starting value of dx and coeff
     coeff = static_cast<double>(simulation.world().get_side()) / static_cast<double>(simulation.world().people_num());
     dx = static_cast<double>(Graph_width) / 100.0;
     offset = static_cast<double>(simulation.world().get_side());
-    // set fisrt point for every graphs
+    // Set first point for every graphs
     Data data = simulation.get_data();
+    // Define Status colors
     sf::Color S_color = sf::Color(255,255,255);
     sf::Color E_color = sf::Color(0,110,110);
     sf::Color I_color = sf::Color(90,0,110);
@@ -106,6 +107,7 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Wind
 ///////////    POPULATION    //////////
 sf::VertexArray Display::population()
 {
+    // Define Status colors
     sf::Color S_color = sf::Color(255,255,255);
     sf::Color E_color = sf::Color(0,110,110);
     sf::Color I_color = sf::Color(90,0,110);
@@ -113,14 +115,17 @@ sf::VertexArray Display::population()
 
     sf::VertexArray people(sf::Quads, sim->world().people_num() * 4);
     double x_0, y_0;
-    double r = 1 * Ratio; // half diagonal of the square that represent the person
+    // Half diagonal of the square that represent the person
+    double r = 1 * Ratio;
     int count = 0;
+    // Check every person
     for (auto& a : sim->world().clusters())
     {
         for (auto& b : a.people())
         {
             if (!b.is_at_home())
             {
+                // Set person color based on Status
                 if (b.person().get_current_status() == Status::Susceptible)
                 {
                     people[4 * count].color = S_color;
@@ -149,6 +154,7 @@ sf::VertexArray Display::population()
                     people[4 * count + 2].color = R_color;
                     people[4 * count + 3].color = R_color;
                 }
+                // Set person position
                 x_0 = b.person().get_position().get_x() * Ratio;
                 y_0 = b.person().get_position().get_y() * Ratio;
                 people[4 * count].position = sf::Vector2f(x_0 - r, y_0 - r);
@@ -165,14 +171,16 @@ sf::VertexArray Display::population()
 ///////////    COLOR THE CLUSTERS    //////////
 void Display::Color_clusters()
 {
+    // Define clusters color
     sf::Color green = sf::Color(10, 220, 0);
     sf::Color yellow = sf::Color(235, 242, 22);
     sf::Color red = sf::Color(240, 70, 70);
-
+    // Check every cluster
     for (unsigned i = 0; i < sim->world().clusters().size(); ++i)
     {
         auto& cl = sim->world().clusters()[i];
         sf::Color color;
+        // Set Cluster color based on Zone
         if (cl.get_zone() == Zone::Green) { color = green; }
         else if (cl.get_zone() == Zone::Yellow)
         {
@@ -191,30 +199,34 @@ void Display::Color_clusters()
 ///////////    UPDATE THE GRAPHS    //////////
 void Display::update_graphs()
 {
+    // Define Status colors
     sf::Color S_color = sf::Color(255,255,255);
     sf::Color E_color = sf::Color(0,110,110);
     sf::Color I_color = sf::Color(90,0,110);
     sf::Color R_color = sf::Color(125,125,125);
-
+    // Get simulation data
     Data data = sim->get_data();
     unsigned vertex_count = Susceptible.getVertexCount();
     float Sim_side = static_cast<float>(sim->world().get_side());
 
     // Check if the Graphs are over 4/5 of the Graph width, and if neccessary resize
+    // If last graph point x is >= of 4/5 of Graph_width, adapt the graph so that it stay in half Graph_width
     if (Susceptible[vertex_count - 1].position.x - Sim_side * Ratio >= 4 * Graph_width * Ratio / 5)
-    { // if last graph point x is >= of 4/5 of Graph_width, adapt the graph so that it stay in half Graph_width
+    {
         double k = Graph_width * Ratio / (2 * (Susceptible[vertex_count - 1].position.x - Sim_side * Ratio));
+        // Adapt the x axis
         for (unsigned i = 1; i < vertex_count; ++i)
-        { // adapt the x axis
+        {
             Susceptible[i].position.x =  Sim_side * Ratio * (1 - k) + k * Susceptible[i].position.x;
             Exposed[i].position.x = Susceptible[i].position.x;
             Infected[i].position.x = Susceptible[i].position.x;
             Recovered[i].position.x = Susceptible[i].position.x;
         }
-        dx *= k; // adapt the delta_x
+        // Adapt the delta_x
+        dx *= k;
     }
 
-    // append new points to the graph
+    // Append new points to the graph
     float previous_x = Susceptible[vertex_count - 1].position.x;
     Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset- coeff*data.S) * Ratio),S_color));
     Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff*data.E) * Ratio),E_color));
@@ -229,7 +241,7 @@ void Display::update_graphs()
 ///////////    DISPLAY    //////////
 void Display::Draw()
 {
-    // call the function to update the arrays
+    // Call the function to update the arrays
     Color_clusters();
     update_graphs();
     // Draw the arrays

@@ -9,36 +9,37 @@ namespace smooth_sim{
 
 class Display{
   private:
-    Simulation* sim; // pointer to the simulation to display
+    Simulation* sim; // Pointer to the simulation to display
     double Ratio; // Ratio of the wanted window height divided by the sim_side, needed to adapt the window sizes to every monitor resolution
-    sf::RenderWindow &Window; // reference to the window where all will be rendered
-    sf::VertexArray Clusters; // vertex array that represent the clusters
-    sf::VertexArray Borders; // vertex array that represent the clusters borders
-    sf::VertexArray Locations; // vertex array that represent the locations
-    // vertex arrays that are used for the graph
-    unsigned Graph_width;
-    double dx; //increment for every step of the graph
-    double coeff; // coefficient that make sure the graphs stay in the window
-    double offset; // offset to plot the graphs, it's equivalent to the side of the simulation
+    sf::RenderWindow &Window; // Reference to the window where all will be rendered
+    sf::VertexArray Clusters; // Vertex array that represent the clusters
+    sf::VertexArray Borders; // Vertex array that represent the clusters borders
+    sf::VertexArray Locations; // Vertex array that represent the locations
+    unsigned Graph_width; // Width of the graph
+    double dx; // Increment for every step of the graph
+    double coeff; // Coefficient that make sure the graphs stay in the window
+    double offset; // Offset to plot the graphs, it's equivalent to the side of the simulation
+    // Vertex arrays that are used for the graph
     sf::VertexArray Susceptible;
     sf::VertexArray Exposed;
     sf::VertexArray Infected;
     sf::VertexArray Recovered;
   public:
+    // Constructor
     Display(Simulation& simulation, sf::RenderWindow &window, unsigned Window_height);
 
   private:
-    //generate the vertex array population
+    // Generate the vertex array population
     sf::VertexArray population();
 
-    //color the clusters
+    // Color the clusters
     void Color_clusters();
 
-    //update the Graphs
+    // Update the Graphs
     void update_graphs();
 
   public:
-    // update arrays and draw
+    // Update arrays and draw
     void Draw();
 };
 
