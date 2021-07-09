@@ -18,6 +18,7 @@ Regarding the second part, namely, the actual simulation, we looked for a both r
 statistical model to build our simulation on. We ,thus, largely based our work on [SMOOTH: A simple way to model human
 mobility][2] paper, which we thought to contain the desired approach. 
 To get a better grasp on how the simulation works see [here](include/Simulation.md).
+
 --------------------------------------------------------------------------------
 ## Dependencies
 - [Lyra][lyra] (submodule)
@@ -241,7 +242,16 @@ The tests are(TO FILL):
 | test2         | Test if both `Simulation::clean_path` and `Simulation::clean_cluster_path` works correctly  |
 | test3         | Check if the generation of a Simulation object works correctly |
 
+### Testing during development
 
+During development we used other way to test if our program was working correctly:
+* We used various assert that allowed us to check if the various functions where working
+correctly.
+* **fsanitize-address**, which helped us to find and correct various development choices that 
+  we made and that were leading to various errors.
+* The graphical interface which helped us as we could see if the various functions
+  connected to world generation, to the movement of the people and to the spreading
+  of the virus where working as expected.
 
 --------------------------------------------------------------------------------
 ## Additional Notes
@@ -255,7 +265,7 @@ The tests are(TO FILL):
 [doct]:https://github.com/onqtam/doctest
 
 
-[test]:#tests
+[test]:#testing-during-development
 [inp-val]:#input-validation
 
 
