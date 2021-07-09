@@ -63,6 +63,11 @@ $`k_i`$ being the $`i`$-th order approximation term.
 In our program this method is implemented by `RungeKuttaSolver(const State&)` method of `SEIR` class.
 
 
+## Final result
+
+The output of the default program(see [input](../README.md/#user-input))
+![Sim-graph](assets/Images/default-seir.png)
+
 
 ### Notes
 In the program we opted for floating point number type for `S`,`E`,`I`,`R` variables. This can seem counter-intuitive as they 
