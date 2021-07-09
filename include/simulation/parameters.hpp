@@ -11,6 +11,7 @@ double constexpr MEAN_FAMILY_COMPONENTS = 2.5;
 double constexpr MEAN_FAMILY_STDDEV = 0.5;
 double constexpr LOCATION_RADIUS_MEAN = 4;
 double constexpr LOCATION_RADIUS_DEV = 1;
+double constexpr MINIMUM_LOCATION_RADIUS = 0.5;
 double constexpr MAXIMUM_ANGLE_VARIATION = PI / 36;  // random variation in Position::move_toward()
 double constexpr HOME_PROBABILITY = 0.98;
 double constexpr GREEN_PATH_MEAN = 4;          // mean number of locations when filling path in a green cluster

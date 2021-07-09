@@ -75,7 +75,14 @@ double Random::rand_speed()
 ///////////////// RANDOM LOCATION RADIUS DETERMINATION /////////////////
 double Random::rand_radius()
 {
-    return gauss(LOCATION_RADIUS_MEAN, LOCATION_RADIUS_DEV);
+    // Generate the random radius
+    double radius = gauss(LOCATION_RADIUS_MEAN, LOCATION_RADIUS_DEV);
+    //Check if it is bigger than the minimum radius
+    if (radius < MINIMUM_LOCATION_RADIUS)
+    {
+        radius = MINIMUM_LOCATION_RADIUS;
+    }
+    return radius;
 }
 
 } // namespace smooth_sim
