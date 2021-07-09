@@ -8,26 +8,28 @@ namespace smooth_sim
 class Group
 {
   private:
-    std::vector<Location> Locations;
-    Position centre;
+    std::vector<Location> Locations;  // Vector of locations
+    Position centre;  // Centre of the Group
     Random grp_engine;
 
   public:
+    // Constructor
     Group(int number_of_locations, Position group_centre, int cluster_label);
+    // Default constructor
     Group() = default;
 
   private:
-    // plot the waypoints(locations) over the simulation area according to the followed statistical model
+    // Plot the waypoints(locations) over the simulation area according to the followed statistical model
     void generate_group_waypoints(int locations_num, int cluster_label);
 
   public:
-    // returns centre position of this group
+    // Returns centre position of this group
     Position get_centre() const;
 
-    // returns number of locations belonging to this group
+    // Returns number of locations belonging to this group
     unsigned locations_num() const;
 
-    // returns a reference to the locations vector of this group
+    // Returns a reference to the locations vector of this group
     std::vector<Location>& locations();
 };
 

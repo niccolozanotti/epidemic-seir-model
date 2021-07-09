@@ -1,6 +1,5 @@
 #include "mobility_model.hpp"
 #include "random.hpp"
-#include <cassert>
 #include <numeric>
 
 namespace smooth_sim
@@ -130,7 +129,7 @@ void Mobility_model::next_location(double cluster_LATP_parameter, Random& engine
         probabilities.reserve(Path.size());
 
         // Calculate denominator (sum of all weights)
-        double weights_tot = std::accumulate(std::begin(weight_functions), std::end(weight_functions), 0);
+        double weights_tot = std::accumulate(std::begin(weight_functions), std::end(weight_functions), 0.);
 
         // Now fill it with the correspondent probability
         for (auto& a : weight_functions)

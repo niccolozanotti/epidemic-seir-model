@@ -1,5 +1,4 @@
 #include "group.hpp"
-#include <iostream>
 
 namespace smooth_sim
 {
@@ -21,10 +20,10 @@ Group::Group(int number_of_locations, Position group_centre, int cluster_label) 
 ///////////////// GENERATE GROUPS WAYPOINTS /////////////////
 void Group::generate_group_waypoints(int locations_num, int cluster_label)
 {
-    // generate first location according to location plotting model
+    // Generate first location according to location plotting model
     Locations.push_back(generate_close_loc(centre, 0, TRANSMISSION_RANGE / 10, cluster_label, grp_engine));
 
-    // now generating other group locations
+    // Now generating other group locations
     for (int i = 1; i < locations_num; ++i)
     {
         bool is_ok = false;
@@ -35,7 +34,7 @@ void Group::generate_group_waypoints(int locations_num, int cluster_label)
                 generate_close_loc(centre, 0, (i + 1) * TRANSMISSION_RANGE / 10, cluster_label, grp_engine);
             for (auto a : Locations)
             {
-                // make sure the new location close enough to other locations
+                // Make sure the new location close enough to other locations, if not generate a new one
                 if (a.get_position().distance_to(new_loc.get_position()) < TRANSMISSION_RANGE / 10)
                 {
                     is_ok = false;
