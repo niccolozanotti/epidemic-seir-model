@@ -1,6 +1,5 @@
 
-set(HEADER_LIST_SEIR   "${epidemic_SOURCE_DIR}/include/seir/seir1.hpp"
-                       "${epidemic_SOURCE_DIR}/include/seir/seir2.hpp")
+set(HEADER_LIST_SEIR   "${epidemic_SOURCE_DIR}/include/seir/seir.hpp")
 
 add_subdirectory(seir)
 
@@ -18,6 +17,10 @@ set(HEADER_LIST_SIM    "${epidemic_SOURCE_DIR}/include/simulation/random.hpp"
                        "${epidemic_SOURCE_DIR}/include/simulation/simulation.hpp")
 
 add_subdirectory(simulation)
+
+set(HEADER_LIST_GRAPH    "${epidemic_SOURCE_DIR}/include/simulation/simulation.hpp")
+
+add_subdirectory(simulation/graphics)
 
 
 

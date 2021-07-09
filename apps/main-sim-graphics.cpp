@@ -1,127 +1,247 @@
-#include "simulation.hpp"
-#include <SFML/Graphics.hpp>
-#include <chrono>
-#include <cmath>
+////// STL //////
 #include <iostream>
+#include <fstream>
+//////  LYRA (CMD LINE PARSER) //////
+#include <lyra/lyra.hpp>
+//////  ROOT HEADERS  //////
+#include "TApplication.h"
+#include "TCanvas.h"
+#include "TF1.h"
+#include "TGraph.h"
+#include "TMultiGraph.h"
+#include "TRootCanvas.h"
+#include "TFile.h"
+////// PROJECT HEADERS //////
+#include "../src/simulation/graphics/display.hpp"
+#include "simulation.hpp"
 
-using namespace smooth_sim;
-
-int main()
+int main(int argc, char** argv)
 {
-    //    auto start = std::chrono::high_resolution_clock::now();
-    //    auto end = std::chrono::high_resolution_clock::now();
-    //    std::chrono::duration<float> duration{};
-    double Sim_side = 1000;
-    double Graph_width = 800;
-    Simulation prova{25000, 3, 200, 4, 5, 800, Sim_side, 0.3, 0.02, 0.2, 1, 20};
-    std::vector<Data> Result = {prova.get_data()};
-    sf::RenderWindow window(sf::VideoMode(Sim_side + Graph_width, Sim_side), "Epidemic simulation");
+
+    ////////////////////////////////////////////////  INPUT COLLECTION  ////////////////////////////////////////////////
+
+    /* clang-format off */
+
+    bool get_help = false;               // evaluates true if there's any lyra-detected input error
+    bool default_sim {false};                //should the simulation be performed with default parameters?
+    bool default_seir {true};            // are ratios of S,E,I,R individuals among the population(which is specified) default chosen?
+    bool clusters_and_locations {false}; // are both clusters and locations values get specified?
+    bool default_params {true};          // should default values for alpha,beta and gamma be used rather than user defined?
+    int people {};
+    static int susceptibles{};
+    static int exposed{};
+    static int infected{};
+    static int recovered{};
+    static int locations{};
+    static int clusters{};
+    int side{};
+    double alpha{};
+    double beta{};
+    double gamma{};
+
+    lyra::cli cli;  //Lyra object: command line input
+
+    cli.add_argument(lyra::help(get_help))
+            .add_argument(lyra::opt(default_sim, "default")
+                          ["--def"]["--default"]
+                                  .help("Perform the simulation with default chosen values"))
+            .add_argument(lyra::opt(people, "people")
+                          ["-N"]["--people"]
+                                  .choices([](int value){ return value > 0;})
+                                  .help("How many people should there be in the simulation?"))
+            .add_argument(lyra::group([&](const lyra::group &) {
+                default_seir = false;
+            })
+                                  .add_argument(lyra::opt(susceptibles, "Susceptibles")
+                                                ["-S"]
+                                                        .required()
+                                                        .choices([](int value){ return value > 0;})
+                                                        .help("Susceptible individuals in the simulation."))
+                                  .add_argument(lyra::opt(exposed, "Exposed")
+                                                ["-E"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0;})
+                                                        .help("Exposed individuals in the simulation."))
+                                  .add_argument(lyra::opt(infected, "Infected")
+                                                ["-I"]
+                                                        .required()
+                                                        .choices([](int value){ return value >=0;})
+                                                        .help("Infected individuals in the simulation."))
+                                  .add_argument(lyra::opt(recovered, "Recovered")
+                                                ["-R"]
+                                                        .required()
+                                                        .choices([](int value){ return value >= 0;})
+                                                        .help("Recovered individuals in the simulation."))) //end group
+            .add_argument(lyra::opt(locations, "locations")
+                          ["-l"]["--loc"]
+                                  .choices([](int value){ return value >= 10;})
+                                  .help("How many locations should there be on the map?"))
+            .add_argument(lyra::opt(clusters, "clusters")
+                          ["-c"]["--clust"]
+                                  .choices([](int value){ return value > 0 && value < 40;})
+                                  .help("How many cluster should the area be divided into?"))
+            .add_argument(lyra::group([&](const lyra::group &) {
+                clusters_and_locations = true;
+            })
+                                  .add_argument(lyra::opt(locations, "locations")
+                                                ["-l"]["--loc"]
+                                                        .required()
+                                                        .choices([](int value){ return value > 0; })
+                                                        .help("How many locations should there be on the map?"))
+                                  .add_argument(lyra::opt(clusters, "clusters")
+                                                ["-c"]["--clust"]
+                                                        .required()
+                                                        .choices([](int value){ return value > 0; })
+                                                        .help("How many cluster should the area be divided into?")))//end group
+            .add_argument(lyra::group([&](const lyra::group &) {
+                default_params = false;
+            })
+                                  .add_argument(lyra::opt(alpha, "alpha")
+                                                ["-a"]["--alpha"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: governs the lag between infectious contact and showing symptoms."))
+                                  .add_argument(lyra::opt(beta, "beta")
+                                                ["-b"]["--beta"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: number of people an infective person infects each day."))
+                                  .add_argument(lyra::opt(gamma, "gamma")
+                                                ["-g"]["--gamma"]
+                                                        .choices([](double value){ return value >= 0.0 && value <= 1.0;})
+                                                        .help("Parameter: cumulative probability for a person to recover or die."))) //end group
+            .add_argument(lyra::opt(side, "side")
+                          ["--sd"]["--side"]
+                                  .choices([](int value){ return value >= locations / 2;})
+                                  .help("How big should the simulation area side be"));
+
+    /* clang-format on */
+
+    // Parse the program arguments:
+    auto result = cli.parse({argc, argv});
+
+    // Check that the arguments validity
+    if (!result)
+    {
+        std::cerr << "Error in command line: " << result.errorMessage() << std::endl;
+        std::cerr << cli << "\n";
+        return EXIT_FAILURE;
+    }
+
+    // Show help indications if needed
+    if (get_help)
+    {
+        std::cout << cli << "\n";
+        return 0;
+    }
+
+    // Terminate program in case the user chooses to perform the default simulation but also sets some parameters
+    if (default_sim && (people != 0 || !default_seir || locations != 0 || clusters != 0 || !default_params || side != 0 ))
+    {
+        std::cerr << "The simulation mode has been setted as default mode, but some parameters have been specified by "
+                     "the user\n";
+        std::cerr << "Use --def 1 (or --default 1) without any other argument to simulate with default values"
+                  << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    /////////// The user has chosen to use default chosen parameters ///////////
+
+    if (default_sim)
+    {
+        people = DEF_PEOPLE;
+        susceptibles = people * DEF_S;
+        exposed = people * DEF_E;
+        infected = people * DEF_I;
+        recovered = people * DEF_R;
+        locations = DEF_LOCATIONS;
+        clusters = DEF_CLUSTERS;
+        alpha = DEF_ALPHA;
+        beta = DEF_BETA;
+        gamma = DEF_GAMMA;
+        side = DEF_SIDE;
+    }
+
+    /////////// The user has chosen to set simulation parameters himself ///////////
+
+    else
+    {
+        // handle missing input cases
+        if (default_seir && people == 0)
+        {
+            std::cerr << "At least one parameter among 'people' and the group 'S,E,I,R' must be specified."
+                      << std::endl;
+            return EXIT_FAILURE;
+        }
+        if (!clusters_and_locations && locations == 0 && clusters == 0)
+        {
+            std::cerr << "At least one parameter among 'clusters' and 'locations' must be specified." << std::endl;
+            return EXIT_FAILURE;
+        }
+        if (side == 0)
+        {
+            std::cerr << "Side must be specified." << std::endl;
+            return EXIT_FAILURE;
+        }
+        // only simulation people number have been specified: set S,E,I,R default ratio among people
+        if (default_seir)
+        {
+            susceptibles = people * DEF_S;
+            exposed = people * DEF_E;
+            infected = people * DEF_I;
+            recovered = people * DEF_R;
+        }
+        // only clusters have been specified leaving locations out
+        if (!clusters_and_locations && locations == 0 && clusters > 0) { locations = clusters * 150; }
+        // only locations have been specified leaving clusters out
+        else if (!clusters_and_locations && locations > 0 && clusters == 0){ clusters = locations / 150 + 1; }
+        // Not accepted values
+        if (susceptibles + exposed + infected + recovered < locations)
+        {
+            std::cerr << "The total population has to be higher tha the number of locations." << std::endl;
+            return EXIT_FAILURE;
+        }
+        if (susceptibles + exposed + infected + recovered < 100*clusters)
+        {
+            std::cerr << "The total population has to be at least 100 times the number of clusters." << std::endl;
+            return EXIT_FAILURE;
+        }
+        if(clusters*10 > locations)
+        {
+            std::cerr << "the minimum number of locations per cluster has to be 10." << std::endl;
+            return EXIT_FAILURE;
+        }
+        // automatically set the chosen epidemic parameters if not specified in the command line
+        if (default_params)
+        {
+            alpha = DEF_ALPHA;
+            beta = DEF_BETA;
+            gamma = DEF_GAMMA;
+        }
+
+    }
+    // Output the simulation parameters
+    std::cout << "Clusters == " << clusters << "\t Locations == " << locations << std::endl;
+    std::cout << "People == " << people << std::endl;
+    std::cout << "S == " << susceptibles << "\nE == " << exposed << "\nI == " << infected << "\nR == " << recovered
+              << std::endl;
+    std::cout << "Simulation side == " << side << "\t Spread radius == " << SPREAD_RADIUS << std::endl;
+
+    //////////////////////////////////////////////  GRAPHICS SIMULATION  ///////////////////////////////////////////////
+    using namespace smooth_sim;
+    // Make sure the windows height is 4/5 of the user's monitor height
+    unsigned Window_height = 4*sf::VideoMode::getDesktopMode().height/5;
+    // Initialize the simulation
+    Simulation sim{susceptibles, exposed, infected, recovered, clusters,     locations,
+                     side,         alpha,   beta,     gamma,     SPREAD_RADIUS};
+    // Initialize Result vector
+    std::vector<Data> Result = {sim.get_data()};
+    // Initialize window where everything will be displayed
+    sf::RenderWindow window;
+    // Initialize Display object using the previously initialized window
+    Display Window{sim,window,Window_height};
+    // Draw and display the initial frame
+    Window.Draw();
     window.display();
-
-    sf::VertexArray Clusters(sf::Quads, 4 * prova.world().size());
-    sf::VertexArray Borders(sf::Lines, 8 * prova.world().size());
-    std::array<double, 4> X{};
-    std::array<double, 4> Y{};
-    for (unsigned i = 0; i < prova.world().size(); ++i)
-    {
-        auto& cl_a = prova.world().clusters()[i].area();
-        X[0] = cl_a.get_blh_corner().get_x();
-        Y[0] = cl_a.get_blh_corner().get_y();
-        X[1] = cl_a.get_blh_corner().get_x();
-        Y[1] = cl_a.get_trh_corner().get_y();
-        X[2] = cl_a.get_trh_corner().get_x();
-        Y[2] = cl_a.get_trh_corner().get_y();
-        X[3] = cl_a.get_trh_corner().get_x();
-        Y[3] = cl_a.get_blh_corner().get_y();
-        // Set cluster's vertices(color to be set in the while loop)
-        Clusters[4 * i].position = sf::Vector2f(X[0], Y[0]);
-        Clusters[4 * i + 1].position = sf::Vector2f(X[1], Y[1]);
-        Clusters[4 * i + 2].position = sf::Vector2f(X[2], Y[2]);
-        Clusters[4 * i + 3].position = sf::Vector2f(X[3], Y[3]);
-        // Set Cluster's borders(with already setted colors)
-        // Set position
-        Borders[8 * i].position = sf::Vector2f(X[0], Y[0]);
-        Borders[8 * i + 1].position = sf::Vector2f(X[1], Y[1]);
-        Borders[8 * i + 2].position = sf::Vector2f(X[1], Y[1]);
-        Borders[8 * i + 3].position = sf::Vector2f(X[2], Y[2]);
-        Borders[8 * i + 4].position = sf::Vector2f(X[2], Y[2]);
-        Borders[8 * i + 5].position = sf::Vector2f(X[3], Y[3]);
-        Borders[8 * i + 6].position = sf::Vector2f(X[3], Y[3]);
-        Borders[8 * i + 7].position = sf::Vector2f(X[0], Y[0]);
-        // Set color
-        for (int j = 0; j < 8; ++j)
-        {
-            Borders[8 * i + j].color = sf::Color::Black;
-        }
-    }
-
-    sf::VertexArray locations(sf::Triangles, 24 * prova.world().locations_num());
-    int count = 0;
-    int r = 0;
-    std::array<double, 9> x{};
-    std::array<double, 9> y{};
-    for (auto& cl : prova.world().clusters())
-    {
-        for (auto& gr : cl.groups())
-        {
-            for (auto& l : gr.locations())
-            {
-                r = l.get_radius();
-                // Fill the points
-                x[0] = l.get_position().get_x();
-                y[0] = l.get_position().get_y();
-                for (int i = 1; i < 9; ++i)
-                {
-                    x[i] = x[0] + r * std::cos(i * PI / 4);
-                    y[i] = y[0] + r * std::sin(i * PI / 4);
-                }
-                // Assign points so that you make octagons(with 8 triangles)
-                for (int i = 0; i < 7; ++i)
-                { // The first 7 triangles
-                    // Set the vertices of the triangles
-                    locations[24 * count + 3 * i].position = sf::Vector2f(x[0], y[0]);
-                    locations[24 * count + 3 * i + 1].position = sf::Vector2f(x[i + 1], y[i + 1]);
-                    locations[24 * count + 3 * i + 2].position = sf::Vector2f(x[i + 2], y[i + 2]);
-                    // set the color
-                    locations[24 * count + 3 * i].color = sf::Color::Blue;
-                    locations[24 * count + 3 * i + 1].color = sf::Color::Blue;
-                    locations[24 * count + 3 * i + 2].color = sf::Color::Blue;
-                }
-                // Set the vertices of the eight triangle
-                locations[24 * count + 21].position = sf::Vector2f(x[0], y[0]);
-                locations[24 * count + 22].position = sf::Vector2f(x[8], y[8]);
-                locations[24 * count + 23].position = sf::Vector2f(x[1], y[1]);
-                // set the color
-                locations[24 * count + 21].color = sf::Color::Blue;
-                locations[24 * count + 22].color = sf::Color::Blue;
-                locations[24 * count + 23].color = sf::Color::Blue;
-                ++count;
-            }
-        }
-    }
-    // Initialize the graphs
-    sf::VertexArray Susceptible(sf::LineStrip, 1);
-    sf::VertexArray Exposed(sf::LineStrip, 1);
-    sf::VertexArray Infected(sf::LineStrip, 1);
-    sf::VertexArray Recovered(sf::LineStrip, 1);
-    // Initialize the first point
-    double tot_pop = prova.world().people_num();
-    double coeff = Sim_side / tot_pop;
-    double dx = Graph_width / 100.0; // initially divide the graph x in
-    Susceptible[0].position = sf::Vector2f(Sim_side, Sim_side - Result[0].S * coeff);
-    Susceptible[0].color = sf::Color::White;
-    Exposed[0].position = sf::Vector2f(Sim_side, Sim_side - Result[0].E * coeff);
-    Exposed[0].color = sf::Color::Cyan;
-    Infected[0].position = sf::Vector2f(Sim_side, Sim_side - Result[0].I * coeff);
-    Infected[0].color = sf::Color::Magenta;
-    Recovered[0].position = sf::Vector2f(Sim_side, Sim_side - Result[0].R * coeff);
-    Recovered[0].color = sf::Color::Red;
-    /*for(auto& a: prova.world_ref().Clusters())
-    {
-        std::cout << "nth cluster: "
-                  << " base: " << a.base() << " height: " << a.height() << " X: " << a.area().get_blh_corner().get_x()
-                  << " Y: " << a.area().get_trh_corner().get_y() << std::endl;
-    }*/
+    // Initialize a counter to keep track of cycles
     int counter{};
     while (window.isOpen())
     {
@@ -131,122 +251,86 @@ int main()
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed) window.close();
         }
-        window.clear(sf::Color::Black);
-        prova.move();
-        prova.spread();
-        Result.push_back(prova.get_data());
-        if (counter % 10 == 0)
+        // Call move and spread function
+        sim.move();
+        sim.spread();
+        // Fill the Result vector
+        Result.push_back(sim.get_data());
+        // Every cycle update zone color and clean the paths
+        if (counter % UPDATE_ZONES_INTERVAL == 0)
         {
-            prova.update_zones();
+            sim.update_zones();
             std::cout << counter / 10 << "nth cycle" << std::endl;
         }
         ++counter;
-
-        // Set Cluster Color
-        for (unsigned i = 0; i < prova.world().clusters().size(); ++i)
-        {
-            auto& cl = prova.world().clusters()[i];
-            sf::Color color;
-            if (cl.get_zone() == Zone::Green) { color = sf::Color::Green; }
-            else if (cl.get_zone() == Zone::Yellow)
-            {
-                color = sf::Color::Yellow;
-            }
-            else
-            {
-                color = sf::Color::Red;
-            }
-            Clusters[4 * i].color = color;
-            Clusters[4 * i + 1].color = color;
-            Clusters[4 * i + 2].color = color;
-            Clusters[4 * i + 3].color = color;
-        }
-        window.draw(Clusters);
-        window.draw(Borders);
-
-        // start = std::chrono::high_resolution_clock::now();
-
-        window.draw(locations);
-        /*end = std::chrono::high_resolution_clock::now();
-        duration = end - start;
-        std::cout << "Time: " << duration.count() << std::endl;*/
-
-        // with vertex array, should be faster
-        sf::VertexArray people(sf::Quads, prova.world().people_num() * 4);
-        double x_0, y_0;
-        r = 1;
-        count = 0;
-        for (auto& a : prova.world().clusters())
-        {
-            for (auto& b : a.people())
-            {
-                if (!b.is_at_home())
-                {
-                    if (b.person().get_current_status() == Status::Susceptible)
-                    {
-                        people[4 * count].color = sf::Color::White;
-                        people[4 * count + 1].color = sf::Color::White;
-                        people[4 * count + 2].color = sf::Color::White;
-                        people[4 * count + 3].color = sf::Color::White;
-                    }
-                    else if (b.person().get_current_status() == Status::Exposed)
-                    {
-                        people[4 * count].color = sf::Color::Cyan;
-                        people[4 * count + 1].color = sf::Color::Cyan;
-                        people[4 * count + 2].color = sf::Color::Cyan;
-                        people[4 * count + 3].color = sf::Color::Cyan;
-                    }
-                    else if (b.person().get_current_status() == Status::Infected)
-                    {
-                        people[4 * count].color = sf::Color::Magenta;
-                        people[4 * count + 1].color = sf::Color::Magenta;
-                        people[4 * count + 2].color = sf::Color::Magenta;
-                        people[4 * count + 3].color = sf::Color::Magenta;
-                    }
-                    else
-                    {
-                        people[4 * count].color = sf::Color::Black;
-                        people[4 * count + 1].color = sf::Color::Black;
-                        people[4 * count + 2].color = sf::Color::Black;
-                        people[4 * count + 3].color = sf::Color::Black;
-                    }
-                    x_0 = b.person().get_position().get_x();
-                    y_0 = b.person().get_position().get_y();
-                    people[4 * count].position = sf::Vector2f(x_0 - r, y_0 - r);
-                    people[4 * count + 1].position = sf::Vector2f(x_0 + r, y_0 - r);
-                    people[4 * count + 2].position = sf::Vector2f(x_0 + r, y_0 + r);
-                    people[4 * count + 3].position = sf::Vector2f(x_0 - r, y_0 + r);
-                }
-                ++count;
-            }
-        }
-        window.draw(people);
-
-        // If necessary adapt the graphs
-        if (Susceptible[counter - 1].position.x - Sim_side >= 4 * Graph_width / 5)
-        { // if last graph point x is >= of 4/5 of Graph_width, adapt the graph so that it stay in half Graph_width
-            double k = Graph_width / (2 * (Susceptible[counter - 1].position.x - Sim_side));
-            for (int i = 1; i < counter; ++i)
-            { // adapt the x axis
-                Susceptible[i].position.x = Sim_side * (1 - k) + k * Susceptible[i].position.x;
-                Exposed[i].position.x = Susceptible[i].position.x;
-                Infected[i].position.x = Susceptible[i].position.x;
-                Recovered[i].position.x = Susceptible[i].position.x;
-            }
-            dx *= k; // adapt the delta_x
-        }
-        // Fill points of graphs
-        float curr_x = Sim_side + counter * dx;
-        Susceptible.append(sf::Vertex(sf::Vector2f(curr_x, Sim_side - Result[counter].S * coeff), sf::Color::White));
-        Exposed.append(sf::Vertex(sf::Vector2f(curr_x, Sim_side - Result[counter].E * coeff), sf::Color::Cyan));
-        Infected.append(sf::Vertex(sf::Vector2f(curr_x, Sim_side - Result[counter].I * coeff), sf::Color::Magenta));
-        Recovered.append(sf::Vertex(sf::Vector2f(curr_x, Sim_side - Result[counter].R * coeff), sf::Color::Red));
-
-        window.draw(Susceptible);
-        window.draw(Exposed);
-        window.draw(Infected);
-        window.draw(Recovered);
-
+        // Draw and display the current frame
+        window.clear(sf::Color::Black);
+        Window.Draw();
         window.display();
     }
+
+    ///////////////// TXT OUTPUT /////////////////
+
+    std::ofstream out{"sim-graphics.txt"};
+
+    int step = 0;
+    for (auto& a : Result)
+    {
+        out << "Step = " << step << " S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
+        ++step;
+    }
+
+    ///////////////// ROOT CODE /////////////////
+    // Create the app
+    TApplication app("app", &argc, argv);
+    // Create the canvas
+    auto c0 = new TCanvas("c0", "Epidemic simulation");
+    // Create the multigraph
+    auto mg = new TMultiGraph();
+    // Create the various Graph
+    auto gS = new TGraph();
+    auto gE = new TGraph();
+    auto gI = new TGraph();
+    auto gR = new TGraph();
+    // Set the Colors
+    gS->SetLineColor(kBlue);
+    gE->SetLineColor(kOrange);
+    gI->SetLineColor(kGreen);
+    gR->SetLineColor(kRed);
+    mg->SetTitle("Simulation; steps; number of people");
+    // Set the points in the graphs
+    int t = 0;
+    for (auto a : Result)
+    {
+        gS->SetPoint(t, t, a.S);
+        gE->SetPoint(t, t, a.E);
+        gI->SetPoint(t, t, a.I);
+        gR->SetPoint(t, t, a.R);
+        t++;
+    }
+    // Add the graphs in the multigraph, giving each of them the corresponding name
+    mg->Add(gS);
+    gS->SetTitle("S");
+    mg->Add(gE);
+    gE->SetTitle("E");
+    mg->Add(gI);
+    gI->SetTitle("I");
+    mg->Add(gR);
+    gR->SetTitle("R");
+    // Create a Root File for the multigraph
+    auto file = new TFile("sim-graphics.root", "RECREATE");
+    mg->Write();
+    file->Close();
+    // Draw the multigraph with a legend
+    mg->Draw("AL");
+    c0->BuildLegend();
+
+    c0->Modified();
+    c0->Update();
+    // Close the application when thw canvas is closed
+    TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
+    rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
+    app.Run();
+
+    return 0;
 }

@@ -33,17 +33,21 @@ int Location::get_label() const
 ///////////////// GENERATE A CLOSE LOCATION /////////////////
 Location generate_close_loc(Position& pos, double min_distance, double max_distance, int cluster_index, Random& engine)
 {
+    // Generate random polar coordinates with pos as a center
     double angle = engine.uniform(0, 2 * PI);
     double distance = engine.uniform(min_distance, max_distance);
-
-    double v_x = distance * std::cos(angle); // x coordinate of the translation vector
-    double v_y = distance * std::sin(angle); // y coordinate of the translation vector
+    // x coordinate of the translation vector
+    double v_x = distance * std::cos(angle);
+    // y coordinate of the translation vector
+    double v_y = distance * std::sin(angle);
+    // Pass from polar coordinates to the coordinate on pos reference system
     double x = pos.get_x() + v_x;
     double y = pos.get_y() + v_y;
-
-    Position gen_pos{x, y};               // generated position
-    double radius = engine.rand_radius(); // random location radius
-
+    // Construct the position
+    Position gen_pos{x, y};
+    // Generate a random location radius
+    double radius = engine.rand_radius();
+    // Return the resulting location
     return {gen_pos, radius, cluster_index};
 }
 ///////////////// GENERATE HOME LOCATION /////////////////

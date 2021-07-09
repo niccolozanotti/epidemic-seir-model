@@ -24,11 +24,6 @@ Status Person::get_current_status() const
 {
     return status;
 }
-///////////////// NEW PERSON STATUS /////////////////
-Status Person::get_new_status() const
-{
-    return new_status;
-}
 ///////////////// PERSON POSITION /////////////////
 Position Person::get_position() const
 {

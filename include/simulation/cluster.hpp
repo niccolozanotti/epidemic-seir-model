@@ -28,79 +28,71 @@ class Cluster
     Random cl_engine;
 
   public:
+    // Constructor
     Cluster(int S, int E, int I, int R, int cluster_locations_num, Rectangle Area, Zone cluster_zone, int cluster_label,
             double cluster_LATP_parameter);
+
+    // Prevent the compiler from generating the default constructor since no use of it should be made
     Cluster() = delete;
 
   private:
-    // construct people(Mobility_model) in this cluster: assign them home by families and set them home;set also their
+    // Construct people(Mobility_model) in this cluster: assign them home by families and set them home;set also their
     // initial status as Status::Susceptible(some will have it changed in set_E_I_R_individuals()
     void generate_people(int people_num, int cluster_label);
 
+    // Generate the various groups, distributing the locations
     void generate_groups(int locations_num);
 
-    // generate a valid center location used by group
+    // Generate a valid center location used by group
     Position gen_group_center(int num_of_loc);
 
-    // set Status::Exposed,Status::Infected,Status::Recovered in such a way to have the right initial E,I,R individuals
+    // Set Status::Exposed,Status::Infected,Status::Recovered in such a way to have the right initial E,I,R individuals
     void set_E_I_R_individuals(int E, int I, int R);
 
-    // return a pointer to a group location by index(used in path generation)
+    // Return a pointer to a group location by index(used in path generation)
     Location* select_location(int n);
 
   public:
-    // returns people vector in this cluster
+    // Returns people vector in this cluster
     std::vector<Mobility_model> get_people() const;
 
-    // number of people in this cluster
+    // Number of people in this cluster
     int people_num() const;
 
-    // returns the number of groups in this cluster
+    // Returns the number of groups in this cluster
     unsigned size() const;
 
-    // number of locations in this cluster
+    // Number of locations in this cluster
     int locations_num() const;
 
-    // returns cluster current zone
+    // Returns cluster current zone
     Zone get_zone() const;
 
-    // returns label of this cluster(index of it into clusters vector(World class)
+    // Returns the index of it into clusters vector in world
     int get_label() const;
 
-    // returns LATP parameter used by people in this cluster when calling next_location()
+    // Returns LATP parameter used by people in this cluster when calling next_location()
     double get_LATP() const;
 
-    // returns a reference to people vector in this cluster
+    // Returns a reference to people vector in this cluster
     std::vector<Mobility_model>& people();
 
-    // returns reference to groups vector of this cluster
+    // Returns reference to groups vector of this cluster
     std::vector<Group>& groups();
 
-    // returns a reference to the cluster rectangular area(used when graphically representing cluster)
-    Rectangle& area(); // TODO condider making a getter of area rather than a reference
+    // Returns a reference to the cluster rectangular area(used when graphically representing cluster)
+    Rectangle& area();
 
-    // sets cluster zone
+    // Sets cluster zone
     void set_zone(Zone cluster_zone);
 
-    // sets LATP parameter used by people in this cluster when calling next_location()
+    // Sets LATP parameter used by people in this cluster when calling next_location()
     void set_LATP(double new_LATP_parameter);
 
-    // fills path vector with pointers to location to visit
-    void generate_path(int to_visit, std::vector<Location*>& path);
+    // Fills path vector with pointers to location to visit
+    void generate_cluster_path(int to_visit, std::vector<Location*>& path);
 };
 
 } // namespace smooth_sim
 
 #endif
-
-// TODO Unused
-
-//    returns base of the cluster rectangular Area
-//    double base();
-//
-//    // returns height of the cluster rectangular Area
-//    double height();
-
-// select the nth location and return his pointer, used for generate_path
-//    std::vector<Location*> Location_list(); // get a vector of pointer to all locations in the cluster
-//    std::vector<Person*> Person_list();     // get a vector of pointer to all People in the cluster

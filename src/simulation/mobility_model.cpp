@@ -1,6 +1,5 @@
 #include "mobility_model.hpp"
 #include "random.hpp"
-#include <cassert>
 #include <numeric>
 
 namespace smooth_sim
@@ -28,7 +27,7 @@ Person Mobility_model::get_person() const
     return pers;
 }
 ///////////////// TARGET LOCATION /////////////////
-Location * Mobility_model::get_target_location()
+Location* Mobility_model::get_target_location()
 {
     return target_location;
 }
@@ -62,7 +61,6 @@ void Mobility_model::set_is_at_home(bool is_at_home)
 {
     at_home = is_at_home;
 }
-
 ///////////////// DECREASE PERSON STAY AT A PLACE /////////////////
 void Mobility_model::decrease_stay()
 {
@@ -115,39 +113,39 @@ void Mobility_model::next_location(double cluster_LATP_parameter, Random& engine
 
     if (Path.size() > 1)
     {
-        // vector containing weight function values with alpha == cluster_LATP_parameter; the correpondence between
+        // Vector containing weight function values with alpha == cluster_LATP_parameter; the correpondence between
         // weight functions and location is the following: weight_functions[index] <--> Path[index]
         std::vector<double> weight_functions{};
         weight_functions.reserve(Path.size());
-
-        for (auto& a : Path) // filling with LATP weights
+        // Filling with LATP weights
+        for (auto& a : Path)
         {
             double w_i = 1 / pow(a->get_position().distance_to(pers.get_position()), cluster_LATP_parameter);
             weight_functions.push_back(w_i);
         }
 
-        // vector containing probability values referring to locations(previous correspondence holds)
+        // Vector containing probability values referring to locations(previous correspondence holds)
         std::vector<double> probabilities{};
         probabilities.reserve(Path.size());
 
-        // calculate denominator (sum of all weights)
-        double weights_tot = std::accumulate(std::begin(weight_functions), std::end(weight_functions), 0);
+        // Calculate denominator (sum of all weights)
+        double weights_tot = std::accumulate(std::begin(weight_functions), std::end(weight_functions), 0.);
 
-        // now filling with the correspondent probability
+        // Now fill it with the correspondent probability
         for (auto& a : weight_functions)
         {
             probabilities.push_back(a / weights_tot);
         }
-        // select next_location to visit based on the probabilities vector and set it as the new target
+        // Select the next_location to visit based on the probabilities vector and set it as the new target
         int chosen_index = engine.discrete(probabilities);
         target_location = Path[chosen_index];
 
-        // eventually erase the selected location(pointer) from Path vector
+        // Eventually erase the selected location(pointer) from Path vector
         auto it = Path.begin();
         it = it + chosen_index;
         Path.erase(it);
 
-        // generate the stay time for the person
+        // Generate the stay time for the person
         stay = engine.rand_stay();
         return;
     }

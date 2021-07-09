@@ -79,6 +79,8 @@ target_compile_options(simulation PRIVATE -Wall -Wextra -fsanitize=address)
 target_link_options(simulation PRIVATE -fsanitize=address)
 target_clangformat_setup(simulation) ##allow for code formatting
 
+
+
 source_group(
         TREE "${PROJECT_SOURCE_DIR}/include/simulation"
         PREFIX "Header Files"

@@ -1,10 +1,9 @@
-if [ -d "../test_build" ]
+if [ ! -d "../test_build" ]
 then
-  rm -r ../test_build
+  mkdir ../test_build
 fi
-mkdir ../test_build
-cmake -S .. -B ../test_build
 cd ../test_build || exit
-make seir.t
-echo "target successfully built"
-./tests/seir.t
+cmake  ..  -DCMAKE_BUILD_TYPE=Debug
+make test1 test2 test3
+echo "All built test targets are in test_build directory"
+echo "(use cd ../test_build to checkout)"
