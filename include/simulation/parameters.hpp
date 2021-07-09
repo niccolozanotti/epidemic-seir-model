@@ -33,7 +33,7 @@ double constexpr MAX_PAUSE = 15.0;
 double constexpr MIN_PAUSE = 5.0;
 double constexpr SPREAD_RADIUS = 1.0;
 ////////////////////////////  DEFAULT SEIR MODEL PARAMETERS ////////////////////////////
-int constexpr DEF_SEIR_PEOPLE = 10000;
+int constexpr DEF_SEIR_PEOPLE = 1000000;
 double constexpr DEF_SEIR_S = 0.99;
 double constexpr DEF_SEIR_E = 0.003;
 double constexpr DEF_SEIR_I = 0.005;
