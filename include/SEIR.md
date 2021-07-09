@@ -62,6 +62,8 @@ k_4 =  f \Big(S+h ,E+h ,I+h ,R+h \Big) \\[3mm]
 $`k_i`$ being the $`i`$-th order approximation term.
 In our program this method is implemented by `RungeKuttaSolver(const State&)` method of `SEIR` class.
 
+
+
 ### Notes
 In the program we opted for floating point number type for `S`,`E`,`I`,`R` variables. This can seem counter-intuitive as they 
 represent numbers of people and are naturally represented by unsigned integer values. The reasons for that are two
