@@ -22,28 +22,27 @@ $`\frac{TRANSMISSION\_RANGE}{10}`$ close to another.
 ## People mobility
 
 As stated in section _III B_ of the [paper][1], the only allowed mobility model for the people in the simulation
-corresponds to [Random waypoint model][2]: a model consisting of a random movement toward a target(_i.e._ waypoints
+corresponds to [Random waypoint model][2]: a model consisting of a random movement toward a target(_i.e._ a waypoint
 on the map). \
 In the implementation, each `Mobility_model` object owns both a `Person` and `std::vector<Location*> Path`, where
 the latter is a container with (pointers to) all person's next possible targets. \
 The responsible methods for determining person available-to-visit waypoints on the map are `World::generate_path()`
 and `Cluster::generate_cluster_path()`, respectively filling `std::vector<Location*> Path` with locations from Green 
-Clusters and 
+Clusters and with locations from a specific cluster.
 
 The way a node of the network(_i.e_ a person) chooses a target waypoint on the map is governed by the **Least-Action 
-Trip Planning** algorithm, a simple model, trying to mock real human behaviour, consisting of the following:
-when moving 
+Trip Planning** algorithm, a simple model, trying to mock real human behaviour, consisting of the following: 
 
-In our simulation, LATP algorithm is implemented by `Mobility_model::next_location()` method.
+1. distance from current person location to all available new targets is computed
+   
+2. a weight function based on a parameter(in our implementation `LATP alpha`), then, determines the probability for 
+each target to be visited 
+   
+3. the next target waypoint choice is finally made using the just calculated probabilities as weights
 
-
-
-
-This is our implementation of the second part of the assignment.
-
-It simulates how an epidemic spread in a World divided in various part(Clusters), where the people move between
-various location.
-
+In our simulation, LATP algorithm is implemented by `Mobility_model::next_location()` method, determining next person
+target using person's current `LATP alpha` parameter the person's cluster. \
+A detailed description of LATP algorithm can be found in section _III C_ of [this][3] paper.
 ## Classes
 
 ### Position
@@ -258,6 +257,7 @@ achieved through std::random_device. Additionally it implements some random oper
 
 [1]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
 [2]:https://en.wikipedia.org/wiki/Random_waypoint_model
+[3]:https://www.researchgate.net/publication/224500337_SLAW_A_mobility_model_for_human_walks
 [randutils_web]:https://gist.github.com/imneme/540829265469e673d045
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
 [seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
