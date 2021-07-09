@@ -42,7 +42,7 @@ Make sure that all the required dependencies are installed.
 The first step is to clone the repository:
 ```shell
 #clone the final branch of the repository
-git clone -b final --single-branch https://gitlab.com/Feyn-23/epidemic.git 
+git clone https://gitlab.com/Feyn-23/epidemic.git 
 #enter the repository
 cd epidemic
 ```
