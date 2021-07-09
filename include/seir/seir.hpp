@@ -16,13 +16,13 @@ struct State
     double I;
     double R;
 
-    // susceptibles change rate
+    // Susceptibles change rate
     double dS_dt(double beta, int N) const;
 
-    // exposed change rate
+    // Exposed change rate
     double dE_dt(double beta, double alpha, int N) const;
 
-    // infected change rate
+    // Infected change rate
     double dI_dt(double alpha, double gamma) const;
 
     // Recovered change rate
@@ -32,33 +32,30 @@ struct State
 class SEIR
 {
   private:
-    int N;        // total number of individuals
-    int t;        // duration time of the simualtion(days)
-    State S_0;    // initial state
-    double alpha; // governs the lag between infectious contact and showing symptoms
-    double beta;  // number of people an infective person infects each day
-    double gamma; // probability to recover or die (accounts for two parameters)
+    int N;        // Total number of individuals
+    int t;        // Duration time of the simulation(days)
+    State S_0;    // Initial state
+    double alpha; // Governs the lag between infectious contact and showing symptoms
+    double beta;  // Number of people an infective person infects each day
+    double gamma; // Probability to recover or die (accounts for two parameters)
 
   public:
-    // constructor
+    // Constructor
     SEIR(int population, int time, State initial_state, double alpha, double beta, double gamma);
 
-    // the default constructor should not be used
+    // The default constructor should not be used
     SEIR() = delete;
 
   private:
-    // returns newly calculated State using Euler method(1th order numerical approximation)
+    // Returns newly calculated State using Euler method(1th order numerical approximation)
     State EulerSolver(const State& current_state);
 
-    // returns newly calculated State using Runge Kutta method(4th order numerical approximation)
+    // Returns newly calculated State using Runge Kutta method(4th order numerical approximation)
     State RungeKuttaSolver(const State& current_state);
 
-    //    // check for the validity of a SEIR object
-    //    bool is_valid(SEIR obj);
-
   public:
-    // performs the actual simulation:determines the various states by solving the ode system
-    // over the setted time interval either with Euler method (method == 0) or with RK4 (method == 1)
+    // Performs the actual simulation:determines the various states by solving the ode system
+    // Over the setted time interval either with Euler method (method == 0) or with RK4 (method == 1)
     void evolve(std::vector<State>& states, bool method = 0);
 };
 

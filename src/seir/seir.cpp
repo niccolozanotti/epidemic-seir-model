@@ -31,6 +31,7 @@ SEIR::SEIR(int population, int time, State initial_state, double alpha, double b
 State SEIR::EulerSolver(const State& current_state)
 {
     State new_state{};
+    // Calculate the new state
     new_state.S = current_state.S + current_state.dS_dt(beta, N);
     new_state.E = current_state.E + current_state.dE_dt(beta, alpha, N);
     new_state.I = current_state.I + current_state.dI_dt(alpha, gamma);
@@ -52,7 +53,7 @@ State SEIR::RungeKuttaSolver(State const& current_state)
     k1[2] = TIME_STEP * current_state.dI_dt(alpha, gamma);
     k1[3] = TIME_STEP * current_state.dR_dt(gamma);
 
-    // update the state by half a TIME_STEP
+    // Update the state by half a TIME_STEP
     updatedState.S = current_state.S + k1[0] / 2.0;
     updatedState.E = current_state.E + k1[1] / 2.0;
     updatedState.I = current_state.I + k1[2] / 2.0;
@@ -66,7 +67,7 @@ State SEIR::RungeKuttaSolver(State const& current_state)
     k2[2] = TIME_STEP * updatedState.dI_dt(alpha, gamma);
     k2[3] = TIME_STEP * updatedState.dR_dt(gamma);
 
-    // update the state by half a TIME_STEP
+    // Update the state by half a TIME_STEP
     updatedState.S = current_state.S + k2[0] / 2.0;
     updatedState.E = current_state.E + k2[1] / 2.0;
     updatedState.I = current_state.I + k2[2] / 2.0;
@@ -80,7 +81,7 @@ State SEIR::RungeKuttaSolver(State const& current_state)
     k3[2] = TIME_STEP * updatedState.dI_dt(alpha, gamma);
     k3[3] = TIME_STEP * updatedState.dR_dt(gamma);
 
-    // update the state by the whole TIME_STEP
+    // Update the state by the whole TIME_STEP
     updatedState.S = current_state.S + k3[0];
     updatedState.E = current_state.E + k3[1];
     updatedState.I = current_state.I + k3[2];
@@ -94,14 +95,14 @@ State SEIR::RungeKuttaSolver(State const& current_state)
     k4[2] = TIME_STEP * updatedState.dI_dt(alpha, gamma);
     k4[3] = TIME_STEP * updatedState.dR_dt(gamma);
 
-    // calculating the values of S,E,I,R for the new state
-    // yn+1= yn + 1/6(k1+2k2+2k3+k4)
+    // Calculating the values of S,E,I,R for the new state
+    // y_{n+1}= y_n + 1/6(k1+2k2+2k3+k4)
     newState.S = current_state.S + (k1[0] + 2.0 * k2[0] + 2.0 * k3[0] + k4[0]) / 6.0;
     newState.E = current_state.E + (k1[1] + 2.0 * k2[1] + 2.0 * k3[1] + k4[1]) / 6.0;
     newState.I = current_state.I + (k1[2] + 2.0 * k2[2] + 2.0 * k3[2] + k4[2]) / 6.0;
     newState.R = current_state.R + (k1[3] + 2.0 * k2[3] + 2.0 * k3[3] + k4[3]) / 6.0;
 
-    // handle case when one variable is negative
+    // Handle case when one variable is negative
     if (newState.S < 0) newState.S = 0;
     if (newState.E < 0) newState.E = 0;
     if (newState.I < 0) newState.I = 0;
@@ -117,12 +118,13 @@ State SEIR::RungeKuttaSolver(State const& current_state)
 void SEIR::evolve(std::vector<State>& states, bool method)
 {
     assert(states.empty());
-    states.reserve(t); // allocated the needed space
+    // Allocate the needed space
+    states.reserve(t);
 
     State current_state = S_0;
     State new_state;
 
-    // set the initial conditions as the first state
+    // Set the initial conditions as the first state
     states.push_back(current_state);
 
     ///////// Euler method to solve SEIR equations /////////
