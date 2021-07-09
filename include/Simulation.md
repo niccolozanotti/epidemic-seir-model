@@ -346,7 +346,7 @@ People and graphs:
 
 ## Final result
 
-Eventually, the final result( showing `sim-graphics` output) is the following:
+Eventually, the final result( showing `sim-graphics` output) with [default values](../README.md/#default-values) is the following):
 
 ![Sim-graph](assets/Images/Sim-graph.PNG)
 
