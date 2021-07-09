@@ -39,25 +39,28 @@ In our program this method is implemented by `EulerSolver(const State&)` method 
 The other supplied method is Runge Kutta Method, in particular 4th-order one, which guarantees a better approximation than Euler
 Method with a local truncation error of $`O(h^5)`$ which means that by halving the step the result is an error reduction of
 $`2^5`$.
-The general recurrence formula for RK-4 Method is the following:
+The recurrence formula for RK-4 Method applied to SEIR model becomes the following:
 ```math
-y_{n+1} = y_{n} + \frac{h}{6}\big(k_1+2k_2+2k_3+k_4 \big) \\[3mm]
-x_{n+1} = x_{n} + h                      
+S_{n+1} = S_{n} + \frac{h}{6}\big(k_1+2k_2+2k_3+k_4 \big)    \\[3mm]                 
+E_{n+1} = E_{n} + \frac{h}{6}\big(k_1+2k_2+2k_3+k_4 \big)    \\[3mm]          
+I_{n+1} = I_{n} + \frac{h}{6}\big(k_1+2k_2+2k_3+k_4 \big)    \\[3mm]          
+R_{n+1} = R_{n} + \frac{h}{6}\big(k_1+2k_2+2k_3+k_4 \big)    \\[3mm]          
 ```
 where
 ```math
-k_1 = f(x,y)\\[3mm]
-k_2 = f(x,y)\\[3mm]
-k_3 = f(x,y)\\[3mm]
-k_4 = f(x,y)\\[3mm]
-x_{n+1} = x_{n} + h                      
+k_1 = f \Big(S,E,I,R \Big)\\[3mm]
+k_2 = f \Bigg(S + \frac{h}{2}k_1 ,E+\frac{h}{2}k_1 ,I+\frac{h}{2}k_1 ,R+\frac{h}{2}k_1 \Bigg) \\[3mm]
+k_3 =  f \Bigg(S+\frac{h}{2}k ,E+\frac{h}{2}k_2 ,I+\frac{h}{2}k_2 ,R+\frac{h}{2}k_2 \Bigg)\\[3mm]
+k_4 =  f \Big(S+h ,E+h ,I+h ,R+h \Big) \\[3mm]
 ```
+$`k_i`$ being the $`i`$-th order approximation term.
 ### Notes
 
-In the program we used floating point number for `S`,`E`,`I`,`R` state values. This can seem counter-intuitive as they 
-represent numbers of person and should be represented by unsigned integer value. But, by using integers the
-value would be truncated and so we would add an approximation that will result in wrong results. As 
-$`S + E + I + R \neq cost`$.
+In the program we opted for floating point number type for `S`,`E`,`I`,`R` variables. This can seem counter-intuitive as they 
+represent numbers of people and are naturally represented by unsigned integer values. The reasons for that are two
+- By casting to int the values obtained from ODEs discretization we would have, in many cases, to resize variable values since 
+what could happen is $`S + E + I + R \neq cost`$
+- By keeping floating point variables, it's easier to grasp changes between one state and other, especially if they are small 
 
 
 
