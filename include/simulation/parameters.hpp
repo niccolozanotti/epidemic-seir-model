@@ -31,6 +31,7 @@ double constexpr SPEED_STDDEV = 1.0;
 double constexpr MAX_PAUSE = 15.0;
 double constexpr MIN_PAUSE = 5.0;
 double constexpr MINIMUM_LOC_CLUST_RATIO = 10.0;
+double constexpr SPREAD_RADIUS = 1.0;
 ////////////////////////////  DEFAULT SIMULATION PARAMETERS ////////////////////////////
 int constexpr DEF_PEOPLE = 25000;
 int constexpr DEF_CLUSTERS = 10;
@@ -44,6 +45,5 @@ double constexpr DEF_ALPHA = 0.3;
 double constexpr DEF_BETA = 0.1;
 double constexpr DEF_GAMMA = 0.05;
 double constexpr DEF_DURATION = 300;
-double constexpr DEF_SPREAD_RADIUS = 1.0;
 
 #endif

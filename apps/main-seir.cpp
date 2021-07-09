@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
                                   .add_argument(lyra::opt(susceptibles, "Susceptibles")
                                                 ["-S"]
                                                         .required()
-                                                        .choices([](int value){ return value > 0 && value < 70000;})
+                                                        .choices([](int value){ return value > 0;})
                                                         .help("Susceptible individuals in the simulation."))
                                   .add_argument(lyra::opt(exposed, "Exposed")
                                                 ["-E"]
@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
                                   .add_argument(lyra::opt(recovered, "Recovered")
                                                 ["-R"]
                                                         .required()
-                                                        .choices([](int value){ return value >= 0 && value < 70000;})
+                                                        .choices([](int value){ return value >= 0;})
                                                         .help("Recovered individuals in the simulation."))) //end group
             .add_argument(lyra::group([&](const lyra::group &) {
                 default_params = false;

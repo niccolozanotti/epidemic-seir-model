@@ -195,10 +195,12 @@ weird values are not realistic.
 World constraints:
 
 - For the combined value of clusters and locations in the simulation area to be valid, the minimum
-  number of locations per cluster should be **10**;
-- The number of clusters should be less than **40**;
-
-CONTINUA
+  number of locations per cluster has to be **10**, but should be more;
+- The number of clusters has to be less than **40**;
+- The Side has to be at least equal to half the number of locations;
+- The total population has to at least be **100** times the number of clusters, but should be much higher;
+- The parameters alpha, beta and gamma have to be higher than 0 but smaller than 1, but they should be close to 0;
+- The total population has to be higher than the total number of locations;
 
 ## Running
 If you are on WSL make sure the Xserver is running as it is required for every application.  
