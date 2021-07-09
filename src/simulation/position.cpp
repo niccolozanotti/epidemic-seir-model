@@ -47,17 +47,23 @@ bool Position::in_radius(Position other, double r) const
 ///////////////// MOVE POSITION TOWARD A SPECIFIC TARGET  /////////////////
 void Position::move_toward(Position target, double speed, Random& engine)
 {
+    // Determine the direction
     double dx = target.x - x;
     double dy = target.y - y;
     double angle = std::atan2(dy, dx);
-    // random angle variation
+    // Add a random angle variation
     double delta_angle = engine.uniform(-1.0 * MAXIMUM_ANGLE_VARIATION, MAXIMUM_ANGLE_VARIATION);
-    while (distance_to(target) < speed)
+    // In case the target would be surpassed at the current speed, change the speed
+    if (distance_to(target) < speed)
     {
-        speed = engine.rand_speed();
+        // Generate uniformly valid speed
+        speed = engine.uniform(distance_to(target)/2, distance_to(target));
     }
-    double v_x = speed * std::cos(angle + delta_angle); // x component of velocity vector
-    double v_y = speed * std::sin(angle + delta_angle); // y component of velocity vector
+    // x component of velocity vector
+    double v_x = speed * std::cos(angle + delta_angle);
+    // y component of velocity vector
+    double v_y = speed * std::sin(angle + delta_angle);
+    // Set new position
     x += v_x;
     y += v_y;
 }
