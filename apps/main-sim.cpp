@@ -242,7 +242,7 @@ int main(int argc, char** argv)
     double move_count;
     double spread_count;
 
-    std::vector<Data> res{};
+    std::vector<Data> Result{};
     std::vector<Position> positions{};
     std::vector<bool> at_home{};
     for (int i = 0; i < 30; ++i)
@@ -258,7 +258,7 @@ int main(int argc, char** argv)
             start2 = std::chrono::high_resolution_clock::now();
             prova.spread();
             end2 = std::chrono::high_resolution_clock::now();
-            res.push_back(prova.get_data());
+            Result.push_back(prova.get_data());
             positions.push_back(prova.get_person_pos(0, 0));
             at_home.push_back(prova.is_person_at_home(0, 0));
 
@@ -275,17 +275,15 @@ int main(int argc, char** argv)
                   << "   Spread: " << spread_count << " s " << std::endl;
     }
 
-    std::ofstream out{"output.txt"};
+    // txt Output
 
-    for (auto& a : res)
-    {
-        out << "S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
-    }
+    std::ofstream out{"sim.txt"};
 
-    for (unsigned long i = 0; i < positions.size(); ++i)
+    int step = 0;
+    for (auto& a : Result)
     {
-        out << "X = " << positions[i].get_x() << " Y = " << positions[i].get_y() << "   at home: " << at_home[i]
-            << std::endl;
+        out << "Step = " << step << " S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
+        ++step;
     }
 
     // ROOT CODE
@@ -305,7 +303,7 @@ int main(int argc, char** argv)
     mg->SetTitle("Evolution; steps; number of people");
 
     int t2 = 0;
-    for (auto& a : res)
+    for (auto& a : Result)
     {
         gS->SetPoint(t2, t2, a.S);
         gE->SetPoint(t2, t2, a.E);
@@ -323,7 +321,7 @@ int main(int argc, char** argv)
     mg->Add(gR);
     gR->SetTitle("R");
 
-    auto file = new TFile("Simulation.root", "RECREATE");
+    auto file = new TFile("sim.root", "RECREATE");
     mg->Write();
     file->Close();
 

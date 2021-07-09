@@ -77,6 +77,8 @@ The available executable applications(CMake targets) are the following:
 | sim          | Simulate an epidemic, without graphical output                |
 | sim-graphics | Simulate an pandemic, with graphical output                   |
 
+At the end of every application run a Root Canvas with the graphs will open
+
 ### Notes
 On certain devices, CMake might not be able to detect ROOT installation. If that is the case, the problem can be solved by manually specifying the
 path to your ROOT installation ,setting the CMake Variable ROOT_DIR at build time:
@@ -243,7 +245,7 @@ cd tests && ./testname
 #or
 ./tests/testname
 ```
-The tests are(TO FILL):
+The tests are:
 
 | App name     | function    |
 | ------------ | ----------- |

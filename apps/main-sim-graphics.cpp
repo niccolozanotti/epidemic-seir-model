@@ -1,5 +1,6 @@
 ////// STL //////
 #include <iostream>
+#include <fstream>
 //////  LYRA (CMD LINE PARSER) //////
 #include <lyra/lyra.hpp>
 //////  ROOT HEADERS  //////
@@ -256,6 +257,18 @@ int main(int argc, char** argv)
         window.display();
     }
 
+    // txt Output
+
+    std::ofstream out{"sim-graphics.txt"};
+
+    int step = 0;
+    for (auto& a : Result)
+    {
+        out << "Step = " << step << " S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
+        ++step:
+    }
+
+
     // ROOT CODE
 
      TApplication app("app", &argc, argv);
@@ -291,7 +304,7 @@ int main(int argc, char** argv)
      mg->Add(gR);
      gR->SetTitle("R");
 
-     auto file = new TFile("Simulation-graphics.root", "RECREATE");
+     auto file = new TFile("sim-graphics.root", "RECREATE");
      mg->Write();
      file->Close();
 
