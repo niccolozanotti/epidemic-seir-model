@@ -69,7 +69,7 @@ void Simulation::move_yellow(Cluster& cluster)
                 {                            // check if the person leave home
                     p.set_is_at_home(false); // set the person as not at home
                     // a.path() = sim::generate_path(list, 3, 0.5);
-                    cluster.generate_path(sim_engine.rounded_gauss(YELLOW_PATH_MEAN, YELLOW_PATH_STDDEV) + 1, p.path());
+                    cluster.generate_cluster_path(sim_engine.rounded_gauss(YELLOW_PATH_MEAN, YELLOW_PATH_STDDEV) + 1, p.path());
                 }
             }
             else
@@ -104,7 +104,7 @@ void Simulation::move_red(Cluster& cluster)
                 {                            // check if the person leave home
                     p.set_is_at_home(false); // set the person as not at home
                     // a.path() = sim::generate_path(list, 1, 0.2);
-                    cluster.generate_path(sim_engine.rounded_gauss(RED_PATH_MEAN, RED_PATH_STDDEV) + 1, p.path());
+                    cluster.generate_cluster_path(sim_engine.rounded_gauss(RED_PATH_MEAN, RED_PATH_STDDEV) + 1, p.path());
                 }
             }
             else

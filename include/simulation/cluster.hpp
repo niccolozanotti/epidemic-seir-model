@@ -86,7 +86,7 @@ class Cluster
     void set_LATP(double new_LATP_parameter);
 
     // fills path vector with pointers to location to visit
-    void generate_path(int to_visit, std::vector<Location*>& path);
+    void generate_cluster_path(int to_visit, std::vector<Location*>& path);
 };
 
 } // namespace smooth_sim

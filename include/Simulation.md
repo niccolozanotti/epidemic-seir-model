@@ -7,13 +7,19 @@
 ## People mobility
 
 As stated in section _III B_ of the [paper][1], the only allowed mobility model for the people in the simulation
-corresponds to [Random waypoint model][2]: a model consisting in a random movement toward a target(_i.e._ waypoints
+corresponds to [Random waypoint model][2]: a model consisting of a random movement toward a target(_i.e._ waypoints
 on the map). \
+In the implementation, each `Mobility_model` object owns both a `Person` and `std::vector<Location*> Path`, where
+the latter is a container with (pointers to) all person's next possible targets. \
+The responsible methods for determining person available-to-visit waypoints on the map are `World::generate_path()`
+and `Cluster::generate_cluster_path()`, respectively filling `std::vector<Location*> Path` with locations from Green 
+Clusters and 
+
 The way a node of the network(_i.e_ a person) chooses a target waypoint on the map is governed by the **Least-Action 
 Trip Planning** algorithm, a simple model, trying to mock real human behaviour, consisting of the following:
 when moving 
 
-In our simulation LATP algorithm is implemented by `Mobility_model::next_location()` method.
+In our simulation, LATP algorithm is implemented by `Mobility_model::next_location()` method.
 
 
 

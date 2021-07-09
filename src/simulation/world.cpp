@@ -187,7 +187,7 @@ void World::generate_path(int to_visit, const std::vector<double>& weights, std:
     }
     for (unsigned long i = 0; i < weights.size(); ++i)
     {
-        if (choose[i] > 0) { Clusters[i].generate_path(choose[i], path); }
+        if (choose[i] > 0) { Clusters[i].generate_cluster_path(choose[i], path); }
     }
 }
 } // namespace smooth_sim

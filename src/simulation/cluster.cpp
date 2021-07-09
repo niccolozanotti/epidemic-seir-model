@@ -240,10 +240,11 @@ void Cluster::set_LATP(double new_LATP_parameter)
     LATP_alpha = new_LATP_parameter;
 }
 ///////////////// PATH GENERATION FOR A PERSON /////////////////
-void Cluster::generate_path(int to_visit, std::vector<Location*>& path)
+void Cluster::generate_cluster_path(int to_visit, std::vector<Location*>& path)
 {
+    // in the case of more locations to visit than in the cluster, return pointers to all locations
     if (to_visit >= locations_num())
-    { // if there are more location to visit than in the cluster, return pointers to all locations
+    {
         for (auto& gr : Groups)
         {
             for (auto& l : gr.locations())
