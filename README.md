@@ -77,6 +77,8 @@ The available executable applications(CMake targets) are the following:
 | sim          | Simulate an epidemic, without graphical output                |
 | sim-graphics | Simulate an pandemic, with graphical output                   |
 
+At the end of every application run a Root Canvas with the graphs will open
+
 ### Notes
 On certain devices, CMake might not be able to detect ROOT installation. If that is the case, the problem can be solved by manually specifying the
 path to your ROOT installation ,setting the CMake Variable ROOT_DIR at build time:
@@ -199,11 +201,20 @@ World constraints:
 CONTINUA
 
 ## Running
-All the built apps will be in the epidemic/apps directory.
+If you are on WSL make sure the Xserver is running as it is required for every application.  
+All the built apps will be in the *epidemic/{BUILD_DIRECTORY}/apps* directory.
+Where the *{BUILD_DIRECTORY}* is *sim_build* in case you used the script 
+```shell
+#from the epidemic directory enter the apps directory
+cd {BUILD_DIRECTORY}/apps
+#run the application you want to run
+./appname -parameters
+````
+Where the parameters are the one seen in [User Input][input].
 
-If you are on WSL make sure the Xserver is running as it is required for every application
+### Output
 
-TO ADD ALL THE PARTS RELATED TO INPUT
+Every app will output the resulting data in "*appname.txt*" and the graphics in a root file "*appname.root*".
 
 --------------------------------------------------------------------------------
 
@@ -234,7 +245,7 @@ cd tests && ./testname
 #or
 ./tests/testname
 ```
-The tests are(TO FILL):
+The tests are:
 
 | App name     | function    |
 | ------------ | ----------- |
@@ -267,5 +278,6 @@ correctly.
 
 [test]:#testing-during-development
 [inp-val]:#input-validation
+[input]:#user-input
 
 

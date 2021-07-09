@@ -54,10 +54,12 @@ of time at the majority of waypoints and for a larger number of steps at fewer w
 Looking at SMOOTH paper authors' own implementation, we decided to make pause times follow their same distribution,
 because of the proven statistical validity of their results:
 ```math
-  { \frac{(1 - u ){p_{MAX}}}^(\beta) + u {p_{MIN}}^{\beta}}}{{(p_{MAX}p_{MIN})}^{\beta}}}^{-\frac{1}{\beta}}
+   t = {\Bigg[  \frac{(1 - u) {{p}_{MAX}}^{\beta} + {{p}_{MIN}}^{\beta} }{{{p}_{MAX}{p}_{MIN}}^{\beta}} \Bigg]}^{\frac{1}{\beta}}   
 ```
-where the values of $`p_{MIN},p_{MAX}`$, and the Lèvy exponent($`beta`$) are fixed parameters of the simulation found in 
-[parameters.hpp](simulation/parameters.hpp) file.
+```math
+   u \in [0,1)
+```
+where $`u`$ is uniformly distributed and the values of $`p_{MIN},p_{MAX}`$, and the Lèvy exponent($`\beta`$) are fixed parameters of the simulation found in [parameters.hpp](simulation/parameters.hpp) file.
 
 ## Classes
 

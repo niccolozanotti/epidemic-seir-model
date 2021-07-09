@@ -1,5 +1,6 @@
 ////// STL //////
 #include <iostream>
+#include <fstream>
 //////  LYRA (CMD LINE PARSER) //////
 #include <lyra/lyra.hpp>
 //////  ROOT HEADERS  //////
@@ -9,6 +10,7 @@
 #include "TGraph.h"
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
+#include "TFile.h"
 ////// PROJECT HEADERS //////
 #include "../src/simulation/graphics/display.hpp"
 #include "simulation.hpp"
@@ -255,11 +257,23 @@ int main(int argc, char** argv)
         window.display();
     }
 
+    // txt Output
+
+    std::ofstream out{"sim-graphics.txt"};
+
+    int step = 0;
+    for (auto& a : Result)
+    {
+        out << "Step = " << step << " S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
+        ++step:
+    }
+
+
     // ROOT CODE
 
-    /* TApplication app("app", &argc, argv);
+     TApplication app("app", &argc, argv);
 
-     auto c0 = new TCanvas("c0", "Evoluzione");
+     auto c0 = new TCanvas("c0", "Simulation");
      auto mg = new TMultiGraph();
      auto gS = new TGraph();
      auto gE = new TGraph();
@@ -269,7 +283,7 @@ int main(int argc, char** argv)
      gE->SetLineColor(kOrange);
      gI->SetLineColor(kGreen);
      gR->SetLineColor(kRed);
-     mg->SetTitle("Evolution; steps; number of people");
+     mg->SetTitle("Simulation; steps; number of people");
 
      int t2 = 0;
      for (auto& a : Result)
@@ -290,6 +304,10 @@ int main(int argc, char** argv)
      mg->Add(gR);
      gR->SetTitle("R");
 
+     auto file = new TFile("sim-graphics.root", "RECREATE");
+     mg->Write();
+     file->Close();
+
      mg->Draw("AL");
      c0->BuildLegend();
 
@@ -297,5 +315,5 @@ int main(int argc, char** argv)
      c0->Update();
      TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
      rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
-     app.Run();*/
+     app.Run();
 }

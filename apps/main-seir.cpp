@@ -11,6 +11,7 @@
 #include "TGraph.h"
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
+#include "TFile.h"
 ////// PROJECT HEADERS //////
 #include "seir.hpp"
 
@@ -200,7 +201,7 @@ int main(int argc, char* argv[])
     std::cout << "├─────├───────────────├───────────────├───────────────├────────"
                  "───────├"
               << std::endl;
-    int t1 = 1;
+    int t1 = 0;
     for (auto& a : states)
     {
         std::cout << std::setprecision(9) << std::left << "│" << std::setw(5) << t1 << "│" << std::setw(15) << a.S
@@ -211,6 +212,17 @@ int main(int argc, char* argv[])
     std::cout << "└─────┴───────────────┴───────────────┴───────────────┴────────"
                  "───────┘"
               << std::endl;
+
+    // txt Output
+
+    std::ofstream out{"output.txt"};
+
+    int day = 0;
+    for (auto& a : states)
+    {
+        out << "Day = "<< day << " S = " << a.S << " E = " << a.E << " I = " << a.I << " R = " << a.R << std::endl;
+        ++day;
+    }
 
     ///////////////// ROOT CODE /////////////////
 
@@ -246,6 +258,10 @@ int main(int argc, char* argv[])
     gI->SetTitle("I");
     mg->Add(gR);
     gR->SetTitle("R");
+
+    auto file = new TFile("seir.root", "RECREATE");
+    mg->Write();
+    file->Close();
 
     mg->Draw("AL");
     c0->BuildLegend();
