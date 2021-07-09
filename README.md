@@ -31,9 +31,7 @@ To get a better grasp on how the simulation works see [here](include/Simulation.
 ## Building
 Make sure all the required dependencies are installed on your machine and fully working.
 
-SISTEMA
-
-First of all, clone the repository :
+First of all, clone the repository locally:
 ```shell
 #clone the released branch of the repository
 git clone -b main --single-branch https://gitlab.com/Feyn-23/epidemic.git 
@@ -75,13 +73,13 @@ The available executable applications(CMake targets) are the following:
 | ------------ | ------------------------------------------------------------  |
 | seir         | Solve the SEIR differential equation using a numerical method |
 | sim          | Simulate an epidemic, without graphical output                |
-| sim-graphics | Simulate an pandemic, with graphical output                   |
+| sim-graphics | Simulate an epidemic, with graphical evolution                |
 
-At the end of every application run a Root Canvas with the graphs will open
+At the end of every application run, a Root Canvas with the graphs will open
 
 ### Notes
 On certain devices, CMake might not be able to detect ROOT installation. If that is the case, the problem can be solved by manually specifying the
-path to your ROOT installation ,setting the CMake Variable ROOT_DIR at build time:
+path to your ROOT installation, setting the CMake Variable ROOT_DIR at build time:
 ```shell
 cmake -B path-to-build-dir -S path-to-source -DROOT_DIR="path-to-ROOT-installation"
 ```
@@ -89,7 +87,7 @@ cmake -B path-to-build-dir -S path-to-source -DROOT_DIR="path-to-ROOT-installati
 ## User Input
 The applications built by this project collect user input through command line arguments. 
 We chose the command line parser libray [Lyra][lyra] to handle this task.
-The value of an input variable can be setted at execution time by referring to one of its names, that is,
+The value of an input variable can be set at execution time by referring to one of its names, that is,
 a `char` following a short dash(`-`) or a `string` following a long dash(`--`). \
 Therefore, the command to pass the value of two generic input variables named respectively `--var1` and `-v`
 is the following:
@@ -192,11 +190,10 @@ testing multiple times in a variety of conditions allowed us to get a good grasp
 We decided not to put tight constraints on S,E,I,R values since the cases where they are supposed to assume
 weird values are not realistic.
 
-For the *sim* and *sim-graphics* apps we instead decided for more tight constraints, as values without sense will
-bring to error.
+Regarding *sim* and *sim-graphics* apps we defined some constraints:
 
 - For the combined value of clusters and locations in the simulation area to be valid, the minimum
-  number of locations per cluster has to be **10**, but should be more;
+  number of locations per cluster has to be **10**, but,as a rule, should be more;
 - The number of clusters has to be less than **40**;
 - The Side has to be at least equal to half the number of locations;
 - The total population has to at least be **100** times the number of clusters, but should be much higher;
@@ -204,23 +201,22 @@ bring to error.
 - The total population has to be higher than the total number of locations;
 
 ### Default values
-For sim and sim-graphics we choosed default values that give a realistic simulation, here we are
-They are:
+For sim and sim-graphics we chose default values to achieve the result of a realistic simulation:
 
 | Parameters    | Default value   |  Suggestions          |
 | ------------ | ------------------|------------------  |
-| people = [S, E, I, R] | 25000 = [23750,750,375,125] | We suggest to not go too high with the number of people as it will slow the simulation a lot, another suggestion is to start with a good number of infected, as a too little number won't effectively spread the virus |
+| people = [S, E, I, R] | 25000 = [23750,750,375,125] | We suggest not going too high with the number of people as it will slow the simulation a lot; another suggestion would be to start with a good number of infected, since an excessively small number won't effectively spread the virus |
 | clusters          | 10                | We suggest to have at least 5 clusters and maximum 20 of them, but other values should still give acceptable results | 
 | locations | 1500 | We suggests at least 50 locations for cluster and not more than 300 per clusters, other values are possible but will probably give pointless results | |
 | Side | 1000 | We suggest the side to be from 500 to 2000, as value too small are too cramped, and values too high need a careful and very difficult choice of parameters  |
-| alpha | 0.05 | We suggest a similar value to this parameter, as a too high value ( > 0.2) will make this parameter pointless, while a value too low will make the simulation too unnecessary long |
-| beta | 0.04 | We suggest a similar value to this parameter, a too high( > 0.15) values will make the epidemic very fast, while a too low will make it not spread |
-|gamma | 0.015 | We suggest a similar value to this parameter, a too high( > 0.15) values will make the epidemic end very fast, while a too low values will make it too long |
+| alpha | 0.05 | We suggest a similar value to this parameter, since a too high value ( > 0.2) will make this parameter pointless, while a value too low will make the simulation too unnecessary long |
+| beta | 0.04 | We suggest a similar value to this parameter, since a high value( > 0.15) will make the epidemic very fast, while a too low will make it not spread |
+|gamma | 0.015 | We suggest a similar value to this parameter, since a too high( > 0.15) value will make the epidemic end very fast, while a too low values will make it too long |
 
-The three last parameter are the most sensible, a slight change to one parameter will skew the results a lot
+The three last parameter are the most sensible, a slight change to one of these will skew the results a lot.
 
 ## Running
-If you are on WSL make sure the Xserver is running as it is required for every application.  
+In case the user is running a Linux disto on a Windows machine through WSL, make sure the Xserver is running as it is required for every application.  
 All the built apps will be in the *epidemic/{BUILD_DIRECTORY}/apps* directory.
 Where the *{BUILD_DIRECTORY}* is *sim_build* in case you used the script 
 ```shell
@@ -241,7 +237,7 @@ Every app will output the resulting data in "*appname.txt*" and the graphics in 
 The testing strategy adopted for this project was _Unit testing_. To this aim, we made use of the header library
 [doctest][doct]. \
 Testing is enabled in Debug mode in cmake; so if you want to run a test you just need to build and run it,
-either using the script:
+or, alternatively, run the script:
 ```shell
 #from the epidemic directory, enter the script directory
 cd scripts
@@ -266,30 +262,30 @@ cd tests && ./testname
 ```
 The tests are:
 
-| App name     | function    |
-| ------------ | ----------- |
-| test1         | Test if `S + I + E + R` remain costant when solving the SEIR system |
+| App name      | function                                                                                   |
+| ------------  | ------------------------------------------------------------------------------------------ |
+| test1         | Test if `S + I + E + R` remain costant when solving the SEIR system                        |
 | test2         | Test if both `Simulation::clean_path` and `Simulation::clean_cluster_path` works correctly  |
-| test3         | Check if the generation of a Simulation object works correctly |
+| test3         | Check if the generation of a `Simulation` object works correctly                              |
 
 ### Testing during development
 
-During development we used other way to test if our program was working correctly:
-* We used various assert that allowed us to check if the various functions where working
+The project was tested to work with `-Wall -Wextra -fsanitize=address` compiler options. \
+During development we used other ways to test if our program was working correctly:
+* We used various `asserts` statements that allowed us to check if the various functions where working
 correctly.
 * **fsanitize-address**, which helped us to find and correct various development choices that 
   we made and that were leading to various errors.
 * The graphical interface which helped us as we could see if the various functions
-  connected to world generation, to the movement of the people and to the spreading
+  connected to world generation, to people movement and to the spreading
   of the virus where working as expected.
 
 --------------------------------------------------------------------------------
 ## Additional Notes
 
-It's possible to change other values of the simulation modifying them in `/include/simulation/parameters.hpp`.
-These values are connected to how we structured the simulation, so we suggest to change the values only if
-you understand where and how those values are used. Selecting value without knowing these things will bring to
-errors or to results without sense.
+It's possible to change other values of the simulation modifying them in `parameters.hpp` [file](include/simulation/parameters.hpp). \
+These values are tied to how we structured the simulation, so we suggest to change the values only if
+properly understanding where and how those values are used. 
 
 [1]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
 [2]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf

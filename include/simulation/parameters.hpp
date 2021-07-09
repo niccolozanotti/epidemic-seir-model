@@ -32,6 +32,16 @@ double constexpr SPEED_STDDEV = 1.0;
 double constexpr MAX_PAUSE = 15.0;
 double constexpr MIN_PAUSE = 5.0;
 double constexpr SPREAD_RADIUS = 1.0;
+////////////////////////////  DEFAULT SEIR MODEL PARAMETERS ////////////////////////////
+int constexpr DEF_SEIR_PEOPLE = 10000;
+double constexpr DEF_SEIR_S = 0.99;
+double constexpr DEF_SEIR_E = 0.003;
+double constexpr DEF_SEIR_I = 0.005;
+double constexpr DEF_SEIR_R = 0.002;
+double constexpr DEF_SEIR_ALPHA = 0.035;
+double constexpr DEF_SEIR_BETA = 0.15;
+double constexpr DEF_SEIR_GAMMA = 0.015;
+double constexpr DEF_SEIR_DURATION = 300;
 ////////////////////////////  DEFAULT SIMULATION PARAMETERS ////////////////////////////
 int constexpr DEF_PEOPLE = 25000;
 int constexpr DEF_CLUSTERS = 10;
