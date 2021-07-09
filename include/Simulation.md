@@ -1,4 +1,9 @@
 # Simulation
+
+
+## SMOOTH Paper 
+
+
 This is our implementation of the second part of the assignment.
 
 It simulates how an epidemic spread in a World divided in various part(Clusters), where the people move between
@@ -192,8 +197,8 @@ People and graphs:
 
 | Color     | meaning                                |
 | --------- | -------------------------------------- |
-| ![S_color](https://via.placeholder.com/25/ffffff/000000?text=+)  | When *Person::Status* is `Status::S`   |
-| ![E_color](https://via.placeholder.com/25/006E6E/000000?text=+) | When *Person::Status* is `Status::E`   |
+| ![S_color](https://via.placeholder.com/25/ffffff/000000?text=+)    | When *Person::Status* is `Status::S`   |
+| ![E_color](https://via.placeholder.com/25/006E6E/000000?text=+)    | When *Person::Status* is `Status::E`   |
 | ![I_color](https://via.placeholder.com/25/5A006E/000000?text=+)    | When *Person::Status* is `Status::I`   |
 | ![R_color](https://via.placeholder.com/25/7D7D7D/000000?text=+)    | When *Person::Status* is `Status::R`   |
 
@@ -220,3 +225,4 @@ achieved through std::random_device. Additionally it implements some random oper
 [randutils_web]:https://gist.github.com/imneme/540829265469e673d045
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
 [seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
+[latp]:https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.530.4886&rep=rep1&type=pdf

@@ -1,18 +1,23 @@
 # Epidemic simulation
 This project represents the solution which we, Niccolò Zanotti and Filippo Pretolani, two Physics Undegraduates studying at
-University of Bologna, gave to our University Programming Course [final assignment][assignment].
-We collaborated on writing the source code found in this repository except for, of course, external libraries [code](extern/ExternLibraries.md)
+University of Bologna, gave to our University Programming Course [final assignment][1].
+We collaborated on writing the source code found in this repository except for, of course, external libraries code
+(found in [extern](extern) subdirectory).
 
 The project is made up of 2 main parts:
 
-1. Using the known SEIR model to determine the spread of an epidemic, given initial conditions(see [here](include/SEIR.md))
+1. Using the known SEIR model to determine the spread of an epidemic, given initial conditions
 
-2. Simulating an epidemic, given simulation parameters(see [here](include/Simulation.md))
+2. Simulation of an epidemic, given simulation parameters
 
+In the first part, given critical parameters, the evolution of the various states of the epidemic can be obtained
+through two different numerical methods to solve differential equations: [Euler][1] method and [Runge-Kutta 4-th
+order][4] method. To know more about this part see [here](include/SEIR.md).
 
-The Simulation of epidemic is based on the SMOOTH* model to simulate how people moves
-and implements a division in Clusters which can change color, changing how people move.
-
+Regarding the second part, namely, the actual simulation, we looked for a both realistic and reasonably complex 
+statistical model to build our simulation on. We ,thus, largely based our work on [SMOOTH: A simple way to model human
+mobility][2] paper, which we thought to contain the desired approach. 
+To get a better grasp on how the simulation works see [here](include/Simulation.md).
 --------------------------------------------------------------------------------
 ## Dependencies
 - [Lyra][lyra] (submodule)
@@ -180,7 +185,7 @@ The standard parameters used when  `default_sim` is setted are the ones in [para
 ### Input validation
 All input values are subject to validity conditions, some more restrictive than others.
 Our major source of understanding about reasonable parameters values came from the graphical simulation:
-testing multiple times in a variety of conditions allowed us to get a good grasp in this sense.
+testing multiple times in a variety of conditions allowed us to get a good grasp in this sense(see [testing][test]).
 We decided not to put tight constraints on S,E,I,R values since the cases where they are supposed to assume
 weird values are not realistic.
 
@@ -241,12 +246,16 @@ The tests are(TO FILL):
 --------------------------------------------------------------------------------
 ## Additional Notes
 
+[1]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
+[2]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
+[3]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
+[4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
 
 [lyra]:https://github.com/bfgroup/Lyra
 [doct]:https://github.com/onqtam/doctest
-[euler]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
-[rk4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
-[assignment]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
 
+
+[test]:#tests
 [inp-val]:#input-validation
+
 
