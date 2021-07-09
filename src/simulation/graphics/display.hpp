@@ -9,7 +9,8 @@ namespace smooth_sim{
 
 class Display{
   private:
-    Simulation* sim; //pointer to the simulation to display
+    double Ratio; // Ratio of the wanted window height divided by the sim_side
+    Simulation* sim; // pointer to the simulation to display
     sf::RenderWindow &Window; // reference to the window where all will be rendered
     sf::VertexArray Clusters; // vertex array that represent the clusters
     sf::VertexArray Borders; // vertex array that represent the clusters borders
@@ -24,7 +25,7 @@ class Display{
     sf::VertexArray Infected;
     sf::VertexArray Recovered;
   public:
-    Display(Simulation& simulation, sf::RenderWindow &window, unsigned Graph_width);
+    Display(Simulation& simulation, sf::RenderWindow &window, unsigned Window_height);
 
   private:
     //generate the vertex array population

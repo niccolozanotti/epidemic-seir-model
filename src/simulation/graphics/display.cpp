@@ -2,10 +2,11 @@
 
 using namespace smooth_sim;
 
-Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Graph_width)
+Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Window_height)
     : sim{&simulation},
       Window{window},
-      Graph_width{Graph_width}
+      Graph_width{4 * simulation.world().get_side()/5},
+      Ratio{static_cast<double>(Window_height)/static_cast<double>(simulation.world().get_side())}
 {
     // fill cluster VertexArray and borders VertexArray
     Clusters.setPrimitiveType(sf::Quads);
@@ -15,14 +16,14 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Grap
     {
         auto& cl_a = sim->world().clusters()[i].area();
         // Cordinates of the Cluster's corners
-        X[0] = cl_a.get_blh_corner().get_x();
-        Y[0] = cl_a.get_blh_corner().get_y();
-        X[1] = cl_a.get_blh_corner().get_x();
-        Y[1] = cl_a.get_trh_corner().get_y();
-        X[2] = cl_a.get_trh_corner().get_x();
-        Y[2] = cl_a.get_trh_corner().get_y();
-        X[3] = cl_a.get_trh_corner().get_x();
-        Y[3] = cl_a.get_blh_corner().get_y();
+        X[0] = cl_a.get_blh_corner().get_x() * Ratio;
+        Y[0] = cl_a.get_blh_corner().get_y() * Ratio;
+        X[1] = cl_a.get_blh_corner().get_x() * Ratio;
+        Y[1] = cl_a.get_trh_corner().get_y() * Ratio;
+        X[2] = cl_a.get_trh_corner().get_x() * Ratio;
+        Y[2] = cl_a.get_trh_corner().get_y() * Ratio;
+        X[3] = cl_a.get_trh_corner().get_x() * Ratio;
+        Y[3] = cl_a.get_blh_corner().get_y() * Ratio;
         // Fill clusters
         Clusters.append(sf::Vector2f(X[0], Y[0]));
         Clusters.append(sf::Vector2f(X[1], Y[1]));
@@ -49,10 +50,10 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Grap
         {
             for (auto& l : gr.locations())
             {
-                r = l.get_radius();
+                r = l.get_radius() * Ratio;
                 // Fill the points
-                x[0] = l.get_position().get_x();
-                y[0] = l.get_position().get_y();
+                x[0] = l.get_position().get_x() * Ratio;
+                y[0] = l.get_position().get_y() * Ratio;
                 for (int j = 1; j < 9; ++j)
                 {
                     x[j] = x[0] + r * std::cos(j * PI / 4);
@@ -74,7 +75,7 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Grap
         }
     }
     // Window.close();
-    Window.create(sf::VideoMode(simulation.world().get_side() + Graph_width, simulation.world().get_side()),
+    Window.create(sf::VideoMode((simulation.world().get_side() + Graph_width) * Ratio, simulation.world().get_side() * Ratio),
                   "Simulation");
 
     // Set primitive type for the graphs
@@ -92,10 +93,10 @@ Display::Display(Simulation& simulation, sf::RenderWindow& window, unsigned Grap
     sf::Color E_color = sf::Color(0,110,110);
     sf::Color I_color = sf::Color(90,0,110);
     sf::Color R_color = sf::Color(125,125,125);
-    Susceptible.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.S),S_color));
-    Exposed.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.E),E_color));
-    Infected.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.I),I_color));
-    Recovered.append(sf::Vertex(sf::Vector2f(offset,offset - coeff*data.R),R_color));
+    Susceptible.append(sf::Vertex(sf::Vector2f(offset * Ratio,(offset - coeff*data.S) * Ratio),S_color));
+    Exposed.append(sf::Vertex(sf::Vector2f(offset * Ratio,(offset - coeff*data.E) * Ratio),E_color));
+    Infected.append(sf::Vertex(sf::Vector2f(offset * Ratio,(offset - coeff*data.I) * Ratio),I_color));
+    Recovered.append(sf::Vertex(sf::Vector2f(offset * Ratio,(offset - coeff*data.R) * Ratio),R_color));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +113,7 @@ sf::VertexArray Display::population()
 
     sf::VertexArray people(sf::Quads, sim->world().people_num() * 4);
     double x_0, y_0;
-    double r = 1; // half diagonal of the square that represent the person
+    double r = 1 * Ratio; // half diagonal of the square that represent the person
     int count = 0;
     for (auto& a : sim->world().clusters())
     {
@@ -148,8 +149,8 @@ sf::VertexArray Display::population()
                     people[4 * count + 2].color = R_color;
                     people[4 * count + 3].color = R_color;
                 }
-                x_0 = b.person().get_position().get_x();
-                y_0 = b.person().get_position().get_y();
+                x_0 = b.person().get_position().get_x() * Ratio;
+                y_0 = b.person().get_position().get_y() * Ratio;
                 people[4 * count].position = sf::Vector2f(x_0 - r, y_0 - r);
                 people[4 * count + 1].position = sf::Vector2f(x_0 + r, y_0 - r);
                 people[4 * count + 2].position = sf::Vector2f(x_0 + r, y_0 + r);
@@ -200,12 +201,12 @@ void Display::update_graphs()
     float Sim_side = static_cast<float>(sim->world().get_side());
 
     // Check if the Graphs are over 4/5 of the Graph width, and if neccessary resize
-    if (Susceptible[vertex_count - 1].position.x - Sim_side >= 4 * Graph_width / 5)
+    if (Susceptible[vertex_count - 1].position.x - Sim_side * Ratio >= 4 * Graph_width * Ratio / 5)
     { // if last graph point x is >= of 4/5 of Graph_width, adapt the graph so that it stay in half Graph_width
-        double k = Graph_width / (2 * (Susceptible[vertex_count - 1].position.x - Sim_side));
+        double k = Graph_width * Ratio / (2 * (Susceptible[vertex_count - 1].position.x - Sim_side * Ratio));
         for (unsigned i = 1; i < vertex_count; ++i)
         { // adapt the x axis
-            Susceptible[i].position.x = Sim_side * (1 - k) + k * Susceptible[i].position.x;
+            Susceptible[i].position.x =  Sim_side * Ratio * (1 - k) + k * Susceptible[i].position.x;
             Exposed[i].position.x = Susceptible[i].position.x;
             Infected[i].position.x = Susceptible[i].position.x;
             Recovered[i].position.x = Susceptible[i].position.x;
@@ -215,10 +216,10 @@ void Display::update_graphs()
 
     // append new points to the graph
     float previous_x = Susceptible[vertex_count - 1].position.x;
-    Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.S),S_color));
-    Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.E),E_color));
-    Infected.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.I),I_color));
-    Recovered.append(sf::Vertex(sf::Vector2f(previous_x + dx, offset - coeff*data.R),R_color));
+    Susceptible.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset- coeff*data.S) * Ratio),S_color));
+    Exposed.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff*data.E) * Ratio),E_color));
+    Infected.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff*data.I) * Ratio),I_color));
+    Recovered.append(sf::Vertex(sf::Vector2f(previous_x + dx, (offset - coeff*data.R) * Ratio),R_color));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
