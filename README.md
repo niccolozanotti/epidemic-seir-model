@@ -250,8 +250,8 @@ correctly.
 * **fsanitize-address**, which helped us to find and correct various development choices that 
   we made and that were leading to various errors.
 * The graphical interface which helped us as we could see if the various functions
-  connected to world generation, moving and the spreading of the virus where working
-  as expected.
+  connected to world generation, to the movement of the people and to the spreading
+  of the virus where working as expected.
 
 --------------------------------------------------------------------------------
 ## Additional Notes
