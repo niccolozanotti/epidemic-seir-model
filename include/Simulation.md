@@ -274,7 +274,17 @@ The spread function performs the following checks for every *Exposed* or *Infect
           at home, to see if they become *Exposed* using `beta` parameter.
         * In case it is *Yellow* or *Red* it only checks all people in the same cluster of the person.
     * It checks if it becomes *Recovered*  using `gamma` parameter.
-    
+
+### Random
+This class implements the random generation features critical for this project. It  making use of the header-only library
+`randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use
+class. The main purpose of our use of it in our random implementation is the high quality seeding given by the use of multiple
+sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved through `std::random_device`.
+
+[randutil][randutils_git]
+which guarantees high entropy seeding which sometimes may not be
+achieved through std::random_device. Additionally it implements some random operations useful for our Simulation.
+
 ### Display
 The display class handles the graphical part of the simulation using [SFML][sfml] objects
 The class has 13 private members:
@@ -329,15 +339,6 @@ At the left we have the simulation. At the right the graphs of the 4 statuses of
 The colored rectangles represent the various clusters, the Blue points represent group of locations, and the colored small squares represent the people that
 are moving, all the people that are in their home are not displayed.
 
-### Random
-This class implements the random generation features critical for this project. It  making use of the header-only library
-`randutil`. This small library enhances c++11 random-number facilities found in <random> supplying a simple and easy to use
-class. The main purpose of our use of it in our random implementation is the high quality seeding given by the use of multiple
-sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved through `std::random_device`.
-
-[randutil][randutils_git]
-which guarantees high entropy seeding which sometimes may not be
-achieved through std::random_device. Additionally it implements some random operations useful for our Simulation.
 
 [1]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
 [2]:https://en.wikipedia.org/wiki/Random_waypoint_model
