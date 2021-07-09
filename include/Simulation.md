@@ -30,6 +30,7 @@ The responsible methods for determining person available-to-visit waypoints on t
 and `Cluster::generate_cluster_path()`, respectively filling `std::vector<Location*> Path` with locations from Green 
 Clusters and with locations from a specific cluster.
 
+### Least-Action Trip Planning
 The way a node of the network(_i.e_ a person) chooses a target waypoint on the map is governed by the **Least-Action 
 Trip Planning** algorithm, a simple model, trying to mock real human behaviour, consisting of the following: 
 
@@ -43,6 +44,21 @@ each target to be visited
 In our simulation, LATP algorithm is implemented by `Mobility_model::next_location()` method, determining next person
 target using person's current `LATP alpha` parameter the person's cluster. \
 A detailed description of LATP algorithm can be found in section _III C_ of [this][3] paper.
+
+### Pause times
+
+When gotten to a target location, a `stay`, measured in simulation steps, for the person is generated. Pause times are distributed according to 
+a truncated power-law 
+The reason for that is, once again, to try mocking human behaviour: one person will pause for a relatively small amount
+of time at the majority of waypoints and for a larger number of steps at fewer waypoints. \
+Looking at SMOOTH paper authors' own implementation, we decided to make pause times follow their same distribution,
+because of the proven statistical validity of their results:
+```math
+  { \frac{(1 - u ){p_{MAX}}}^(\beta) + u {p_{MIN}}^{\beta}}}{{(p_{MAX}p_{MIN})}^{\beta}}}^{-\frac{1}{\beta}}
+```
+where the values of $`p_{MIN},p_{MAX}`$, and the Lèvy exponent($`beta`$) are fixed parameters of the simulation found in 
+[parameters.hpp](simulation/parameters.hpp) file.
+
 ## Classes
 
 ### Position
