@@ -70,7 +70,7 @@ int Random::rand_stay()
 ///////////////// RANDOM SPEED DETERMINATION /////////////////
 double Random::rand_speed()
 {
-    return uniform(MIN_SPEED, MAX_SPEED);
+    return std::abs(gauss(MEAN_SPEED, SPEED_STDDEV));
 }
 ///////////////// RANDOM LOCATION RADIUS DETERMINATION /////////////////
 double Random::rand_radius()
