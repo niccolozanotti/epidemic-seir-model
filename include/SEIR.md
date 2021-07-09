@@ -65,7 +65,7 @@ In our program this method is implemented by `RungeKuttaSolver(const State&)` me
 
 ## Final result
 
-The output of the default program(see [input](../README.md/#user-input))
+The output of the default program(see [input](../README.md/#default-values))
 ![Sim-graph](assets/Images/default-seir.png)
 
 
