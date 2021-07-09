@@ -17,7 +17,7 @@ For every cluster we start by generating people and their home (some people will
 We then determine the number of Groups based on the number of locations in the clusters, and we distribute group centers
 over the Rectangle Area. We determine the number of location in every group, and then we generate them.  
 For every Group we generate the locations around their center, so that every location is at least
-$`TRANSMISSION_RANGE / 10`$ close to another.
+$`\frac{TRANSMISSION\_RANGE}{10}`$ close to another.
 
 ## People mobility
 
