@@ -192,7 +192,8 @@ testing multiple times in a variety of conditions allowed us to get a good grasp
 We decided not to put tight constraints on S,E,I,R values since the cases where they are supposed to assume
 weird values are not realistic.
 
-World constraints:
+For the *sim* and *sim-graphics* apps we instead decided for more tight constraints, as values without sense will
+bring to error.
 
 - For the combined value of clusters and locations in the simulation area to be valid, the minimum
   number of locations per cluster has to be **10**, but should be more;
@@ -201,6 +202,22 @@ World constraints:
 - The total population has to at least be **100** times the number of clusters, but should be much higher;
 - The parameters alpha, beta and gamma have to be higher than 0 but smaller than 1, but they should be close to 0;
 - The total population has to be higher than the total number of locations;
+
+### Default values
+For sim and sim-graphics we choosed default values that give a realistic simulation, here we are
+They are:
+
+| Parameters    | Default value   |  Suggestions          |
+| ------------ | ------------------|------------------  |
+| people = [S, E, I, R] | 25000 = [23750,750,375,125] | We suggest to not go too high with the number of people as it will slow the simulation a lot, another suggestion is to start with a good number of infected, as a too little number won't effectively spread the virus |
+| clusters          | 10                | We suggest to have at least 5 clusters and maximum 20 of them, but other values should still give acceptable results | 
+| locations | 1000 | We suggests at least 50 locations for cluster and not more than 300 per clusters, other values are possible but will probably give pointless results | |
+| Side | 1000 | We suggest the side to be from 500 to 2000, as value too small are too cramped, and values too high need a careful and very difficult choice of parameters  |
+| alpha | 0.05 | We suggest a similar value to this parameter, as a too high value ( > 0.2) will make this parameter pointless, while a value too low will make the simulation too unnecessary long |
+| beta | 0.05 | We suggest a similar value to this parameter, a too high( > 0.15) values will make the epidemic very fast, while a too low will make it not spread |
+|gamma | 0.01 | We suggest a similar value to this parameter, a too high( > 0.15) values will make the epidemic end very fast, while a too low values will make it too long |
+
+The three last parameter are the most sensible, a slight change to one parameter will skew the results a lot
 
 ## Running
 If you are on WSL make sure the Xserver is running as it is required for every application.  
@@ -268,6 +285,11 @@ correctly.
 
 --------------------------------------------------------------------------------
 ## Additional Notes
+
+It's possible to change other values of the simulation modifying them in `/include/simulation/parameters.hpp`.
+These values are connected to how we structured the simulation, so we suggest to change the values only if
+you understand where and how those values are used. Selecting value without knowing these things will bring to
+errors or to results without sense.
 
 [1]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
 [2]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
