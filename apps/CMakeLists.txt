@@ -12,7 +12,8 @@ target_link_libraries(seir PRIVATE numeric)
 target_link_libraries(seir PRIVATE lyra)
 target_link_libraries(seir PUBLIC ${ROOT_LIBRARIES} ${ROOT_EXE_LINKER_FLAGS})
 target_include_directories(seir PUBLIC "${PROJECT_BINARY_DIR}"
-                                         ../include/seir)
+                                         ../include/seir
+                                         ../include/simulation)
 target_clangformat_setup(seir)
 ##############################################################################################
 add_executable(sim main-sim.cpp)

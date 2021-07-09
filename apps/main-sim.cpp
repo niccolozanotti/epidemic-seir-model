@@ -208,74 +208,69 @@ int main(int argc, char** argv)
 
         spread_radius = (double)(side) / 1000.0; // TODO determine a smart way to do that
     }
-
+    // Output the simulation parameters
     std::cout << "Clusters == " << clusters << "\t Locations == " << locations << std::endl;
     std::cout << "People == " << people << std::endl;
     std::cout << "S == " << susceptibles << "\nE == " << exposed << "\nI == " << infected << "\nR == " << recovered
               << std::endl;
     std::cout << "Simulation side == " << side << "\t Spread radius == " << spread_radius << std::endl;
-    // Everything was ok, width will have a value if supplied on command line.
 
     ////////////////////////////  Simulation ////////////////////////////
     using namespace smooth_sim;
-
     auto start = std::chrono::high_resolution_clock::now();
-
-    Simulation prova{susceptibles, exposed, infected, recovered, clusters,     locations,
+    // Initialize the simulation
+    Simulation sim{susceptibles, exposed, infected, recovered, clusters,     locations,
                      side,         alpha,   beta,     gamma,     spread_radius};
-    for (int k = 0; k < 10; ++k)
-    {
-        prova.move();
-    }
 
     auto end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<float> duration = end - start;
-    std::cout << "Generation and first movement : " << duration.count() << " s " << std::endl;
-
+    std::cout << "Generation: " << duration.count() << " s " << std::endl;
+    // Initialize objects used to track how much it takes to move and spread for every cycle
     auto start1 = std::chrono::high_resolution_clock::now();
     auto start2 = std::chrono::high_resolution_clock::now();
-
     auto end1 = std::chrono::high_resolution_clock::now();
     auto end2 = std::chrono::high_resolution_clock::now();
-
     double move_count;
     double spread_count;
-
+    // Initialize Result vector
     std::vector<Data> Result{};
-    std::vector<Position> positions{};
-    std::vector<bool> at_home{};
-    for (int i = 0; i < 30; ++i)
+    // Cycle trough every cycle
+    for (int i = 0; i < time; ++i)
     {
         move_count = 0;
         spread_count = 0;
         start = std::chrono::high_resolution_clock::now();
+        // Cycle through every step
         for (int j = 0; j < UPDATE_ZONES_INTERVAL; ++j)
         {
+            // Call Move and spread functions, keeping track of their time
             start1 = std::chrono::high_resolution_clock::now();
-            prova.move();
+            sim.move();
             end1 = std::chrono::high_resolution_clock::now();
             start2 = std::chrono::high_resolution_clock::now();
-            prova.spread();
+            sim.spread();
             end2 = std::chrono::high_resolution_clock::now();
-            Result.push_back(prova.get_data());
-            positions.push_back(prova.get_person_pos(0, 0));
-            at_home.push_back(prova.is_person_at_home(0, 0));
-
+            // Calculate how much it took
             std::chrono::duration<float> duration1 = end1 - start1;
             std::chrono::duration<float> duration2 = end2 - start2;
             move_count += duration1.count();
             spread_count += duration2.count();
+            // Fill the Result vector
+            Result.push_back(sim.get_data());
         }
-        prova.update_zones();
+        // Update the color of the zones and eventually clean the paths
+        sim.update_zones();
+        // Calculate the time it took for every cycle
         end = std::chrono::high_resolution_clock::now();
         duration = end - start;
+        // Output the times on the terminal
         std::cout << i + 1 << "-nth Cycle : " << duration.count() << " s "
                   << "   Move: " << move_count << " s "
                   << "   Spread: " << spread_count << " s " << std::endl;
     }
 
-    // txt Output
+    ///////////////// TXT OUTPUT /////////////////
 
     std::ofstream out{"sim.txt"};
 
@@ -286,32 +281,35 @@ int main(int argc, char** argv)
         ++step;
     }
 
-    // ROOT CODE
-
+    ///////////////// ROOT CODE /////////////////
+    // Create the app
     TApplication app("app", &argc, argv);
-
-    auto c0 = new TCanvas("c0", "Evoluzione");
+    // Create the canvas
+    auto c0 = new TCanvas("c0", "Epidemic simulation");
+    // Create the multigraph
     auto mg = new TMultiGraph();
+    // Create the various Graph
     auto gS = new TGraph();
     auto gE = new TGraph();
     auto gI = new TGraph();
     auto gR = new TGraph();
+    // Set the Colors
     gS->SetLineColor(kBlue);
     gE->SetLineColor(kOrange);
     gI->SetLineColor(kGreen);
     gR->SetLineColor(kRed);
-    mg->SetTitle("Evolution; steps; number of people");
-
-    int t2 = 0;
-    for (auto& a : Result)
+    mg->SetTitle("Simulation; steps; number of people");
+    // Set the points in the graphs
+    int t = 0;
+    for (auto a : Result)
     {
-        gS->SetPoint(t2, t2, a.S);
-        gE->SetPoint(t2, t2, a.E);
-        gI->SetPoint(t2, t2, a.I);
-        gR->SetPoint(t2, t2, a.R);
-        t2++;
+        gS->SetPoint(t, t, a.S);
+        gE->SetPoint(t, t, a.E);
+        gI->SetPoint(t, t, a.I);
+        gR->SetPoint(t, t, a.R);
+        t++;
     }
-
+    // Add the graphs in the multigraph, giving each of them the corresponding name
     mg->Add(gS);
     gS->SetTitle("S");
     mg->Add(gE);
@@ -320,17 +318,20 @@ int main(int argc, char** argv)
     gI->SetTitle("I");
     mg->Add(gR);
     gR->SetTitle("R");
-
+    // Create a Root File for the multigraph
     auto file = new TFile("sim.root", "RECREATE");
     mg->Write();
     file->Close();
-
+    // Draw the multigraph with a legend
     mg->Draw("AL");
     c0->BuildLegend();
 
     c0->Modified();
     c0->Update();
+    // Close the application when thw canvas is closed
     TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
     rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
     app.Run();
+
+    return 0;
 }

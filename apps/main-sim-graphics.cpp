@@ -202,38 +202,30 @@ int main(int argc, char** argv)
 
         spread_radius = (double)(side) / 1000.0; // TODO determine a smart way to determine spread radius
     }
-
-    //Temporary checking for correct variables assignment
+    // Output the simulation parameters
     std::cout << "Clusters == " << clusters << "\t Locations == " << locations << std::endl;
     std::cout << "People == " << people << std::endl;
     std::cout << "S == " << susceptibles << "\nE == " << exposed << "\nI == " << infected << "\nR == " << recovered
               << std::endl;
     std::cout << "Simulation side == " << side << "\t Spread radius == " << spread_radius << std::endl;
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //TODO Resize if needed considering user screen size
-    std::cout << "Width and height of your screen " << std::endl;
-    std::cout << sf::VideoMode::getDesktopMode().width << std::endl;
-    std::cout << sf::VideoMode::getDesktopMode().height << std::endl;
-
 
     //////////////////////////////////////////////  GRAPHICS SIMULATION  ///////////////////////////////////////////////
     using namespace smooth_sim;
-    unsigned Window_height = 4*sf::VideoMode::getDesktopMode().height/5; // make sure the windows height is 4/5 of the user's monitor height
-    Simulation prova{susceptibles, exposed, infected, recovered, clusters,     locations,
+    // Make sure the windows height is 4/5 of the user's monitor height
+    unsigned Window_height = 4*sf::VideoMode::getDesktopMode().height/5;
+    // Initialize the simulation
+    Simulation sim{susceptibles, exposed, infected, recovered, clusters,     locations,
                      side,         alpha,   beta,     gamma,     spread_radius};
-    // Simulation prova{23750,500,375,125,10,1000,1000,0.3,0.1,0.05,1};
-    std::vector<Data> Result = {prova.get_data()};
+    // Initialize Result vector
+    std::vector<Data> Result = {sim.get_data()};
+    // Initialize window where everything will be displayed
     sf::RenderWindow window;
-    Display Window{prova,window,Window_height};
+    // Initialize Display object using the previously initialized window
+    Display Window{sim,window,Window_height};
+    // Draw and display the initial frame
     Window.Draw();
     window.display();
-    /*for(auto& a: prova.world_ref().Clusters())
-    {
-        std::cout << "nth cluster: "
-                  << " base: " << a.base() << " height: " << a.height() << " X: " << a.area().get_blh_corner().get_x()
-                  << " Y: " << a.area().get_trh_corner().get_y() << std::endl;
-    }*/
+    // Initialize a counter to keep track of cycles
     int counter{};
     while (window.isOpen())
     {
@@ -243,21 +235,25 @@ int main(int argc, char** argv)
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed) window.close();
         }
-        prova.move();
-        prova.spread();
-        Result.push_back(prova.get_data());
-        if (counter % 10 == 0)
+        // Call move and spread function
+        sim.move();
+        sim.spread();
+        // Fill the Result vector
+        Result.push_back(sim.get_data());
+        // Every cycle update zone color and clean the paths
+        if (counter % UPDATE_ZONES_INTERVAL == 0)
         {
-            prova.update_zones();
+            sim.update_zones();
             std::cout << counter / 10 << "nth cycle" << std::endl;
         }
         ++counter;
+        // Draw and display the current frame
         window.clear(sf::Color::Black);
         Window.Draw();
         window.display();
     }
 
-    // txt Output
+    ///////////////// TXT OUTPUT /////////////////
 
     std::ofstream out{"sim-graphics.txt"};
 
@@ -268,52 +264,57 @@ int main(int argc, char** argv)
         ++step;
     }
 
+    ///////////////// ROOT CODE /////////////////
+    // Create the app
+    TApplication app("app", &argc, argv);
+    // Create the canvas
+    auto c0 = new TCanvas("c0", "Epidemic simulation");
+    // Create the multigraph
+    auto mg = new TMultiGraph();
+    // Create the various Graph
+    auto gS = new TGraph();
+    auto gE = new TGraph();
+    auto gI = new TGraph();
+    auto gR = new TGraph();
+    // Set the Colors
+    gS->SetLineColor(kBlue);
+    gE->SetLineColor(kOrange);
+    gI->SetLineColor(kGreen);
+    gR->SetLineColor(kRed);
+    mg->SetTitle("Simulation; steps; number of people");
+    // Set the points in the graphs
+    int t = 0;
+    for (auto a : Result)
+    {
+        gS->SetPoint(t, t, a.S);
+        gE->SetPoint(t, t, a.E);
+        gI->SetPoint(t, t, a.I);
+        gR->SetPoint(t, t, a.R);
+        t++;
+    }
+    // Add the graphs in the multigraph, giving each of them the corresponding name
+    mg->Add(gS);
+    gS->SetTitle("S");
+    mg->Add(gE);
+    gE->SetTitle("E");
+    mg->Add(gI);
+    gI->SetTitle("I");
+    mg->Add(gR);
+    gR->SetTitle("R");
+    // Create a Root File for the multigraph
+    auto file = new TFile("sim-graphics.root", "RECREATE");
+    mg->Write();
+    file->Close();
+    // Draw the multigraph with a legend
+    mg->Draw("AL");
+    c0->BuildLegend();
 
-    // ROOT CODE
+    c0->Modified();
+    c0->Update();
+    // Close the application when thw canvas is closed
+    TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
+    rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
+    app.Run();
 
-     TApplication app("app", &argc, argv);
-
-     auto c0 = new TCanvas("c0", "Simulation");
-     auto mg = new TMultiGraph();
-     auto gS = new TGraph();
-     auto gE = new TGraph();
-     auto gI = new TGraph();
-     auto gR = new TGraph();
-     gS->SetLineColor(kBlue);
-     gE->SetLineColor(kOrange);
-     gI->SetLineColor(kGreen);
-     gR->SetLineColor(kRed);
-     mg->SetTitle("Simulation; steps; number of people");
-
-     int t2 = 0;
-     for (auto& a : Result)
-     {
-         gS->SetPoint(t2, t2, a.S);
-         gE->SetPoint(t2, t2, a.E);
-         gI->SetPoint(t2, t2, a.I);
-         gR->SetPoint(t2, t2, a.R);
-         t2++;
-     }
-
-     mg->Add(gS);
-     gS->SetTitle("S");
-     mg->Add(gE);
-     gE->SetTitle("E");
-     mg->Add(gI);
-     gI->SetTitle("I");
-     mg->Add(gR);
-     gR->SetTitle("R");
-
-     auto file = new TFile("sim-graphics.root", "RECREATE");
-     mg->Write();
-     file->Close();
-
-     mg->Draw("AL");
-     c0->BuildLegend();
-
-     c0->Modified();
-     c0->Update();
-     TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
-     rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
-     app.Run();
+    return 0;
 }

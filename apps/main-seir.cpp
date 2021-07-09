@@ -14,19 +14,10 @@
 #include "TFile.h"
 ////// PROJECT HEADERS //////
 #include "seir.hpp"
+#include "parameters.hpp"
 
 int main(int argc, char* argv[])
 {
-    // Default simulation parameters
-    int constexpr DEF_PEOPLE = 25000;
-    double constexpr DEF_S = 0.95;
-    double constexpr DEF_E = 0.03;
-    double constexpr DEF_I = 0.015;
-    double constexpr DEF_R = 0.005;
-    double constexpr DEF_ALPHA = 0.3;
-    double constexpr DEF_BETA = 0.1;
-    double constexpr DEF_GAMMA = 0.05;
-    int constexpr DEF_TIME = 300;
     ////////////////////////////////////////////////  INPUT COLLECTION  ////////////////////////////////////////////////
 
     /* clang-format off */
@@ -145,7 +136,7 @@ int main(int argc, char* argv[])
         alpha = DEF_ALPHA;
         beta = DEF_BETA;
         gamma = DEF_GAMMA;
-        time = DEF_TIME;
+        time = DEF_DURATION;
     }
 
         /////////// The user has chosen to set simulation parameters himself ///////////
@@ -175,7 +166,7 @@ int main(int argc, char* argv[])
             beta = DEF_BETA;
             gamma = DEF_GAMMA;
         }
-        if (time == 0 ) { time = DEF_TIME; }
+        if (time == 0 ) { time = DEF_DURATION; }
     }
 
     //Temporary checking for correct variables assignment
@@ -188,9 +179,12 @@ int main(int argc, char* argv[])
     State initial_state {(double)susceptibles,(double)exposed,(double)infected,(double)recovered};
     SEIR simulation{people,time,initial_state,alpha,beta,gamma};
 
-    std::vector<State> states{};  //vector containing all the states over the simulation time
-
+    // Vector containing all the states over the simulation time
+    std::vector<State> states{};
+    // Fill the states vector with the results
     simulation.evolve(states, numerical_method);
+
+    // Output the table on command line
 
     std::cout << "┌─────┬───────────────┬───────────────┬───────────────┬────────"
                  "───────┐"
@@ -213,7 +207,7 @@ int main(int argc, char* argv[])
                  "───────┘"
               << std::endl;
 
-    // txt Output
+    ///////////////// TXT OUTPUT /////////////////
 
     std::ofstream out{"output.txt"};
 
@@ -225,21 +219,24 @@ int main(int argc, char* argv[])
     }
 
     ///////////////// ROOT CODE /////////////////
-
+    // Create the app
     TApplication app("app", &argc, argv);
-
+    // Create the canvas
     auto c0 = new TCanvas("c0", "Epidemic evolution");
+    // Create the multigraph
     auto mg = new TMultiGraph();
+    // Create the various Graph
     auto gS = new TGraph();
     auto gE = new TGraph();
     auto gI = new TGraph();
     auto gR = new TGraph();
+    // Set the Colors
     gS->SetLineColor(kBlue);
     gE->SetLineColor(kOrange);
     gI->SetLineColor(kGreen);
     gR->SetLineColor(kRed);
     mg->SetTitle("Evolution; time (days); number of people");
-
+    // Set the points in the graphs
     int t = 0;
     for (auto a : states)
     {
@@ -249,7 +246,7 @@ int main(int argc, char* argv[])
         gR->SetPoint(t, t, a.R);
         t++;
     }
-
+    // Add the graphs in the multigraph, giving each of them the corresponding name
     mg->Add(gS);
     gS->SetTitle("S");
     mg->Add(gE);
@@ -258,17 +255,17 @@ int main(int argc, char* argv[])
     gI->SetTitle("I");
     mg->Add(gR);
     gR->SetTitle("R");
-
+    // Create a Root File for the multigraph
     auto file = new TFile("seir.root", "RECREATE");
     mg->Write();
     file->Close();
-
+    // Draw the multigraph with a legend
     mg->Draw("AL");
     c0->BuildLegend();
 
     c0->Modified();
     c0->Update();
-
+    // Close the application when thw canvas is closed
     TRootCanvas* rc = (TRootCanvas*)c0->GetCanvasImp();
     rc->Connect("CloseWindow()", "TApplication", gApplication, "Terminate()");
     app.Run();

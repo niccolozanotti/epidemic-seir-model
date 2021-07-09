@@ -10,7 +10,7 @@ namespace smooth_sim{
 class Display{
   private:
     Simulation* sim; // pointer to the simulation to display
-    double Ratio; // Ratio of the wanted window height divided by the sim_side
+    double Ratio; // Ratio of the wanted window height divided by the sim_side, needed to adapt the window sizes to every monitor resolution
     sf::RenderWindow &Window; // reference to the window where all will be rendered
     sf::VertexArray Clusters; // vertex array that represent the clusters
     sf::VertexArray Borders; // vertex array that represent the clusters borders
