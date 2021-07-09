@@ -107,7 +107,7 @@ for each application(an empty cell means the variable doesn't have a second name
 |   default_sim        |        `--def`     |      `--default`    | `bool`:usage of default simulation values                         |
 |   numerical_method   |        `-m `       |       `--method`    | `bool`: usage of Euler method(`false`) or RK4 method(`true`)      |
 |   people             |        `-N`        |       `--people`    |  `int`: number of individuals in the simulation                   |
-|   susceptibles       |        `-S`        |                     |  `int`: number of suceptible individuals                          |
+|   susceptibles       |        `-S`        |                     |  `int`: number of susceptible individuals                          |
 |   exposed            |        `-E`        |                     |  `int`: number of exposed individuals                             |
 |   infected           |        `-I`        |                     |  `int`: number of infected individuals                            |
 |   recovered          |        `-R`        |                     |  `int`: number of recovered individuals                           |
@@ -122,7 +122,7 @@ for each application(an empty cell means the variable doesn't have a second name
 |----------------------|--------------------|---------------------|-------------------------------------------------------------------|
 |   default_sim        |        `--def`     |      `--default`    | `bool`:usage of default simulation values                         |
 |   people             |        `-N`        |       `--people`    |  `int`: number of individuals in the simulation                   |
-|   susceptibles       |        `-S`        |                     |  `int`: number of suceptible individuals                          |
+|   susceptibles       |        `-S`        |                     |  `int`: number of susceptible individuals                          |
 |   exposed            |        `-E`        |                     |  `int`: number of exposed individuals                             |
 |   infected           |        `-I`        |                     |  `int`: number of infected individuals                            |
 |   recovered          |        `-R`        |                     |  `int`: number of recovered individuals                           |
@@ -137,7 +137,7 @@ for each application(an empty cell means the variable doesn't have a second name
 ### sim-graphics
 
 |       Variable       |    First name      |     Second name     |                     Description                                   |
-|----------------------|--------------------|---------------------|-------------------------------------------------------------------|
+|----------------------|--------------------|---------------------|-----------------------------------------------------------------
 |   default_sim        |        `--def`     |      `--default`    | `bool`:usage of default simulation values                         |
 |   people             |        `-N`        |       `--people`    |  `int`: number of individuals in the simulation                   |
 |   susceptibles       |        `-S`        |                     |  `int`: number of suceptible individuals                          |
