@@ -20,7 +20,7 @@ World::World(int side_length, int number_of_clusters, int number_of_locations, i
     Position trh_corner{static_cast<double>(side_length), static_cast<double>(side_length)};
     Area = {blh_corner, trh_corner};
     // Generate the Clusters Areas by dividing the world Area
-    std::vector<Rectangle> cluster_areas = Area.divide(number_of_clusters);
+    std::vector<Rectangle> cluster_areas = Area.divide(number_of_clusters,wrld_eng);
 
     ///////// Locations in each cluster determination /////////
 
