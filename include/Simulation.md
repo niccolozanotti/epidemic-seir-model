@@ -1,7 +1,21 @@
 # Simulation
 
 
-## SMOOTH Paper 
+## World generation
+
+
+## People mobility
+
+As stated in section _III B_ of the [paper][1], the only allowed mobility model for the people in the simulation
+corresponds to [Random waypoint model][2]: a model consisting in a random movement toward a target(_i.e._ waypoints
+on the map). \
+The way a node of the network(_i.e_ a person) chooses a target waypoint on the map is governed by the **Least-Action 
+Trip Planning** algorithm, a simple model, trying to mock real human behaviour, consisting of the following:
+when moving 
+
+In our simulation LATP algorithm is implemented by `Mobility_model::next_location()` method.
+
+
 
 
 This is our implementation of the second part of the assignment.
@@ -221,7 +235,8 @@ which guarantees high entropy seeding which sometimes may not be
 achieved through std::random_device. Additionally it implements some random operations useful for our Simulation.
 
 
-
+[1]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
+[2]:https://en.wikipedia.org/wiki/Random_waypoint_model
 [randutils_web]:https://gist.github.com/imneme/540829265469e673d045
 [randutils_git]:https://gist.github.com/imneme/540829265469e673d045
 [seeding]:https://www.pcg-random.org/posts/simple-portable-cpp-seed-entropy.html
