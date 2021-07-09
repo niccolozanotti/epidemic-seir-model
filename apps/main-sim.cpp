@@ -12,6 +12,7 @@
 #include "TGraph.h"
 #include "TMultiGraph.h"
 #include "TRootCanvas.h"
+#include "TFile.h"
 ////// PROJECT HEADERS //////
 #include "simulation.hpp"
 
@@ -321,6 +322,10 @@ int main(int argc, char** argv)
     gI->SetTitle("I");
     mg->Add(gR);
     gR->SetTitle("R");
+
+    auto file = new TFile("Simulation.root", "RECREATE");
+    mg->Write();
+    file->Close();
 
     mg->Draw("AL");
     c0->BuildLegend();
