@@ -344,12 +344,14 @@ People and graphs:
 | ![I_color](https://via.placeholder.com/25/5A006E/000000?text=+)    | When *Person::Status* is `Status::I`   |
 | ![R_color](https://via.placeholder.com/25/7D7D7D/000000?text=+)    | When *Person::Status* is `Status::R`   |
 
-The end result is like that:
+## Final result
+
+Eventually, the final result( showing `sim-graphics` output) is the following:
 
 ![Sim-graph](assets/Images/Sim-graph.PNG)
 
-At the left we have the simulation. At the right the graphs of the 4 statuses of the people.  
-The colored rectangles represent the various clusters, the Blue points represent group of locations, and the colored small squares represent the people that
+On the left we have the simulation interface, while on the right a real-time graph is plotting S,E,I,R values.  
+The colored rectangles represent the various clusters, the blue points represent group of locations, and the colored small squares represent the people that
 are moving, all the people that are in their home are not displayed.
 
 

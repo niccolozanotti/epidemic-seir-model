@@ -128,15 +128,15 @@ int main(int argc, char* argv[])
 
     if (default_sim)
     {
-        people = DEF_PEOPLE;
-        susceptibles = people * DEF_S;
-        exposed = people * DEF_E;
-        infected = people * DEF_I;
-        recovered = people * DEF_R;
-        alpha = DEF_ALPHA;
-        beta = DEF_BETA;
-        gamma = DEF_GAMMA;
-        time = DEF_DURATION;
+        people = DEF_SEIR_PEOPLE;
+        susceptibles = people * DEF_SEIR_S;
+        exposed = people * DEF_SEIR_E;
+        infected = people * DEF_SEIR_I;
+        recovered = people * DEF_SEIR_R;
+        alpha = DEF_SEIR_ALPHA;
+        beta = DEF_SEIR_BETA;
+        gamma = DEF_SEIR_GAMMA;
+        time = DEF_SEIR_DURATION;
     }
 
         /////////// The user has chosen to set simulation parameters himself ///////////
@@ -153,20 +153,20 @@ int main(int argc, char* argv[])
         // only simulation people number have been specified: set S,E,I,R default ratio among people
         if (default_seir)
         {
-            susceptibles = people * DEF_S;
-            exposed = people * DEF_E;
-            infected = people * DEF_I;
-            recovered = people * DEF_R;
+            susceptibles = people * DEF_SEIR_S;
+            exposed = people * DEF_SEIR_E;
+            infected = people * DEF_SEIR_I;
+            recovered = people * DEF_SEIR_R;
         }
 
         // automatically set the chosen epidemic parameters if not specified in the command line
         if (default_params)
         {
-            alpha = DEF_ALPHA;
-            beta = DEF_BETA;
-            gamma = DEF_GAMMA;
+            alpha = DEF_SEIR_ALPHA;
+            beta = DEF_SEIR_BETA;
+            gamma = DEF_SEIR_GAMMA;
         }
-        if (time == 0 ) { time = DEF_DURATION; }
+        if (time == 0 ) { time = DEF_SEIR_DURATION; }
     }
 
     //Temporary checking for correct variables assignment
