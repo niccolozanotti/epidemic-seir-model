@@ -34,7 +34,7 @@ Make sure all the required dependencies are installed on your machine and fully 
 First of all, clone the repository locally:
 ```shell
 #clone the released branch of the repository
-git clone -b main --single-branch https://gitlab.com/Feyn-23/epidemic.git 
+git clone -b main --single-branch https://github.com/niccolozanotti/epidemic-seir-model
 #enter the repository
 cd epidemic
 ```
@@ -320,7 +320,7 @@ properly understanding where and how those values are used.
 
 
 [1]:https://baltig.infn.it/giaco/pf2020/-/blob/master/progetto/progetto.md
-[2]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
+[2]:http://dx.doi.org/10.1145/2068897.2068957
 [3]:https://en.wikipedia.org/wiki/Euler_method#Using_step_size_equal_to_1_(h_=_1)
 [4]:https://en.wikipedia.org/wiki/Runge–Kutta_methods
 
