@@ -283,7 +283,7 @@ The spread function performs the following checks for every *Exposed* or *Infect
 
 ### Random
 This class implements the random generation features critical for this project, making use of the header-only library
-`randutil`(see [here][[randutils_git]]). This small library enhances c++11 random-number facilities found in `<random>`(which is the only dependency),
+`randutil`(see [here][randutils_git]). This small library enhances c++11 random-number facilities found in `<random>`(which is the only dependency),
 supplying a simple and easy to use class. \
 The main purpose of its usage in our implementation is the high quality seeding given by the use of multiple
 sources of entropy(see [here][seed_entropy]) which sometimes may not be achieved through `std::random_device`.
@@ -343,16 +343,16 @@ People and graphs:
 
 Eventually, the final result( showing `sim-graphics` output) with [default values](../README.md/#default-values) is the following):
 
-![Sim-graph](assets/Images/Sim-graph.PNG)
+![Sim-graph](../assets/Images/Sim-graph.PNG)
 
 On the left we have the simulation interface, while on the right a real-time graph is plotting S,E,I,R values.  
 The colored rectangles represent the various clusters, the blue points represent group of locations, and the colored small squares represent the people that
 are moving, all the people that are in their home are not displayed.
 
 
-[1]:https://www.eurecom.fr/~spyropou/papers/Smooth-Infocom2011.pdf
+[1]:http://dx.doi.org/10.1145/2068897.2068957
 [2]:https://en.wikipedia.org/wiki/Random_waypoint_model
-[3]:https://www.researchgate.net/publication/224500337_SLAW_A_mobility_model_for_human_walks
+[3]:http://dx.doi.org/10.1109/INFCOM.2009.5061995
 
 [sfml]:http://www.sfml-dev.org/
 [sim]:#simulation
